@@ -730,7 +730,7 @@ var StartupService = /** @class */ (function () {
             // 应用信息：包括站点名、描述、年份
             _this.settingService.setApp(res.app);
             // 用户信息：包括姓名、头像、邮箱地址
-            _this.settingService.setUser(res.user);
+            //this.settingService.setUser(res.user);
             // ACL：设置权限为全量
             _this.aclService.setFull(true);
             // 初始化菜单
@@ -2727,8 +2727,7 @@ var JsonSchemaModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__delon_theme__ = __webpack_require__("./node_modules/@delon/theme/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__delon_acl__ = __webpack_require__("./node_modules/@delon/acl/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__delon_module__ = __webpack_require__("./src/app/delon.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ngx_countdown__ = __webpack_require__("./node_modules/ngx-countdown/bundles/ngx-countdown.umd.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ngx_countdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ngx_countdown__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ngx_countdown__ = __webpack_require__("./node_modules/ngx-countdown/esm5/countdown.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_nz_schema_form__ = __webpack_require__("./node_modules/nz-schema-form/bundles/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_nz_schema_form___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_nz_schema_form__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2750,7 +2749,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 var THIRDMODULES = [
-    __WEBPACK_IMPORTED_MODULE_8_ngx_countdown__["CountdownModule"],
+    __WEBPACK_IMPORTED_MODULE_8_ngx_countdown__["a" /* CountdownModule */],
     __WEBPACK_IMPORTED_MODULE_9_nz_schema_form__["NzSchemaFormModule"]
 ];
 // endregion

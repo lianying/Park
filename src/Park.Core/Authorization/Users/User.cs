@@ -9,6 +9,11 @@ namespace Park.Authorization.Users
     {
         public const string DefaultPassword = "123qwe";
 
+        /// <summary>
+        /// 电话号码最大长度
+        /// </summary>
+        public const int MaxPhoneNumberLength = 11;
+
         public static string CreateRandomPassword()
         {
             return Guid.NewGuid().ToString("N").Truncate(16);
