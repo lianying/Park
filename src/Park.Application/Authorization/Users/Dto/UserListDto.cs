@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
