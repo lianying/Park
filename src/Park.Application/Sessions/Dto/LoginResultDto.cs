@@ -1,4 +1,5 @@
 ﻿using Abp.Application.Navigation;
+using Park.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Park.Sessions.Dto
     {
         //public UserLoginInfoDto User { get; set; }
 
-        public UserMenu Menu { get; set; }
+        public NgMenu Menu { get; set; }
 
         public AppConsts App { get; set; }
 
