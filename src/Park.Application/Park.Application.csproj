@@ -211,6 +211,7 @@
     <Compile Include="Dto\FileDto.cs" />
     <Compile Include="Dto\PagedAndSortedInputDto.cs" />
     <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="Navigation\MenuExtenstion.cs" />
     <Compile Include="Navigation\NgMenu.cs" />
     <Compile Include="ParkApplicationModule.cs" />
     <Compile Include="ParkAppServiceBase.cs" />

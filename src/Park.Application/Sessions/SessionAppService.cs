@@ -5,6 +5,7 @@ using Park.Sessions.Dto;
 using Abp.Authorization;
 using Abp.Application.Navigation;
 using Abp.Runtime.Session;
+using Park.Navigation;
 
 namespace Park.Sessions
 {
@@ -38,9 +39,9 @@ namespace Park.Sessions
             var output = new LoginResultDto();
 
            
-            output.Menu = await _userNavigationManager.GetMenuAsync("MainMenu", AbpSession.ToUserIdentifier());
+            output.Menu = (await _userNavigationManager.GetMenuAsync("MainMenu", AbpSession.ToUserIdentifier())).UserMenuToNgMenu();
 
-            output.App = new AppConsts() {  name=ParkConsts.AppName,  description=ParkConsts.Description , year=AppVersionHelper.ReleaseDate};
+            output.App = new AppConsts() { name = ParkConsts.AppName, description = ParkConsts.Description, year = AppVersionHelper.ReleaseDate };
 
             
 

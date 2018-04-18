@@ -8,6 +8,7 @@ namespace Park.Navigation
 {
     public class NgMenu
     { 
+        public bool group { get; set; }
         /** 文本 */
         public string text { get; set; }
         /** angular 路由 */
@@ -24,6 +25,9 @@ namespace Park.Navigation
         public bool shortcut { get; set; }
         /** ACL配置，若导入 `@delon/acl` 时自动有效 */
         public object acl { get; set; }
+
+        public NgMenu[] children { get; set; }
+        
 
     }
 }
