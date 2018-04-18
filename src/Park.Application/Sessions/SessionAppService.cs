@@ -42,7 +42,7 @@ namespace Park.Sessions
 
             output.App = new AppConsts() {  name=ParkConsts.AppName,  description=ParkConsts.Description , year=AppVersionHelper.ReleaseDate};
 
-
+            
 
 
             return output;

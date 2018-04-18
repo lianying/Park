@@ -6,6 +6,7 @@ using Abp.Modules;
 using Abp.WebApi;
 using Swashbuckle.Application;
 using System.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Park.Api
 {
@@ -22,6 +23,8 @@ namespace Park.Api
 
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
             ConfigureSwaggerUi();
+            Configuration.Modules.AbpWebApi().HttpConfiguration.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;  //忽略null值
+            Configuration.Modules.AbpWebApi().HttpConfiguration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();  //全小写
         }
 
         private void ConfigureSwaggerUi()

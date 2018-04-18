@@ -186,6 +186,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chat\ChatMessage.cs" />
+    <Compile Include="Authorization\Users\IUserEmailer.cs" />
+    <Compile Include="Chat\ChatMessageReadState.cs" />
+    <Compile Include="Chat\ChatSide.cs" />
     <Compile Include="Entitys\ParkLevels\ParkLevel.cs" />
     <Compile Include="Entitys\Parks\JinQuPark.cs" />
     <Compile Include="Entitys\Parks\ParkBase.cs" />

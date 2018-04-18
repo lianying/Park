@@ -50,6 +50,8 @@ namespace Park.Api.Controllers
                 loginModel.TenancyName
                 );
 
+            
+
             var ticket = new AuthenticationTicket(loginResult.Identity, new AuthenticationProperties());
             //var CurrentLogin = await _sessionAppService.GetCurrentLoginInformations();
             

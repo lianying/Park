@@ -10,7 +10,7 @@
         /// <summary>
         /// 默认返回条数
         /// </summary>
-        public const int DefaultPageSize = 100;
+        public const int DefultPageSize = 100;
         /// <summary>
         /// 最大返回条数
         /// </summary>
@@ -19,5 +19,6 @@
         public const string AppName = "Park";
 
         public const string Description = "停车场管理系统";
+        //public static readonly int DefultPageSize;
     }
 }
