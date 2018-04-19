@@ -35,6 +35,7 @@ namespace Park
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
 
+        #region ApplicationException
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             ExceptioProcessor((Exception)e.Exception);
@@ -42,7 +43,7 @@ namespace Park
             e.Handled = true;
         }
 
-       
+
 
         private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
@@ -55,20 +56,23 @@ namespace Park
             {
                 exception.Data.Add(exception.GetHashCode(), null);
             }
-            else {
+            else
+            {
                 exception.Data.Remove(exception.GetHashCode());
                 return;
             }
-            if (exception is AbpAuthorizationException||exception is AbpValidationException||exception is UserFriendlyException)
+            if (exception is AbpAuthorizationException || exception is AbpValidationException || exception is UserFriendlyException)
             {
                 MessageBox.Show(exception.Message, "提示");
             }
-            else {
+            else
+            {
                 _logger.Error("not AbpException", exception);
                 MessageBox.Show("发生未知异常：" + exception.Message);
             }
         }
 
+        #endregion
 
         protected override void OnStartup(StartupEventArgs e)
         {

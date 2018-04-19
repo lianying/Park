@@ -17,7 +17,7 @@ namespace Park.Dto
 
         public PagedInputDto()
         {
-            MaxResultCount = ParkConsts.DefaultPageSize;
+            MaxResultCount = ParkConsts.DefultPageSize;
         }
     }
 }

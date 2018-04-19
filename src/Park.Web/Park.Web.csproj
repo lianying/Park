@@ -2729,7 +2729,7 @@
     <Content Include="fonts\material-icons\materialicons.eot" />
     <Content Include="fonts\material-icons\materialicons.ttf" />
     <Content Include="fonts\material-icons\materialicons.woff" />
-    <Content Include="Park.Host\.angular-cli.json" />
+    <!--<Content Include="Park.Host\.angular-cli.json" />
     <Content Include="Park.Host\.editorconfig" />
     <Content Include="Park.Host\.npmignore" />
     <Content Include="Park.Host\.stylelintrc" />
@@ -39500,7 +39500,7 @@
     <Content Include="Park.Host\src\assets\img\logo.svg" />
     <Content Include="Park.Host\src\assets\img\zorro.svg" />
     <Content Include="Park.Host\src\favicon.ico" />
-    <Content Include="Park.Host\src\index.html" />
+    <Content Include="Park.Host\src\index.html" />-->
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -39605,12 +39605,12 @@
     <Compile Include="Models\Roles\RoleListViewModel.cs" />
     <Compile Include="Models\Users\EditUserModalViewModel.cs" />
     <Compile Include="Models\Users\UserListViewModel.cs" />
-    <Compile Include="Park.Host\node_modules\node-gyp\lib\Find-VS2017.cs" />
+    <!--<Compile Include="Park.Host\node_modules\node-gyp\lib\Find-VS2017.cs" />
     <Compile Include="Park.Host\node_modules\selenium-webdriver\lib\test\data\Page.aspx.cs">
       <DependentUpon>Page.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Park.Host\node_modules\selenium-webdriver\lib\test\data\Redirect.aspx.cs">
+    </Compile>-->
+    <!--<Compile Include="Park.Host\node_modules\selenium-webdriver\lib\test\data\Redirect.aspx.cs">
       <DependentUpon>Redirect.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -39621,7 +39621,7 @@
     <Compile Include="Park.Host\node_modules\webdriver-js-extender\node_modules\selenium-webdriver\lib\test\data\Redirect.aspx.cs">
       <DependentUpon>Redirect.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    </Compile>-->
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ParkWebViewPageBase.cs" />
     <Compile Include="Views\UrlChecker.cs" />
@@ -39769,7 +39769,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Park.Host\dist\out-tsc\e2e\" />
+    <!--<Folder Include="Park.Host\dist\out-tsc\e2e\" />
     <Folder Include="Park.Host\dist\out-tsc\src\app\core\net\" />
     <Folder Include="Park.Host\dist\out-tsc\src\app\core\startup\" />
     <Folder Include="Park.Host\dist\out-tsc\src\app\layout\default\header\components\" />
@@ -39786,7 +39786,7 @@
     <Folder Include="Park.Host\dist\out-tsc\src\environments\" />
     <Folder Include="Park.Host\dist\out-tsc\src\testing\" />
     <Folder Include="Park.Host\dist\out-tsc\_mock\" />
-    <Folder Include="Park.Host\src\app\core\Services\" />
+    <Folder Include="Park.Host\src\app\core\Services\" />-->
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -39816,7 +39816,7 @@
     <TypeScriptCompile Include="lib\sweetalert\typings\modules\state.d.ts" />
     <TypeScriptCompile Include="lib\sweetalert\typings\modules\utils.d.ts" />
     <TypeScriptCompile Include="lib\sweetalert\typings\sweetalert.d.ts" />
-    <TypeScriptCompile Include="Park.Host\e2e\app.e2e-spec.ts" />
+    <!--<TypeScriptCompile Include="Park.Host\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="Park.Host\e2e\app.po.ts" />
     <TypeScriptCompile Include="Park.Host\node_modules\%40angular-devkit\build-optimizer\src\build-optimizer\build-optimizer.d.ts" />
     <TypeScriptCompile Include="Park.Host\node_modules\%40angular-devkit\build-optimizer\src\build-optimizer\cli.d.ts" />
@@ -44382,7 +44382,7 @@
     <TypeScriptCompile Include="Park.Host\src\testing\common.spec.ts" />
     <TypeScriptCompile Include="Park.Host\src\typings.d.ts" />
     <TypeScriptCompile Include="Park.Host\_mock\index.ts" />
-    <TypeScriptCompile Include="Park.Host\_mock\_user.ts" />
+    <TypeScriptCompile Include="Park.Host\_mock\_user.ts" />-->
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -46,11 +46,11 @@ namespace Park.Froms
             {
                 case AbpLoginResultType.Success:
                     Thread.CurrentPrincipal = new ClaimsPrincipal(loginResult.Identity);
-                    var res= await Task.Run(async () => await _sessionAppService.GetCurrentWebInfo());
+                    DialogResult = true;
+                    Close();
                     break;
                 default:
                     throw CreateExceptionForFailedLoginAttempt(loginResult.Result, userName, "");
-                    break;
             }
 
             
