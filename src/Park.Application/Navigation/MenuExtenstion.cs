@@ -27,6 +27,7 @@ namespace Park.Navigation
             if (userMenuItem == null)
                 return null;
             var menu = new NgMenu();
+            menu.key = userMenuItem.Url;
             menu.text = userMenuItem.Name;
             menu.link = userMenuItem.Url;
             menu.icon = userMenuItem.Icon;

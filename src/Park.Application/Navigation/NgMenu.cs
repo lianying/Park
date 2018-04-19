@@ -8,6 +8,7 @@ namespace Park.Navigation
 {
     public class NgMenu
     { 
+        public string key { get; set; }
         public bool group { get; set; }
         /** 文本 */
         public string text { get; set; }
