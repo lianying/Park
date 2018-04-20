@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:src="clr-namespace:Park.Froms"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+               xmlns:usercontrols="clr-namespace:Park.UserControls"
+               mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="550">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -56,5 +57,63 @@
                 </TabItem>
             </TabControl>
         </DockPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <usercontrols:EntranceInfo x:Name="in_entrance_info" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock TextAlignment="Right">车牌号:</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                        <TextBlock TextAlignment="Right">车类型:</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" VerticalAlignment="Center">
+                        <TextBlock TextAlignment="Right">通道名:</TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Margin="2,0,0,0" DataContext="{Binding ElementName=in_entrance_info}" TextAlignment="Left" Text="{Binding Path=CarNumber,Mode=TwoWay}" ></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Margin="2,0,0,0" TextAlignment="Left" Text="{Binding Path=CarType,Mode=TwoWay}"  ></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Margin="2,0,0,0" TextAlignment="Left" Text="{Binding Path=EntranceName,Mode=TwoWay}" ></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </usercontrols:EntranceInfo>
+            
+            
+
+            <usercontrols:EntranceInfo Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+            </usercontrols:EntranceInfo>
+        </Grid>
+        
     </Grid>
 </src:AbpWindow>

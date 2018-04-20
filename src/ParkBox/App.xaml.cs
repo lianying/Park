@@ -33,6 +33,7 @@ namespace Park
             _logger = NullLogger.Instance;
             this.DispatcherUnhandledException += App_DispatcherUnhandledException;
             this.Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+            App.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         }
 
         #region ApplicationException
@@ -80,13 +81,18 @@ namespace Park
 
             _loginWindow = _bootstrapper.IocManager.Resolve<LoginWindow>();
 
+            _mainWindow = _bootstrapper.IocManager.Resolve<MainWindow>();
+            
+
             var isLogin = _loginWindow.ShowDialog();
 
             if (isLogin.HasValue && isLogin.Value)
             {
 
-                _mainWindow = _bootstrapper.IocManager.Resolve<MainWindow>();
                 _mainWindow.Show();
+
+                _loginWindow.Close();
+                
             }
         }
 

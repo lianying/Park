@@ -28,29 +28,34 @@ namespace Park.Froms
     {
         private readonly LogInManager _logInManager;
 
-        private readonly ISessionAppService _sessionAppService;
-        public LoginWindow(LogInManager logInManager, ISessionAppService sessionAppService)
+       
+        public string UserName
+        {
+            get;
+            set;
+        }
+        
+        public LoginWindow(LogInManager logInManager)
         {
             _logInManager = logInManager;
-            _sessionAppService = sessionAppService;
+            DataContext = this;
             InitializeComponent();
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string userName = "admin";
-            string pwd = "123qwe";
-            var loginResult = await _logInManager.LoginAsync(userName, pwd);
+           
+            //await new SynchronizationContextRemove();
+            var loginResult = await _logInManager.LoginAsync(UserName, txt_password.Password);
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     Thread.CurrentPrincipal = new ClaimsPrincipal(loginResult.Identity);
                     DialogResult = true;
-                    Close();
                     break;
                 default:
-                    throw CreateExceptionForFailedLoginAttempt(loginResult.Result, userName, "");
+                    throw CreateExceptionForFailedLoginAttempt(loginResult.Result, UserName, "");
             }
 
             

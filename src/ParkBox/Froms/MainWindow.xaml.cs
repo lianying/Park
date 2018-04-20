@@ -25,6 +25,7 @@ namespace Park.Froms
         public MainWindow()
         {
             InitializeComponent();
+            in_entrance_info.CarNumber = "121231";
         }
 
         
