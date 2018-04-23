@@ -27,6 +27,8 @@ namespace Park.Navigation
         /** ACL配置，若导入 `@delon/acl` 时自动有效 */
         public object acl { get; set; }
 
+        public bool shortcut_root { get; set; }
+
         public NgMenu[] children { get; set; }
         
 

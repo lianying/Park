@@ -34,6 +34,9 @@ namespace Park.UserControls
         }
 
         public string CarNumber { get; set; }
+        
+
+
 
         public string CarType { get; set; }
 
@@ -44,8 +47,10 @@ namespace Park.UserControls
         public EntranceInfo()
         {
             InitializeComponent();
-            DataContext = this;
+            //DataContext = this;
             Children = grd_content.Children;
+
+            CarNumber = "123";
         }
     }
 }

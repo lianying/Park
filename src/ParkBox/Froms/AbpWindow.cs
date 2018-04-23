@@ -63,6 +63,7 @@ namespace Park.Froms
             ObjectMapper = NullObjectMapper.Instance;
 
             LocalizationSourceName = ParkConsts.LocalizationSourceName;
+            
         }
 
         protected virtual string L(string name)

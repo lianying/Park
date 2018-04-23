@@ -12,13 +12,16 @@ namespace Park.Navigation
         public static NgMenu UserMenuToNgMenu(this UserMenu menu)
         {
             var ngMenu = new NgMenu();
+            ngMenu.link = "/";
+            ngMenu.key = menu.DisplayName;
             ngMenu.hide = false;
             ngMenu.text = menu.Name;
             ngMenu.group = true;
             ngMenu.children = Array.ConvertAll<UserMenuItem, NgMenu>(menu.Items.ToArray(), x => x.MenuItemToNgMenu());
             ngMenu.i18n = string.Empty;
             ngMenu.acl = string.Empty;
-            ngMenu.link = string.Empty;
+            ngMenu.shortcut = false;
+            ngMenu.shortcut_root = true;
             return ngMenu;
         }
 
@@ -35,7 +38,8 @@ namespace Park.Navigation
             menu.target = userMenuItem.Target;
             menu.i18n = string.Empty;
             menu.acl = string.Empty;
-            menu.children = Array.ConvertAll<UserMenuItem, NgMenu>(userMenuItem.Items.ToArray(), x => x.MenuItemToNgMenu());
+            menu.shortcut = true;
+            //menu.children = Array.ConvertAll<UserMenuItem, NgMenu>(userMenuItem.Items.ToArray(), x => x.MenuItemToNgMenu());
 
 
             return menu;

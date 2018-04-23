@@ -14,6 +14,7 @@
         <Image Name="img_car" />
         <GroupBox Name="grp_info" Grid.Column="1">
             <DockPanel Name="grd_content"></DockPanel>
+            
         </GroupBox>
         
 

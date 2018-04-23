@@ -19,10 +19,7 @@ namespace Park
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-
-            //IocManager.Register(
-            //    Component.For<IAuthenticationManager>().UsingFactory(x=>)
-            //    )
+            
         }
        
 
