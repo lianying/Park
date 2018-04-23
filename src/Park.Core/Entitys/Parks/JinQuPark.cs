@@ -29,6 +29,6 @@ namespace Park.Entitys.Parks
         [ForeignKey("ParentId")]
         public virtual JinQuPark ParentPark { get; set; }
 
-        public virtual int ParentId { get; set; }
+        public virtual int? ParentId { get; set; }
     }
 }

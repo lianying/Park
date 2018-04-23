@@ -7,6 +7,9 @@ using System.Data.Entity;
 using Park.Entitys.Parks;
 using System.ComponentModel.DataAnnotations.Schema;
 using Park.Entitys.ParkLevels;
+using Park.Entitys.ParkEntrances;
+using Park.Entitys.CarTypes;
+using Park.Entitys.ParkAreas;
 
 namespace Park.EntityFramework
 {
@@ -17,9 +20,17 @@ namespace Park.EntityFramework
             
             public virtual IDbSet<JinQuPark> Park { get; set; }
 
-        public virtual IDbSet<ParkLevel> ParkLevel { get; set; }
+        public virtual IDbSet<ParkLevels> ParkLevel { get; set; }
 
-            
+        public virtual IDbSet<ParkEntrances> ParkEntrance { get; set; }
+
+        public virtual IDbSet<CarTypes> CarType { get; set; }
+
+        public virtual IDbSet<ParkEntrancePermission> ParkEntrancePermission { get; set; }
+
+        public virtual IDbSet<ParkAreas> ParkArea { get; set; }
+
+
 
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.

@@ -232,6 +232,9 @@
     <Compile Include="MultiTenancy\Dto\TenantDto.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
+    <Compile Include="ParkBox\IParkBoxOptions.cs" />
+    <Compile Include="ParkBox\ListViewEnum.cs" />
+    <Compile Include="ParkBox\ParkBoxOptions.cs" />
     <Compile Include="Parks\Park\Dto\CreateParkDto.cs" />
     <Compile Include="Parks\Park\IParkAppService.cs" />
     <Compile Include="Parks\Park\ParkAppService.cs" />

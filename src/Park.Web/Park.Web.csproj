@@ -546,7 +546,7 @@
     <Content Include="js\helpers.js" />
     <Content Include="js\main.js" />
     <Content Include="js\script.js" />
-    <Content Include="lib\abp-web-resources\Abp\Framework\scripts\abp.js" />
+    <!--<Content Include="lib\abp-web-resources\Abp\Framework\scripts\abp.js" />
     <Content Include="lib\abp-web-resources\Abp\Framework\scripts\libs\abp.blockUI.js" />
     <Content Include="lib\abp-web-resources\Abp\Framework\scripts\libs\abp.jquery.js" />
     <Content Include="lib\abp-web-resources\Abp\Framework\scripts\libs\abp.jtable.js" />
@@ -562,8 +562,8 @@
     <Content Include="lib\abp-web-resources\Abp\Framework\styles\abp.min.css" />
     <Content Include="lib\abp-web-resources\Abp\Framework\styles\abp.mixings.css" />
     <Content Include="lib\abp-web-resources\Abp\Framework\styles\abp.mixings.min.css" />
-    <Content Include="lib\abp-web-resources\Abp\Framework\styles\utils\ie10fix.css" />
-    <Content Include="lib\abp-web-resources\gulpfile.js" />
+    <Content Include="lib\abp-web-resources\Abp\Framework\styles\utils\ie10fix.css" />-->
+    <!--<Content Include="lib\abp-web-resources\gulpfile.js" />-->
     <Content Include="lib\animate.css\animate.css" />
     <Content Include="lib\animate.css\animate.min.css" />
     <Content Include="lib\animate.css\gulpfile.js" />
@@ -39501,7 +39501,7 @@
     <Content Include="Park.Host\src\assets\img\zorro.svg" />
     <Content Include="Park.Host\src\favicon.ico" />
     <Content Include="Park.Host\src\index.html" />-->
-    <Content Include="Scripts\bootstrap.js" />
+    <!--<Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
@@ -39535,7 +39535,7 @@
     <Content Include="Scripts\sweetalert\sweet-alert.js" />
     <Content Include="Scripts\sweetalert\sweet-alert.min.js" />
     <Content Include="Scripts\toastr.js" />
-    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\toastr.min.js" />-->
     <Content Include="Views\Account\Login.css">
       <DependentUpon>Login.less</DependentUpon>
     </Content>

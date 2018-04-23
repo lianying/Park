@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Park.Entitys.Parks
 {
-    public class ParkBase : FullAuditedEntity<int>, IMayHaveTenant, IAudited
+    public class ParkBase : FullAuditedEntity, IMayHaveTenant, IAudited
     {
 
         public const int MaxParkNameLength = 285;
