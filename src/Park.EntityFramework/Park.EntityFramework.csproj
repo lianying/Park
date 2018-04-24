@@ -219,21 +219,9 @@
     <Compile Include="Migrations\201801311121458_Modified_Authorization_Entities.Designer.cs">
       <DependentUpon>201801311121458_Modified_Authorization_Entities.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201803211213461_addParkAndLevel.cs" />
-    <Compile Include="Migrations\201803211213461_addParkAndLevel.Designer.cs">
-      <DependentUpon>201803211213461_addParkAndLevel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803211217134_editParkLevel.cs" />
-    <Compile Include="Migrations\201803211217134_editParkLevel.Designer.cs">
-      <DependentUpon>201803211217134_editParkLevel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201803211408557_addParkAndLevel1.cs" />
-    <Compile Include="Migrations\201803211408557_addParkAndLevel1.Designer.cs">
-      <DependentUpon>201803211408557_addParkAndLevel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201804230836051_add entrancePermissions1.cs" />
-    <Compile Include="Migrations\201804230836051_add entrancePermissions1.Designer.cs">
-      <DependentUpon>201804230836051_add entrancePermissions1.cs</DependentUpon>
+    <Compile Include="Migrations\201804240145334_add carTypes.cs" />
+    <Compile Include="Migrations\201804240145334_add carTypes.Designer.cs">
+      <DependentUpon>201804240145334_add carTypes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -267,17 +255,8 @@
     <EmbeddedResource Include="Migrations\201801311121458_Modified_Authorization_Entities.resx">
       <DependentUpon>201801311121458_Modified_Authorization_Entities.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803211213461_addParkAndLevel.resx">
-      <DependentUpon>201803211213461_addParkAndLevel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803211217134_editParkLevel.resx">
-      <DependentUpon>201803211217134_editParkLevel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201803211408557_addParkAndLevel1.resx">
-      <DependentUpon>201803211408557_addParkAndLevel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201804230836051_add entrancePermissions1.resx">
-      <DependentUpon>201804230836051_add entrancePermissions1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201804240145334_add carTypes.resx">
+      <DependentUpon>201804240145334_add carTypes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -18,17 +18,18 @@ namespace Park.EntityFramework
         //TODO: Define an IDbSet for your Entities...
 
             
-            public virtual IDbSet<JinQuPark> Park { get; set; }
+            public virtual IDbSet<JinQuPark> Parks { get; set; }
 
-        public virtual IDbSet<ParkLevels> ParkLevel { get; set; }
+        public virtual IDbSet<ParkLevels> ParkLevels { get; set; }
 
-        public virtual IDbSet<ParkEntrances> ParkEntrance { get; set; }
+        public virtual IDbSet<ParkEntrances> ParkEntrances { get; set; }
 
-        public virtual IDbSet<CarTypes> CarType { get; set; }
+        public virtual IDbSet<CarTypes> CarTypes { get; set; }
 
-        public virtual IDbSet<ParkEntrancePermission> ParkEntrancePermission { get; set; }
+        public virtual IDbSet<ParkEntrancePermission> ParkEntrancePermissions { get; set; }
 
-        public virtual IDbSet<ParkAreas> ParkArea { get; set; }
+        public virtual IDbSet<ParkAreas> ParkAreas { get; set; }
+        
 
 
 

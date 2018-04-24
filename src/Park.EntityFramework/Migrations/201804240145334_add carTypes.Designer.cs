@@ -7,13 +7,13 @@ namespace Park.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class editParkLevel : IMigrationMetadata
+    public sealed partial class addcarTypes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(editParkLevel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addcarTypes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201803211217134_editParkLevel"; }
+            get { return "201804240145334_add carTypes"; }
         }
         
         string IMigrationMetadata.Source

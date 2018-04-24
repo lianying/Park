@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Park.ParkBox
 {
-    interface IParkBoxOptions
+    public interface IParkBoxOptions
     {
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Park.ParkBox
         /// </summary>
         string ServiceIp { get; set; }
 
-
+        
 
         
     }
