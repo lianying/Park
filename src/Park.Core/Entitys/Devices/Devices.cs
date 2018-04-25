@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Park.Entitys.Cameras
 {
-    public class Camera:Entity<long>,IMayHaveTenant
+    public class Device:Entity<long>,IMayHaveTenant
     {
         public virtual string Ip { get; set; }
 
@@ -26,8 +26,16 @@ namespace Park.Entitys.Cameras
         [ForeignKey("EntranceId")]
         public virtual ParkEntrances.ParkEntrances ParkEntrance { get; set; }
         
-        public virtual long EntranceId { get; set; }
+        public virtual long? EntranceId { get; set; }
 
         public virtual int? TenantId { get; set; }
+
+        public virtual DeviceType DeviceType { get; set; }
+
+        /// <summary>
+        /// 摄像机在岗亭展示的顺序
+        /// </summary>
+        public virtual int Sort { get; set; }
+
     }
 }
