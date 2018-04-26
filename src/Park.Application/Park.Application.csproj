@@ -233,6 +233,11 @@
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
     <Compile Include="Parks\Area\Dto\ParkAreaDto.cs" />
+    <Compile Include="Parks\Devices\DeciceInfoDto.cs" />
+    <Compile Include="Parks\Devices\Interfaces\ICamareable.cs" />
+    <Compile Include="Parks\Devices\Interfaces\IControlable.cs" />
+    <Compile Include="Parks\Devices\Interfaces\IDeviceable.cs" />
+    <Compile Include="Parks\Devices\Interfaces\ILedable.cs" />
     <Compile Include="Parks\Entrance\Dto\EntranceDto.cs" />
     <Compile Include="Parks\Entrance\Dto\EntrancePermissionDto.cs" />
     <Compile Include="Parks\Level\Dto\ParkLevelDto.cs" />
@@ -278,7 +283,6 @@
   <ItemGroup>
     <Folder Include="ParkBox\Devices\" />
     <Folder Include="ParkBox\Dto\" />
-    <Folder Include="Parks\Devices\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

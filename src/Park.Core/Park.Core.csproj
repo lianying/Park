@@ -200,6 +200,7 @@
     <Compile Include="Entitys\Parks\JinQuPark.cs" />
     <Compile Include="Entitys\Parks\ParkBase.cs" />
     <Compile Include="Enum\CarType.cs" />
+    <Compile Include="Enum\DeviceStatus.cs" />
     <Compile Include="Enum\DeviceType.cs" />
     <Compile Include="Enum\EntranceType.cs" />
     <Compile Include="Enum\EquipmentManufacturers.cs" />
