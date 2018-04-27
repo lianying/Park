@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201804240145334_add carTypes.Designer.cs">
       <DependentUpon>201804240145334_add carTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804270643512_add carUser.cs" />
+    <Compile Include="Migrations\201804270643512_add carUser.Designer.cs">
+      <DependentUpon>201804270643512_add carUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -257,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804240145334_add carTypes.resx">
       <DependentUpon>201804240145334_add carTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804270643512_add carUser.resx">
+      <DependentUpon>201804270643512_add carUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

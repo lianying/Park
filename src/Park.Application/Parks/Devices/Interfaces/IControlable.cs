@@ -12,6 +12,9 @@ namespace Park.Parks.Devices.Interfaces
     public interface IControlable
     {
 
-        bool Login();
+        bool Login(IDeviceable deviceInfo);
+
+
+        bool LoginOut(IDeviceable deviceInfo);
     }
 }

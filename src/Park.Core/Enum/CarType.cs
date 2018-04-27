@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Park.Enum
 {
+    /// <summary>
+    /// 收费标准 
+    /// </summary>
     public enum CarType
     {
         /// <summary>

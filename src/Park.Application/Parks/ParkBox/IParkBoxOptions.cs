@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.Parks.Devices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,16 @@ namespace Park.ParkBox
         /// </summary>
         string ServiceIp { get; set; }
 
-        
 
+        /// <summary>
+        /// 绑定设备
+        /// </summary>
+        IReadOnlyList<DeviceInfoDto> DeciceInfos { get; set; }
+
+        /// <summary>
+        /// 设备重连时间
+        /// </summary>
+        TimeSpan ReLoginTime { get; set; }
         
     }
 }

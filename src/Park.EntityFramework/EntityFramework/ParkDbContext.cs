@@ -10,6 +10,8 @@ using Park.Entitys.ParkLevels;
 using Park.Entitys.ParkEntrances;
 using Park.Entitys.CarTypes;
 using Park.Entitys.ParkAreas;
+using Park.Entitys.Cameras;
+using Park.Entitys.CarUsers;
 
 namespace Park.EntityFramework
 {
@@ -29,6 +31,14 @@ namespace Park.EntityFramework
         public virtual IDbSet<ParkEntrancePermission> ParkEntrancePermissions { get; set; }
 
         public virtual IDbSet<ParkAreas> ParkAreas { get; set; }
+
+        public virtual IDbSet<Device> Devices { get; set; }
+
+        public virtual IDbSet<CarUsers> CarUsers { get; set; }
+
+        public virtual IDbSet<CarNumbers> CarNumbers { get; set; }
+
+        public virtual IDbSet<CarPort> CarPorts { get; set; }
         
 
 

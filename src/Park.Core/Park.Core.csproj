@@ -190,6 +190,9 @@
     <Compile Include="Authorization\Users\IUserEmailer.cs" />
     <Compile Include="Chat\ChatMessageReadState.cs" />
     <Compile Include="Chat\ChatSide.cs" />
+    <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
+    <Compile Include="Entitys\CarUsers\CarPort.cs" />
+    <Compile Include="Entitys\CarUsers\CarUsers.cs" />
     <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
     <Compile Include="Entitys\ParkAreas\ParkAreas.cs" />
@@ -205,6 +208,8 @@
     <Compile Include="Enum\EntranceType.cs" />
     <Compile Include="Enum\EquipmentManufacturers.cs" />
     <Compile Include="Enum\NoNumberOptions.cs" />
+    <Compile Include="Enum\SDKEnum.cs" />
+    <Compile Include="Enum\Sex.cs" />
     <Compile Include="Interfaces\ISynchronize.cs" />
     <Compile Include="IRepositories\IParkRepository.cs" />
     <Compile Include="ParkConsts.cs" />

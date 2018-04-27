@@ -6,6 +6,7 @@ using Park.Parks.Entrance;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace Park.Parks.Devices
 {
     [AutoMap(typeof(Device))]
-    public  class DeciceInfoDto: IDeviceable
+    public  class DeviceInfoDto: IDeviceable
     {
         public string Ip { get; set; }
 
@@ -53,7 +54,13 @@ namespace Park.Parks.Devices
         /// 实时监控中fromHandler
         /// </summary>
         [NotMapped]
-        public IntPtr Handler { get; set; }
+        public IntPtr? Handler { get; set; }
+
+        /// <summary>
+        /// 拍照图片
+        /// </summary>
+        [NotMapped]
+        public Image Image { get; set; }
 
 
     }

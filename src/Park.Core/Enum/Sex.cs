@@ -4,16 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Park.Parks.Devices.Interfaces
+namespace Park.Enum
 {
-    public interface ILedable : IControlable
+    public enum Sex
     {
-
-        bool ShowText(string text);
-
-
-
-
-
+        Man,
+        WoMan
     }
 }
