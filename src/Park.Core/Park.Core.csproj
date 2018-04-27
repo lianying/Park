@@ -190,6 +190,7 @@
     <Compile Include="Authorization\Users\IUserEmailer.cs" />
     <Compile Include="Chat\ChatMessageReadState.cs" />
     <Compile Include="Chat\ChatSide.cs" />
+    <Compile Include="Common\ActionQueue.cs" />
     <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
     <Compile Include="Entitys\CarUsers\CarPort.cs" />
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />

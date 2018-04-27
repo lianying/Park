@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Park.Enum;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.Entitys.CarUsers
 {
@@ -17,10 +18,14 @@ namespace Park.Entitys.CarUsers
 
         public virtual string Phone { get; set; }
 
+        [ForeignKey("AreaId")]
         public virtual Park.Entitys.ParkAreas.ParkAreas ParkArea { get; set; }
+
+        public virtual long AreaId { get; set; }
 
         public virtual int ParkId { get; set; }
 
+        [ForeignKey("ParkId")]
         public virtual Parks.JinQuPark Park { get; set; }
 
 
