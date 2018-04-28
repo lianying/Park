@@ -8,7 +8,13 @@ namespace Park.ParkBox
 {
     public enum ListViewEnum
     {
+        /// <summary>
+        /// 双画面
+        /// </summary>
         TwoVideos,
+        /// <summary>
+        /// 四画面
+        /// </summary>
         FourVideos
     }
 }

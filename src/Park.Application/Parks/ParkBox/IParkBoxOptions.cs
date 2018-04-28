@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Park.Interfaces;
 
 namespace Park.ParkBox
 {
@@ -58,6 +59,9 @@ namespace Park.ParkBox
         /// 设备重连时间
         /// </summary>
         TimeSpan ReLoginTime { get; set; }
+
+
+        IReadOnlyList<IFilterable> Filters { get; }
         
     }
 }

@@ -28,12 +28,14 @@ namespace Park.ParkBox
         /// </summary>
         public ActionQueue<string> carInOutDetsilsLogQueue;
         
+        
 
         public ParkMainControl(IParkBoxOptions parkBoxOptions)
         {
             parkOptions = parkBoxOptions;
             InitAllQueue();
         }
+
 
         private void InitAllQueue()
         {

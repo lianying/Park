@@ -29,6 +29,11 @@ namespace Park.Entitys.CarUsers
         public virtual Parks.JinQuPark Park { get; set; }
 
 
+        public virtual ICollection<CarPort> CarPorts { get; set; }
+
+        public virtual ICollection<CarNumbers> CarNumbers { get; set; }
+
+
 
     }
 }
