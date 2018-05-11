@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Park.Interfaces;
 using Park.Parks.Devices;
 
 namespace Park.ParkBox
@@ -19,5 +20,7 @@ namespace Park.ParkBox
         public string ServiceIp { get ; set ; }
         public IReadOnlyList<DeviceInfoDto> DeciceInfos { get ; set ; }
         public TimeSpan ReLoginTime { get ; set; }
+
+        public IReadOnlyList<IFilterable> Filters => throw new NotImplementedException();
     }
 }

@@ -14,6 +14,7 @@ using Park.Authorization.Users;
 using Park.Roles.Dto;
 using Park.Users.Dto;
 using Microsoft.AspNet.Identity;
+using Abp.Runtime.Caching;
 
 namespace Park.Users
 {
@@ -23,6 +24,7 @@ namespace Park.Users
         private readonly UserManager _userManager;
         private readonly RoleManager _roleManager;
         private readonly IRepository<Role> _roleRepository;
+        private readonly ICacheManager _cacheManager;
 
         public UserAppService(
             IRepository<User, long> repository, 

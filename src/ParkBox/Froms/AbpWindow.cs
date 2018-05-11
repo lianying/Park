@@ -10,8 +10,10 @@ using Abp.ObjectMapping;
 using Abp.Runtime.Session;
 using Castle.Core.Logging;
 using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Park.Froms
 {
@@ -25,6 +27,8 @@ namespace Park.Froms
         public IEventBus EventBus { get; set; }
         public IPermissionManager PermissionManager { get; set; }
         public IPermissionChecker PermissionChecker { get; set; }
+
+        public SynchronizationContext SynchronizationContext { get; private set; }
 
         public IActiveUnitOfWork ActiveUnitOfWork => UnitOfWorkManager.Current;
 
@@ -63,7 +67,10 @@ namespace Park.Froms
             ObjectMapper = NullObjectMapper.Instance;
 
             LocalizationSourceName = ParkConsts.LocalizationSourceName;
-            
+
+            SynchronizationContext = DispatcherSynchronizationContext.Current;
+
+
         }
 
         protected virtual string L(string name)

@@ -10,8 +10,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Park
 {
@@ -25,6 +27,8 @@ namespace Park
         private LoginWindow _loginWindow;
 
         private MainWindow _mainWindow;
+
+        private SynchronizationContext _synchronizationContext;
 
         public App()
         {
@@ -64,12 +68,12 @@ namespace Park
             }
             if (exception is AbpAuthorizationException || exception is AbpValidationException || exception is UserFriendlyException)
             {
-                MessageBox.Show(exception.Message, "提示");
+                _synchronizationContext.Post((o) => MessageBox.Show(exception.Message, "提示"),null);
             }
             else
             {
                 _logger.Error("not AbpException", exception);
-                MessageBox.Show("发生未知异常：" + exception.Message);
+                _synchronizationContext.Post((o) => MessageBox.Show("发生未知异常：" + exception.Message), null);
             }
         }
 
@@ -77,6 +81,8 @@ namespace Park
 
         protected override void OnStartup(StartupEventArgs e)
         {
+
+            _synchronizationContext = DispatcherSynchronizationContext.Current;
             _bootstrapper.Initialize();
 
             _loginWindow = _bootstrapper.IocManager.Resolve<LoginWindow>();

@@ -28,7 +28,7 @@ namespace Park.Froms
     {
         private readonly LogInManager _logInManager;
 
-       
+
         public string UserName
         {
             get;
@@ -45,17 +45,18 @@ namespace Park.Froms
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
            
-            //await new SynchronizationContextRemove();
+            await new SynchronizationContextRemove();
             var loginResult = await _logInManager.LoginAsync(UserName, txt_password.Password);
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     Thread.CurrentPrincipal = new ClaimsPrincipal(loginResult.Identity);
-                    DialogResult = true;
+                    SynchronizationContext.Post((o) => DialogResult = true, null);
                     break;
                 default:
                     throw CreateExceptionForFailedLoginAttempt(loginResult.Result, UserName, "");
+                    
             }
 
             
