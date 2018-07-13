@@ -53,6 +53,9 @@
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -165,6 +168,9 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -191,26 +197,35 @@
     <Compile Include="Chat\ChatMessageReadState.cs" />
     <Compile Include="Chat\ChatSide.cs" />
     <Compile Include="Common\ActionQueue.cs" />
+    <Compile Include="Entitys\Box\CarInRecord.cs" />
+    <Compile Include="Entitys\Box\CarOutRecord.cs" />
+    <Compile Include="Entitys\CarUsers\CarDiscount.cs" />
     <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
     <Compile Include="Entitys\CarUsers\CarPort.cs" />
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />
     <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
+    <Compile Include="Entitys\FeeRules\Charger.cs" />
     <Compile Include="Entitys\ParkAreas\ParkAreas.cs" />
     <Compile Include="Entitys\ParkEntrances\CarTypePermissions.cs" />
     <Compile Include="Entitys\ParkEntrances\ParkEntrancePermission.cs" />
     <Compile Include="Entitys\ParkEntrances\ParkEntrances.cs" />
     <Compile Include="Entitys\ParkLevels\ParkLevels.cs" />
-    <Compile Include="Entitys\Parks\JinQuPark.cs" />
+    <Compile Include="Entitys\Parks\Park.cs" />
     <Compile Include="Entitys\Parks\ParkBase.cs" />
+    <Compile Include="Enum\CarDiscountEnum.cs" />
+    <Compile Include="Enum\CarNumberPermissionEnum.cs" />
     <Compile Include="Enum\CarType.cs" />
     <Compile Include="Enum\DeviceStatus.cs" />
     <Compile Include="Enum\DeviceType.cs" />
     <Compile Include="Enum\EntranceType.cs" />
     <Compile Include="Enum\EquipmentManufacturers.cs" />
+    <Compile Include="Enum\InOutTypeEnum.cs" />
     <Compile Include="Enum\NoNumberOptions.cs" />
+    <Compile Include="Enum\PayTypeEnum.cs" />
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
+    <Compile Include="Expansions\ImageExpansion.cs" />
     <Compile Include="Interfaces\IFilterable.cs" />
     <Compile Include="Interfaces\ISynchronize.cs" />
     <Compile Include="IRepositories\IParkRepository.cs" />

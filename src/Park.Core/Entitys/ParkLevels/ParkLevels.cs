@@ -38,7 +38,7 @@ namespace Park.Entitys.ParkLevels
         public virtual long? LastModifierUserId { get ; set ; }
         public virtual DateTime? LastModificationTime { get; set ; }
         [ForeignKey("ParkId")]
-        public virtual JinQuPark Park { get; set; }
+        public virtual Parks.ParkSet Park { get; set; }
         [ForeignKey("AreaId")]
         public virtual ParkAreas.ParkAreas ParkArea { get; set; }
 

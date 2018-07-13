@@ -26,7 +26,7 @@ namespace Park.Entitys.CarUsers
         public virtual int ParkId { get; set; }
 
         [ForeignKey("ParkId")]
-        public virtual Parks.JinQuPark Park { get; set; }
+        public virtual  Park.Entitys.Parks.ParkSet Park { get; set; }
 
 
         public virtual ICollection<CarPort> CarPorts { get; set; }

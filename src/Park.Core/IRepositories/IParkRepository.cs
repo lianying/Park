@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Park.IRepositories
 {
-    public interface IParkRepository : IRepository<JinQuPark>
+    public interface IParkRepository : IRepository<ParkSet>
     {
 
     }

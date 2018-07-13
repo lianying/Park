@@ -1,6 +1,7 @@
 ﻿using Abp.Modules;
 using Castle.MicroKernel.Registration;
 using Microsoft.Owin.Security;
+using Park.ParkBox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace Park
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
+            
             
         }
        

@@ -9,6 +9,7 @@ using Abp.Localization.Sources;
 using Abp.ObjectMapping;
 using Abp.Runtime.Session;
 using Castle.Core.Logging;
+using MahApps.Metro.Controls;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,8 +18,10 @@ using System.Windows.Threading;
 
 namespace Park.Froms
 {
-    public class AbpWindow : Window, IAbpWindow
+    public class AbpWindow : MetroWindow, IAbpWindow
     {
+
+        
 
         public IAbpSession AbpSession { get; set; }
         public ILogger Logger { get; set; }
@@ -57,7 +60,7 @@ namespace Park.Froms
 
         private ILocalizationSource _localizationSource;
 
-        protected AbpWindow()
+        public AbpWindow() 
         {
             AbpSession = NullAbpSession.Instance;
             Logger = NullLogger.Instance;
@@ -69,7 +72,6 @@ namespace Park.Froms
             LocalizationSourceName = ParkConsts.LocalizationSourceName;
 
             SynchronizationContext = DispatcherSynchronizationContext.Current;
-
 
         }
 

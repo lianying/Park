@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Park.Entitys.Parks
 {
     [Table("Park")]
-    public class JinQuPark : ParkBase, ISynchronize
+    public class ParkSet : ParkBase, ISynchronize
     {
         public const int MaxParkSoureLength = 285;
         /// <summary>
@@ -27,7 +27,7 @@ namespace Park.Entitys.Parks
         public virtual string CloudId { get; set; }
 
         [ForeignKey("ParentId")]
-        public virtual JinQuPark ParentPark { get; set; }
+        public virtual ParkSet ParentPark { get; set; }
 
         public virtual int? ParentId { get; set; }
     }

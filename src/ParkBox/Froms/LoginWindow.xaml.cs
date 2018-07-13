@@ -2,7 +2,11 @@
 using Abp.Dependency;
 using Abp.UI;
 using Park.Authorization;
+using Park.Authorization.Users;
+using Park.ParkBox;
+using Park.Parks.ParkBox;
 using Park.Sessions;
+using Park.Users.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +31,8 @@ namespace Park.Froms
     public partial class LoginWindow : AbpWindow, ISingletonDependency
     {
         private readonly LogInManager _logInManager;
+        private readonly UserManager _userManager;
+        private readonly IParkBoxOptions _parkBoxOptions;
 
 
         public string UserName
@@ -35,9 +41,11 @@ namespace Park.Froms
             set;
         }
         
-        public LoginWindow(LogInManager logInManager)
+        public LoginWindow(LogInManager logInManager,UserManager userManager, IParkBoxOptions parkBoxOptions)
         {
+            _userManager = userManager;
             _logInManager = logInManager;
+            _parkBoxOptions = parkBoxOptions;
             DataContext = this;
             InitializeComponent();
         }
@@ -47,19 +55,20 @@ namespace Park.Froms
            
             await new SynchronizationContextRemove();
             var loginResult = await _logInManager.LoginAsync(UserName, txt_password.Password);
+            
 
             switch (loginResult.Result)
             {
                 case AbpLoginResultType.Success:
                     Thread.CurrentPrincipal = new ClaimsPrincipal(loginResult.Identity);
+                    _parkBoxOptions.User = await _userManager.GetUserByIdAsync(AbpSession.UserId.Value);
+                    _parkBoxOptions.MockDevices();
                     SynchronizationContext.Post((o) => DialogResult = true, null);
                     break;
                 default:
                     throw CreateExceptionForFailedLoginAttempt(loginResult.Result, UserName, "");
                     
             }
-
-            
         }
 
         private Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress, string tenancyName)

@@ -5,10 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Park.Interfaces;
+using Park.Devices.Models;
+using Abp.Dependency;
+using System.IO;
+using Park.Users.Dto;
+using Park.Authorization.Users;
 
 namespace Park.ParkBox
 {
-    public interface IParkBoxOptions
+    public interface IParkBoxOptions: ISingletonDependency
     {
 
         /// <summary>
@@ -60,8 +65,27 @@ namespace Park.ParkBox
         /// </summary>
         TimeSpan ReLoginTime { get; set; }
 
-
+        /// <summary>
+        /// 过滤器
+        /// </summary>
         IReadOnlyList<IFilterable> Filters { get; }
-        
+
+
+        bool NonmotorVehicleIn { get; set; }
+
+
+        Stream UserImg { get; set; }
+
+
+        User User { get; set; }
+
+
+        Stream DefultUserImg { get; }
+
+
+        Stream DefultCarmeraImg { get; }
+
+
+
     }
 }

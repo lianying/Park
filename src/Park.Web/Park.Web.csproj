@@ -39768,7 +39768,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <!--<Folder Include="Park.Host\dist\out-tsc\e2e\" />
     <Folder Include="Park.Host\dist\out-tsc\src\app\core\net\" />
     <Folder Include="Park.Host\dist\out-tsc\src\app\core\startup\" />
@@ -39787,6 +39786,7 @@
     <Folder Include="Park.Host\dist\out-tsc\src\testing\" />
     <Folder Include="Park.Host\dist\out-tsc\_mock\" />
     <Folder Include="Park.Host\src\app\core\Services\" />-->
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -44433,14 +44433,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="NgDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+  <!--<Target Name="NgDebug" BeforeTargets="Build" Condition="'$(Configuration)' == 'Debug'">
     <Exec WorkingDirectory="$(ProjectDir)Park.Host" Command="ng build -ec" />
   </Target>
   <Target Name="NgRelease" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
     <Exec WorkingDirectory="$(ProjectDir)Park.Host" Command="ng build -prod" />
-  </Target>
+  </Target>-->
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)Park.Web\assets 
-xcopy /e /r /y $(SolutionDir)Park.Web\bundles\assets $(SolutionDir)Park.Web\assets</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

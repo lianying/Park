@@ -9,7 +9,7 @@ using Abp.Application.Services.Dto;
 
 namespace Park.ParkBox.Dto
 {
-    [AutoMap(typeof(JinQuPark))]
+    [AutoMap(typeof(ParkSet))]
     public  class ParkDto:EntityDto
     {
         //public int Id { get; set; }

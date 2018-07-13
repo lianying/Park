@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Park.Parks.Park.Dto
 {
-    [AutoMap(typeof(JinQuPark))]
+    [AutoMap(typeof(ParkSet))]
     public class CreateParkDto:EntityDto<int>
     {
         /// <summary>
@@ -53,7 +53,7 @@ namespace Park.Parks.Park.Dto
         /// </summary>
         public virtual string AreaCode { get; set; }
         public virtual bool IsSync { get; set; }
-        [MaxLength(JinQuPark.MaxParkSoureLength)]
+        [MaxLength(ParkSet.MaxParkSoureLength)]
         /// <summary>
         /// 车场来源
         /// </summary>

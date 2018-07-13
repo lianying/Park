@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.Parks.Entrance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace Park.Parks.Devices.Interfaces
         string Password { get; set; }
 
         long Port { get; set; }
+
+
+        EntranceDto EntranceDto { get; set; }
         
 
     }

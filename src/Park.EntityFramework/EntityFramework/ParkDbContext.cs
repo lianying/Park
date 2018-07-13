@@ -20,7 +20,7 @@ namespace Park.EntityFramework
         //TODO: Define an IDbSet for your Entities...
 
             
-            public virtual IDbSet<JinQuPark> Parks { get; set; }
+            public virtual IDbSet<ParkSet> Parks { get; set; }
 
         public virtual IDbSet<ParkLevels> ParkLevels { get; set; }
 

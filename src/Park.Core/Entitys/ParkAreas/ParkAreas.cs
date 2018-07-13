@@ -12,7 +12,7 @@ namespace Park.Entitys.ParkAreas
 {
     public class ParkAreas : Entity<long>, ISynchronize, IAudited,IMayHaveTenant
     {
-        public virtual Parks.JinQuPark Park { get; set; }
+        public virtual Parks.ParkSet Park { get; set; }
 
 
         [ForeignKey("Park")]
@@ -23,12 +23,12 @@ namespace Park.Entitys.ParkAreas
         /// <summary>
         /// 区域车位数
         /// </summary>
-        public virtual  int parkAreaCarports { get; set; }
+        public virtual  int ParkAreaCarports { get; set; }
 
         /// <summary>
         /// 可租车位
         /// </summary>
-        public virtual  int parkAreaRentableCarports { get; set; }
+        public virtual  int ParkAreaRentableCarports { get; set; }
 
         public virtual bool IsSuccess { get ; set ; }
         public virtual string CloudId { get ; set ; }

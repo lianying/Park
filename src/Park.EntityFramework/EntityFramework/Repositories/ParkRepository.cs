@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Park.EntityFramework.Repositories
 {
-    public class ParkRepository:ParkRepositoryBase<JinQuPark>,IParkRepository
+    public class ParkRepository:ParkRepositoryBase<ParkSet>,IParkRepository
     {
         public ParkRepository(IDbContextProvider<ParkDbContext> dbContextProvider) : base(dbContextProvider) {
 

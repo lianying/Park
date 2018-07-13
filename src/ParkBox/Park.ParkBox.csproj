@@ -48,6 +48,9 @@
     <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="AxInterop.BLC_IPNCLib">
+      <HintPath>..\lib\AxInterop.BLC_IPNCLib.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -59,6 +62,9 @@
     </Reference>
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -77,6 +83,9 @@
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net46\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -174,6 +183,9 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -200,6 +212,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -207,8 +220,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\MenuViewControl.cs" />
+    <Compile Include="Converter\MathConvert.cs" />
+    <Compile Include="CreateCameraPnel\CreatePnel.cs" />
+    <Compile Include="CreateCameraPnel\ICreatePnel.cs" />
+    <Compile Include="Expansions\ImageExpansion.cs" />
+    <Compile Include="IManualEntryAndExit.cs" />
     <Compile Include="UserControls\EntranceInfo.xaml.cs">
       <DependentUpon>EntranceInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HiKPicture.xaml.cs">
+      <DependentUpon>HiKPicture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\IHandler.cs" />
+    <Compile Include="UserControls\LanKaPicture.xaml.cs">
+      <DependentUpon>LanKaPicture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NotListViewImage.xaml.cs">
+      <DependentUpon>NotListViewImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ParkEntranceInfo.xaml.cs">
+      <DependentUpon>ParkEntranceInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserCard.xaml.cs">
+      <DependentUpon>UserCard.xaml</DependentUpon>
     </Compile>
     <Page Include="Froms\LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -232,6 +266,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="UserControls\EntranceInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HiKPicture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LanKaPicture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\NotListViewImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ParkEntranceInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UserCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,12 +330,25 @@
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>Park.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Park.DeviceSDK\Park.DeviceSDK.csproj">
+      <Project>{ADEFBD19-56FB-49D6-AAE4-57895C9F67F9}</Project>
+      <Name>Park.DeviceSDK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Park.EntityFramework\Park.EntityFramework.csproj">
       <Project>{3979f157-deb0-4878-ab1d-4cef6b5a1300}</Project>
       <Name>Park.EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="DefultUserImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DefultCameraImg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

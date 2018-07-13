@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Park.UserControls.UserCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Park.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Margin" Value="10,10,10,10"></Setter>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Resources>
+    
+    
+    <Grid>
+        <Grid Margin="5,20,5,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image  Name="UserPhoto" ></Image>
+            <Grid Grid.Column="1" Margin="10,0,10,0">
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock HorizontalAlignment="Right" Name="lbl_UserName">员工姓名:</TextBlock>
+                <TextBlock  Name="txt_UserName" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+                <TextBlock HorizontalAlignment="Right" Name="lbl_UserCode" Grid.Row="1">员工编号:</TextBlock>
+                <TextBlock Name="txt_UserCode" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+                <TextBlock HorizontalAlignment="Right" Name="lbl_OnlineTime"  Grid.Row="2">在线时长:</TextBlock>
+                <TextBlock Name="txt_OnlineTime" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+                <TextBlock HorizontalAlignment="Right" Name="lbl_FeeMoney" Grid.Row="3">在线时长:</TextBlock>
+                <TextBlock Name="txt_FeeMoney" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
+
+                <Button Name="btn_ChangeShift" Grid.Row="4" Click="btn_ChangeShift_Click">换班</Button>
+                <Button Name="btn_Settlement" Grid.Row="4" Grid.Column="1" Click="btn_Settlement_Click">结算</Button>
+                <Button Name="btn_LoginOut" Grid.Row="4" Grid.Column="2" Click="btn_LoginOut_Click">登出</Button>
+                
+                
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</UserControl>

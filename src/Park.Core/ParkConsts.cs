@@ -19,6 +19,23 @@
         public const string AppName = "Park";
 
         public const string Description = "停车场管理系统";
-        //public static readonly int DefultPageSize;
+
+
+       public const string TempCarInConfirmMessage = "临时车是否进入?";
+
+
+        public const string NoNumberCarInConfirmMessage = "无牌车是否进入?";
+
+
+        public const string NoPermissionNotInMessage = "禁止进入";
+
+        public const string NoNumberNotInMessage = "无牌车禁止进入";
+
+
+        public const string CarportsFullNotInMessage = "集团车位已满禁止进入";
+
+        public const string TempCarNotInMessage = "临时车禁止进入";
+
+
     }
 }

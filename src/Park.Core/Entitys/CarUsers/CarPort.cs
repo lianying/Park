@@ -24,7 +24,7 @@ namespace Park.Entitys.CarUsers
 
         public virtual DateTime StartTime { get; set; }
 
-        public virtual DateTime EntTime { get; set; }
+        public virtual DateTime EndTime { get; set; }
 
         /// <summary>
         /// 是否出租

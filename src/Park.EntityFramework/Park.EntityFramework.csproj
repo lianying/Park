@@ -231,6 +231,14 @@
     <Compile Include="Migrations\201804270950402_edit carUserTable.Designer.cs">
       <DependentUpon>201804270950402_edit carUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807090227316_edit park model.cs" />
+    <Compile Include="Migrations\201807090227316_edit park model.Designer.cs">
+      <DependentUpon>201807090227316_edit park model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807130940108_edit entity.cs" />
+    <Compile Include="Migrations\201807130940108_edit entity.Designer.cs">
+      <DependentUpon>201807130940108_edit entity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -271,6 +279,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804270950402_edit carUserTable.resx">
       <DependentUpon>201804270950402_edit carUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807090227316_edit park model.resx">
+      <DependentUpon>201807090227316_edit park model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807130940108_edit entity.resx">
+      <DependentUpon>201807130940108_edit entity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

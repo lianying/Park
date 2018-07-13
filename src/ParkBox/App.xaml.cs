@@ -87,13 +87,14 @@ namespace Park
 
             _loginWindow = _bootstrapper.IocManager.Resolve<LoginWindow>();
 
-            _mainWindow = _bootstrapper.IocManager.Resolve<MainWindow>();
             
 
             var isLogin = _loginWindow.ShowDialog();
 
             if (isLogin.HasValue && isLogin.Value)
             {
+
+                _mainWindow = _bootstrapper.IocManager.Resolve<MainWindow>();
 
                 _mainWindow.Show();
 
