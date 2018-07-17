@@ -65,7 +65,7 @@ namespace Park.Parks.ParkBox.Interfaces
             }
             else
             {   //月租车
-                
+                return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false);
             }
         }
     }
