@@ -246,10 +246,12 @@
     <Compile Include="Parks\ParkBox\Core\BoxMessage.cs" />
     <Compile Include="Parks\ParkBox\Core\FeeManager.cs" />
     <Compile Include="Parks\ParkBox\Core\LedManager.cs" />
+    <Compile Include="Parks\ParkBox\Interfaces\CarNumberPermission.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\IBoxMessageable.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\ICarNumberPermission.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\INotifyConfim.cs" />
-    <Compile Include="Parks\ParkBox\Interfaces\IVehicleFlowable.cs" />
+    <Compile Include="Parks\ParkBox\Interfaces\IVehicleFlow.cs" />
+    <Compile Include="Parks\ParkBox\Interfaces\VehicleFlow.cs" />
     <Compile Include="Parks\ParkBox\IsCarInModel.cs" />
     <Compile Include="Parks\ParkBox\MockParkOptions.cs" />
     <Compile Include="Parks\ParkBox\Models\PermissionResult.cs" />

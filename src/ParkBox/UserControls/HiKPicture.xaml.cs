@@ -34,12 +34,14 @@ namespace Park.UserControls
       new System.Windows.Forms.Integration.WindowsFormsHost();
 
             pictureBox = new PictureBox();
+            pictureBox.Dock = DockStyle.Fill;
             host.Child = pictureBox;
             this.Content.Children.Add(host);
         }
 
         public Task SetImage(Stream stream)
         {
+            pictureBox.Image = System.Drawing.Image.FromStream(stream);
             return Task.CompletedTask;
         }
     }

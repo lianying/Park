@@ -197,6 +197,7 @@
     <Compile Include="Chat\ChatMessageReadState.cs" />
     <Compile Include="Chat\ChatSide.cs" />
     <Compile Include="Common\ActionQueue.cs" />
+    <Compile Include="Entitys\Box\CarInOutImage.cs" />
     <Compile Include="Entitys\Box\CarInRecord.cs" />
     <Compile Include="Entitys\Box\CarOutRecord.cs" />
     <Compile Include="Entitys\CarUsers\CarDiscount.cs" />
@@ -226,8 +227,11 @@
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
+    <Compile Include="Expansions\StringExpansion.cs" />
     <Compile Include="Interfaces\IFilterable.cs" />
     <Compile Include="Interfaces\ISynchronize.cs" />
+    <Compile Include="IRepositories\ICarInRecordRepository.cs" />
+    <Compile Include="IRepositories\ICarUserRepository.cs" />
     <Compile Include="IRepositories\IParkRepository.cs" />
     <Compile Include="ParkConsts.cs" />
     <Compile Include="ParkCoreModule.cs" />

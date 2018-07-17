@@ -25,7 +25,7 @@
         <Controls:FlipView Name="ContentCamera" IsBannerEnabled="False" Orientation="Vertical">
            
         </Controls:FlipView>
-        <Grid Grid.Column="1" Margin="5,5,5,0" Name="Right">
+        <Grid Grid.Column="1" Margin="5,5,5,0" Name="Grd_Right">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
@@ -83,11 +83,53 @@
     </Grid>
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>
-            <Controls:Flyout Header="出场明细" Position="Left" Theme="Accent" Width="{Binding Converter={StaticResource PercentageConverter},
+
+
+            <Controls:Flyout Header="手工入场" Position="Right" Theme="Accent" Width="{Binding ElementName=Grd_Right,
+                                                                                  Path=ActualWidth}" >
+                <Grid   Name="ManualIn">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel></StackPanel>
+                    <StackPanel Grid.Row="1" Width="{Binding ElementName=Right,Path=ActualWidth}" Orientation="Vertical">
+                    <TextBlock  Name="txt_InCarNumber"></TextBlock>
+                    <Button Name="btn_In" Content="手工入场" Click="btn_In_Click"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2"></StackPanel>
+                </Grid>
+
+            </Controls:Flyout>
+
+
+            <Controls:Flyout Header="手工出场" Position="Right" Theme="Accent">
+                <StackPanel     Name="ManualOut">
+                    <TextBlock  Name="txt_OutCarNumber"></TextBlock>
+                    <Button Name="btn_Out" Content="手工出场"></Button>
+                </StackPanel>
+                
+
+            </Controls:Flyout>
+
+
+            <Controls:Flyout Header="出场明细" Position="Right" Theme="Accent" Width="{Binding Converter={StaticResource PercentageConverter},
                                                                                   Path=ActualWidth, 
                                                                                   ConverterParameter=0.8}">
-             
+                <Grid Name="OutRecord">
+                    
+                </Grid>
+            </Controls:Flyout>
+
+
+            <Controls:Flyout Header="入场明细" Position="Right" Theme="Accent">
+                <Grid  Name="CarInRecord"></Grid>
+                
             </Controls:Flyout>
         </Controls:FlyoutsControl>
+
+
+       
     </Controls:MetroWindow.Flyouts>
 </src:AbpWindow>

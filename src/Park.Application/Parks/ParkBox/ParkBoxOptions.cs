@@ -51,7 +51,7 @@ namespace Park.ParkBox
         public Stream DefultCarmeraImg
         {
             get {
-                if (DefultCarmeraImg == null) {
+                if (defultCameraImg == null) {
                     defultCameraImg = Image.FromFile("DefultCameraImg.png").ToStream(ImageFormat.Png);
                 }
                 return defultCameraImg;

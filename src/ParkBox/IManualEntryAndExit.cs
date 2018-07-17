@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.Parks.Entrance;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Park
 {
     interface IManualEntryAndExit
     {
-        void ManualEntryAndExit(long? entranceId);
+        void ManualEntryAndExit(EntranceDto entranceDto);
     }
 }

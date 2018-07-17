@@ -1,5 +1,6 @@
 ﻿using Park.Entitys.CarUsers;
 using Park.Enum;
+using Park.Parks.Entrance;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,9 +24,10 @@ namespace Park.Parks.ParkBox
         public DateTime InTime { get; set; }
         public Stream Img { get; set; }
         public DateTime? InPhotoTime { get; set; }
-
-
         public InOutTypeEnum InOutType { get; set; }
+
+
+        public EntranceDto Entrance { get; set; }
 
         
     }

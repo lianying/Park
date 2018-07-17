@@ -1,4 +1,5 @@
-﻿using Park.Entitys.Box;
+﻿using Abp.Application.Services;
+using Park.Entitys.Box;
 using Park.Entitys.CarUsers;
 using Park.Parks.ParkBox.Models;
 using System;
@@ -13,7 +14,7 @@ namespace Park.Parks.ParkBox.Interfaces
     /// <summary>
     /// 车辆流程接口
     /// </summary>
-    public interface IVehicleFlow
+    public interface IVehicleFlow: IApplicationService
     {
         /// <summary>
         /// 入场流程
@@ -27,7 +28,7 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
-        IsCarInModel IsCarIn(string carNumber);
+        IsCarInModel IsCarIn(int parkId, string carNumber);
 
 
 

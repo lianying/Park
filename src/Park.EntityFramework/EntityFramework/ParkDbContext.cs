@@ -12,6 +12,7 @@ using Park.Entitys.CarTypes;
 using Park.Entitys.ParkAreas;
 using Park.Entitys.Cameras;
 using Park.Entitys.CarUsers;
+using Park.Entitys.Box;
 
 namespace Park.EntityFramework
 {
@@ -39,6 +40,16 @@ namespace Park.EntityFramework
         public virtual IDbSet<CarNumbers> CarNumbers { get; set; }
 
         public virtual IDbSet<CarPort> CarPorts { get; set; }
+
+
+        public virtual IDbSet<CarInRecord> CarIns { get; set; }
+
+        public virtual IDbSet<CarOutRecord> CarOuts { get; set; }
+
+
+        public virtual IDbSet<CarDiscount> CarDiscounts { get; set; }
+
+
         
 
 

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Castle.Core.Logging;
 using MahApps.Metro.Controls;
 using Park.ParkBox;
+using Park.Parks.Entrance;
 using Park.UserControls;
 
 namespace Park.CreateCameraPnel
@@ -35,16 +36,19 @@ namespace Park.CreateCameraPnel
         {
             if (countEntrances == 0)
                 return null;
+            FlipView flipView = window as FlipView;
             Dictionary<long, ParkEntranceInfo> dic = new Dictionary<long, ParkEntranceInfo>();
             if (countEntrances <= 2)
             {
                 FlipViewItem flipViewItem = new FlipViewItem();
                 Grid grid = new Grid();
+                flipViewItem.Content = grid;
                 if (countEntrances == 1)  //一个出入口
                 {
                     var entrance = new ParkEntranceInfo(_parkBoxOptions.DeciceInfos.FirstOrDefault(), _parkBoxOptions, Logger);
                     dic.Add(deviceInfoDtos.First().Key, entrance);
                     grid.Children.Add(entrance);
+                   
                     entrance.Init();
                 }
                 else   //两个出入口
@@ -61,6 +65,9 @@ namespace Park.CreateCameraPnel
                         i++;
                     }
                 }
+                flipView.Items.Add(flipViewItem);
+
+
             }
             else
             {

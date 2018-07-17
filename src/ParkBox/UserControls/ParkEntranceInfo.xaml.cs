@@ -5,12 +5,14 @@ using Park.Devices.Models;
 using Park.Entitys.Box;
 using Park.Expansions;
 using Park.ParkBox;
+using Park.Parks.Entrance;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Park.UserControls
@@ -42,10 +44,15 @@ namespace Park.UserControls
             {
                 synchronizationContext.Post(z => this.TimeClock.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), null);
             }, null, 1000, 1000);
-            
                 
             
         }
+
+        private void Btn_InOut_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Init()
         {
             if (deviceInfo == null)
@@ -55,17 +62,20 @@ namespace Park.UserControls
             }
             EntranceName.Text = deviceInfo.EntranceDto.EntranceName;
             Image = new Image();
+            Image.SetImage(_parkBoxOptions.DefultCarmeraImg);
             if (_parkBoxOptions.IsListView)
             {
                 if (deviceInfo.EquipmentManufacturers == Enum.EquipmentManufacturers.LanKa)
                 {
                     var pic = new LanKaPicture();
                     handler = pic;
+
                     Camera.Children.Add(pic);
                 }
                 else
                 {
                     var pic = new HiKPicture();
+                    pic.SetImage(_parkBoxOptions.DefultCarmeraImg);
                     handler = pic;
                     Camera.Children.Add(pic);
                 }
@@ -74,9 +84,12 @@ namespace Park.UserControls
             else
             {
                 Img.Visibility = System.Windows.Visibility.Collapsed;
-                Camera.Children.Add(Image);
+                ImageBrush imageBrush = new ImageBrush();
+                imageBrush.ImageSource = _parkBoxOptions.DefultCarmeraImg.GetBitmapImage();
+                Camera.Background = imageBrush;
+
             }
-            deviceInfo.Handler = handler.IntPtr;
+            deviceInfo.Handler = handler?.IntPtr;
         }
 
         /// <summary>
@@ -145,11 +158,15 @@ namespace Park.UserControls
         private void btn_InOut_Click(object sender, System.Windows.RoutedEventArgs e)
         {
 
-            synchronizationContext.Post(x => _manualEntryAndExit?.ManualEntryAndExit((long?)x), deviceInfo?.EntranceDto?.Id);
+            synchronizationContext.Post(x => _manualEntryAndExit?.ManualEntryAndExit(x as EntranceDto), deviceInfo?.EntranceDto);
         }
 
         private void btn_OpenRod_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            OpenRod();
+        }
+
+        public void OpenRod() {
             if (deviceInfo == null)
             {
                 _logger.Info("open rod error::::deviceInfo==null");
@@ -157,6 +174,11 @@ namespace Park.UserControls
             }
             deviceInfo.Controlable?.Camerable?.OpenRod();
             _logger.Info("btn openRodClick success");
+        }
+
+        public DeviceInfoDto GetDeviceInfo()
+        {
+            return deviceInfo;
         }
     }
 }

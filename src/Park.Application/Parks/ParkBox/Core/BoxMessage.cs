@@ -83,7 +83,8 @@ namespace Park.Parks.ParkBox.Core
                     InOutType = Enum.InOutTypeEnum.Photo,
                     InPhotoTime = photoTime,
                     Img = result.Item2,
-                    InTime = DateTime.Now
+                    InTime = DateTime.Now,
+                    Entrance = deviceInfoDto.EntranceDto
                 };
                 ///入场成功
                 if (vehicleFlowable.CarIn(carInModel
@@ -102,8 +103,8 @@ namespace Park.Parks.ParkBox.Core
             {
                 /*
                  出场逻辑中 无场内车辆的记录也弹出    
-             */
-                var isCarIn = vehicleFlowable.IsCarIn(result.Item1);
+                */
+                var isCarIn = vehicleFlowable.IsCarIn(deviceInfoDto.EntranceDto.ParkLevel.Park.Id, result.Item1);
                 if (isCarIn.IsCarIn)  //在场内
                 {
                     /*

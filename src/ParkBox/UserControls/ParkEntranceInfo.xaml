@@ -11,8 +11,9 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Name="Camera">
-        </StackPanel>
+        <Grid>
+            <Canvas   Name="Camera" VerticalAlignment="Stretch">
+        </Canvas>
         <Canvas>
             <TextBlock Name="EntranceName" Canvas.Left="20" Canvas.Top="20"></TextBlock>
             <TextBlock Name="TimeClock" Canvas.Right="20" Canvas.Top="20"></TextBlock>
@@ -21,10 +22,10 @@
             <Button Name="btn_OpenRod" Canvas.Right="60" Canvas.Bottom="20" Click="btn_OpenRod_Click" Content="开闸"></Button>
             <Button Name="btn_CloseRod" Canvas.Right="20" Canvas.Bottom="20" Content="落闸"></Button>
 
-
+            
 
         </Canvas>
-
+        </Grid>
         <Grid Margin="5,5,5,0" Grid.Column="1" Name="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>

@@ -224,6 +224,7 @@
     <Compile Include="CreateCameraPnel\CreatePnel.cs" />
     <Compile Include="CreateCameraPnel\ICreatePnel.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
+    <Compile Include="Expansions\StreamExpansion.cs" />
     <Compile Include="IManualEntryAndExit.cs" />
     <Compile Include="UserControls\EntranceInfo.xaml.cs">
       <DependentUpon>EntranceInfo.xaml</DependentUpon>

@@ -1,9 +1,15 @@
 ﻿using Abp.Dependency;
+using Abp.Extensions;
 using Castle.MicroKernel.Registration;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Park.CreateCameraPnel;
+using Park.Entitys.ParkEntrances;
 using Park.Froms;
 using Park.ParkBox;
+using Park.Parks.Entrance;
+using Park.Parks.ParkBox.Core;
+using Park.Parks.ParkBox.Interfaces;
 using Park.UserControls;
 using System;
 using System.Collections.Generic;
@@ -29,17 +35,37 @@ namespace Park.Froms
     {
         private readonly IParkBoxOptions parkBoxOptions;
         private readonly ICreatePnel _createPnel;
-        public MainWindow(IParkBoxOptions parkBoxOptions, ICreatePnel createPnel)
+        private readonly IVehicleFlow _vehicleFlow;
+        private readonly ICarNumberPermission _carNumberPermission;
+        private readonly LedManager _ledManager;
+
+        private EntranceDto _inEntranceDto = null;
+
+        private EntranceDto _outEntranceDto = null;
+
+        private Dictionary<long, ParkEntranceInfo> parkEntrances;
+
+        
+        
+        public MainWindow(IParkBoxOptions parkBoxOptions, ICreatePnel createPnel,
+            IVehicleFlow vehicleFlow,ICarNumberPermission carNumberPermission, LedManager ledManager)
         {
             InitializeComponent();
             DataContext = this;
             this.parkBoxOptions = parkBoxOptions;
             _createPnel = createPnel;
+            _vehicleFlow = vehicleFlow;
+            _carNumberPermission = carNumberPermission;
+            _ledManager = ledManager;
             UserCard.Children.Add(IocManager.Instance.Resolve<UserCard>());
+            
+
+            
+
             IocManager.Instance.IocContainer.Register(
-                Component.For<IManualEntryAndExit>().Instance(this)
-                );
-            _createPnel.CreatePnels(this.ContentCamera);
+                Component.For<IManualEntryAndExit>().UsingFactoryMethod(() => this));
+
+            parkEntrances = _createPnel.CreatePnels(this.ContentCamera);
             
         }
 
@@ -47,9 +73,20 @@ namespace Park.Froms
         /// 手工出入场
         /// </summary>
         /// <param name="entranceId"></param>
-        public void ManualEntryAndExit(long? entranceId)
+        public void ManualEntryAndExit(EntranceDto entranceDto)
         {
-            
+            if (entranceDto == null) return;
+
+            var index = 0;
+            if (entranceDto.EntranceType == Enum.EntranceType.Out)
+            {
+                _outEntranceDto = entranceDto;
+                index = 1;
+            }
+            else {
+                _inEntranceDto = entranceDto;
+            }
+            TiggleFlyout(index);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -72,6 +109,39 @@ namespace Park.Froms
             return flyout.IsOpen;
         }
 
-        
+        private async void btn_In_Click(object sender, RoutedEventArgs e)
+        {
+            if (_inEntranceDto == null)
+            {
+                await this.ShowMessageAsync("提示", "未找到出入口信息");
+                return;
+            }
+            var carNumber = txt_InCarNumber.Text;
+            if (carNumber.IsNullOrEmpty()) {
+                await this.ShowMessageAsync("提示", "车牌号不允许为空!");
+                return;
+            }
+            var result = _carNumberPermission.CheckCarNumberPermission(carNumber, _inEntranceDto.Id);
+            var carInModel= new Parks.ParkBox.CarInModel()
+            {
+                CarNumber = carNumber,
+                Img = null,
+                InOutType = Enum.InOutTypeEnum.Artificial,
+                InTime = DateTime.Now,
+                Entrance = _inEntranceDto
+            };
+            if (_vehicleFlow.CarIn(carInModel, result))
+            {
+                parkEntrances[_inEntranceDto.Id].OpenRod();
+                //await deviceInfoDto.Controlable.Camerable.OpenRod(); //抬杆
+                await _ledManager.SpeakAndShowText(parkEntrances[_inEntranceDto.Id].GetDeviceInfo(), carInModel, result); //播报语音
+            }
+            else
+            {
+                await this.ShowMessageAsync("提示", "入场失败");
+                return;
+            }
+
+        }
     }
 }

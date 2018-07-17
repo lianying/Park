@@ -33,6 +33,7 @@ namespace Park.Entitys.CarUsers
 
         [ForeignKey("CarPortTypeId")]
         public virtual CarTypes.CarTypes CarPortType { get; set; }
+
         
         public virtual long CarPortTypeId { get; set; }
         /// <summary>
@@ -55,7 +56,10 @@ namespace Park.Entitys.CarUsers
 
         
         public virtual long CarUserId { get; set; }
+
         public virtual bool IsSuccess { get ; set ; }
+
+
         public virtual string CloudId { get ; set ; }
     }
 }
