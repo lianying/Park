@@ -19,22 +19,31 @@ namespace Park.ParkBox
         private Stream defultUserImg;
 
         private Stream defultCameraImg;
-        public bool IsListView { get ; set ; }
-        public ListViewEnum ListViewCount { get ; set ; }
+        public bool IsListView { get; set; }
+
+        public ListViewEnum ListViewCount { get; set; }
+
         public TimeSpan DoubleVideoWaitingTimes { get; set; }
-        public string ImgServiceAddress { get ; set ; }
-        public string ServiceUserName { get ; set ; }
-        public string ServicePwd { get; set ; }
-        public int DeletePhotoDays { get ; set ; }
-        public string ServiceIp { get ; set ; }
-        public IReadOnlyList<DeviceInfoDto> DeciceInfos { get ; set ; }
-        public TimeSpan ReLoginTime { get ; set; }
+
+        public string ImgServiceAddress { get; set; }
+
+        public string ServiceUserName { get; set; }
+
+        public string ServicePwd { get; set; }
+
+        public int DeletePhotoDays { get; set; }
+
+        public string ServiceIp { get; set; }
+
+        public IReadOnlyList<DeviceInfoDto> DeciceInfos { get; set; }
+
+        public TimeSpan ReLoginTime { get; set; }
 
         public IReadOnlyList<IFilterable> Filters => throw new NotImplementedException();
 
         public bool NonmotorVehicleIn { get; set; }
-        public Stream UserImg { get ; set ; }
-        public User User { get ; set ; }
+        public Stream UserImg { get; set; }
+        public User User { get; set; }
 
         public Stream DefultUserImg
         {
@@ -50,15 +59,20 @@ namespace Park.ParkBox
 
         public Stream DefultCarmeraImg
         {
-            get {
-                if (defultCameraImg == null) {
+            get
+            {
+                if (defultCameraImg == null)
+                {
                     defultCameraImg = Image.FromFile("DefultCameraImg.png").ToStream(ImageFormat.Png);
                 }
                 return defultCameraImg;
             }
         }
 
+        public string ParkName { get;  set; }
 
-        
+        public int ParkId { get;  set; }
+
+        public List<string> LocalIps { get; set; }
     }
 }

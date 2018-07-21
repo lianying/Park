@@ -32,7 +32,7 @@ namespace Park.UserControls
 
         IManualEntryAndExit _manualEntryAndExit = null;
 
-        public ParkEntranceInfo(DeviceInfoDto deviceInfoDto,IParkBoxOptions parkBoxOptions,ILogger logger)
+        public ParkEntranceInfo(DeviceInfoDto deviceInfoDto, IParkBoxOptions parkBoxOptions, ILogger logger)
         {
             InitializeComponent();
             deviceInfo = deviceInfoDto;
@@ -40,12 +40,26 @@ namespace Park.UserControls
             _logger = logger;
             _manualEntryAndExit = IocManager.Instance.Resolve<IManualEntryAndExit>();
             synchronizationContext = SynchronizationContext.Current;
+            if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.In)
+            {
+                TimeClock.Foreground = new SolidColorBrush(Colors.Orange);
+                EntranceName.Foreground = new SolidColorBrush(Colors.Orange);
+            }
+            else
+            {
+                TimeClock.Foreground = new SolidColorBrush(Colors.Green);
+                EntranceName.Foreground = new SolidColorBrush(Colors.Green);
+            }
+            if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.Out)
+            {
+                this.btn_InOut.Content = "手工出场";
+            }
             timer = new Timer(x =>
             {
                 synchronizationContext.Post(z => this.TimeClock.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), null);
             }, null, 1000, 1000);
-                
-            
+
+
         }
 
         private void Btn_InOut_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -99,17 +113,17 @@ namespace Park.UserControls
         /// <returns></returns>
         public Task SetInfo(CarInRecord carInRecord)
         {
-            var tempCarport = carInRecord.CarUser.CarPorts.Where(z => z.StartTime <= DateTime.Now && z.EndTime >= DateTime.Now);
+            var tempCarport = carInRecord.CarUser?.CarPorts?.Where(z => z.StartTime <= DateTime.Now && z.EndTime >= DateTime.Now);
             synchronizationContext.Post(x =>
             {
                 txt_CarNumber.Text = carInRecord.CarNumber;
                 txt_CarInCount.Text = carInRecord.CarInCount.ToString();
                 txt_CarportsCount.Text = tempCarport == null ? "0" : tempCarport.Count().ToString();
                 txt_InTime.Text = carInRecord.InTime.ToString("yyyy-MM-dd hh:mm:ss");
-                txt_InTime.Text = "";
                 txt_RematingDays.Text = tempCarport == null ? "0" : (tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays.ToString();
                 txt_CarType.Text = tempCarport == null ? "临时车" : tempCarport.First().CarPortType.CustomName;
                 txt_UserName.Text = carInRecord.CarUser?.Name;
+                txt_OutTime.Text = "";
             }, null);
 
 
@@ -119,12 +133,12 @@ namespace Park.UserControls
         public Task SetInfo(CarOutRecord carOutRecord)
         {
 
-            var tempCarport = carOutRecord.CarUser.CarPorts.Where(z => z.StartTime <= DateTime.Now && z.EndTime >= DateTime.Now);
+            var tempCarport = carOutRecord.CarUser?.CarPorts?.Where(z => z.StartTime <= DateTime.Now && z.EndTime >= DateTime.Now);
             synchronizationContext.Post(x =>
             {
                 txt_CarNumber.Text = carOutRecord.CarNumber;
                 txt_CarInCount.Text = carOutRecord.CarInCount.ToString();
-                txt_CarportsCount.Text = carOutRecord == null ? "0" : tempCarport.Count().ToString();
+                txt_CarportsCount.Text = carOutRecord == null ? "0" : tempCarport?.Count().ToString();
                 txt_InTime.Text = carOutRecord.InTime.ToString("yyyy-MM-dd hh:mm:ss");
                 txt_RematingDays.Text = tempCarport == null ? "0" : (tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays.ToString();
                 txt_CarType.Text = tempCarport == null ? "临时车" : tempCarport.First().CarPortType.CustomName;

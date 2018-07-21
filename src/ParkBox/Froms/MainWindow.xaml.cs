@@ -57,7 +57,9 @@ namespace Park.Froms
             _vehicleFlow = vehicleFlow;
             _carNumberPermission = carNumberPermission;
             _ledManager = ledManager;
-            UserCard.Children.Add(IocManager.Instance.Resolve<UserCard>());
+            var userCard = IocManager.Instance.Resolve<UserCard>();
+            UserCard.Background = new SolidColorBrush(Colors.White);
+            UserCard.Child = userCard;
             
 
             
@@ -130,11 +132,13 @@ namespace Park.Froms
                 InTime = DateTime.Now,
                 Entrance = _inEntranceDto
             };
-            if (_vehicleFlow.CarIn(carInModel, result))
+            var carIn = _vehicleFlow.CarIn(carInModel, result);
+            if (carIn!=null)
             {
-                parkEntrances[_inEntranceDto.Id].OpenRod();
+                parkEntrances[_inEntranceDto.Id]?.OpenRod();
                 //await deviceInfoDto.Controlable.Camerable.OpenRod(); //抬杆
                 await _ledManager.SpeakAndShowText(parkEntrances[_inEntranceDto.Id].GetDeviceInfo(), carInModel, result); //播报语音
+                parkEntrances[_inEntranceDto.Id]?.SetInfo(carIn);
             }
             else
             {
@@ -142,6 +146,39 @@ namespace Park.Froms
                 return;
             }
 
+        }
+
+        private async void btn_Out_Click(object sender, RoutedEventArgs e)
+        {
+            if (_outEntranceDto == null)
+            {
+                await this.ShowMessageAsync("提示", "未找到出入口信息");
+                return;
+            }
+            var carNumber = txt_OutCarNumber.Text;
+            if (carNumber.IsNullOrEmpty())
+            {
+                await this.ShowMessageAsync("提示", "车牌号不允许为空!");
+                return;
+            }
+            var isCarIn = _vehicleFlow.IsCarIn(_outEntranceDto.ParkLevel.Park.Id, carNumber);
+            if (isCarIn.IsCarIn)
+            {
+                var outRcode = _vehicleFlow.CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
+                if (outRcode!=null)
+                {
+
+                    parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
+                }
+                else {
+
+                    await this.ShowMessageAsync("提示", "出场失败!");
+                }
+            }
+            else {
+
+                await this.ShowMessageAsync("提示", "当前车辆不在场内!");
+            }
         }
     }
 }

@@ -219,12 +219,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\MoveToViewboxBehavior.cs" />
+    <Compile Include="Behaviors\ScaleFontBehavior.cs" />
     <Compile Include="Controls\MenuViewControl.cs" />
     <Compile Include="Converter\MathConvert.cs" />
     <Compile Include="CreateCameraPnel\CreatePnel.cs" />
     <Compile Include="CreateCameraPnel\ICreatePnel.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
     <Compile Include="Expansions\StreamExpansion.cs" />
+    <Compile Include="Froms\TollWindow.xaml.cs">
+      <DependentUpon>TollWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\VisualHelper.cs" />
     <Compile Include="IManualEntryAndExit.cs" />
     <Compile Include="UserControls\EntranceInfo.xaml.cs">
       <DependentUpon>EntranceInfo.xaml</DependentUpon>
@@ -266,6 +272,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Froms\TollWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\EntranceInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

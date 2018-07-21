@@ -58,7 +58,7 @@ namespace Park.Parks.ParkBox.Core
                     Logger.Info("非机动车辆禁止进入" + result.Item1);
                     return;
                 }
-                var permission = carNumberPermission.CheckCarNumberPermission(result.Item1);
+                var permission = carNumberPermission.CheckCarNumberPermission(result.Item1,deviceInfoDto.EntranceDto.Id);
 
                 if (permission.IsCarIn.HasValue && !permission.IsCarIn.Value)
                 {
@@ -86,9 +86,10 @@ namespace Park.Parks.ParkBox.Core
                     InTime = DateTime.Now,
                     Entrance = deviceInfoDto.EntranceDto
                 };
+                var carIn = vehicleFlowable.CarIn(carInModel
+                   , permission);
                 ///入场成功
-                if (vehicleFlowable.CarIn(carInModel
-                   , permission))
+                if (carIn!=null)
                 {
                    await deviceInfoDto.Controlable.Camerable.OpenRod(); //抬杆
                     await ledManager.SpeakAndShowText(deviceInfoDto, carInModel, permission); //播报语音

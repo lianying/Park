@@ -62,7 +62,7 @@ namespace Park.Froms
                 case AbpLoginResultType.Success:
                     Thread.CurrentPrincipal = new ClaimsPrincipal(loginResult.Identity);
                     _parkBoxOptions.User = await _userManager.GetUserByIdAsync(AbpSession.UserId.Value);
-                    _parkBoxOptions.IsListView = true;
+                    _parkBoxOptions.IsListView = false;
                     _parkBoxOptions.MockDevices();
                     SynchronizationContext.Post((o) => DialogResult = true, null);
                     break;

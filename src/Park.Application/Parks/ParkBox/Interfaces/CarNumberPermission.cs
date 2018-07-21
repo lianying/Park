@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
+using Park.Entitys.Box;
+using Park.Entitys.CarUsers;
 using Park.Entitys.ParkEntrances;
 using Park.Expansions;
 using Park.IRepositories;
@@ -14,12 +16,12 @@ namespace Park.Parks.ParkBox.Interfaces
     public class CarNumberPermission : ICarNumberPermission
     {
 
-        private readonly ICarUserRepository _carUserRepository;
+        private readonly IRepository<CarUsers,long> _carUserRepository;
         private readonly IRepository<ParkEntrances, long> _repository;
-        private readonly ICarInRecordRepository _carInRecordRepository;
-        public CarNumberPermission(ICarUserRepository carUserRepository,
+        private readonly IRepository<CarInRecord,long> _carInRecordRepository;
+        public CarNumberPermission(IRepository<CarUsers,long> carUserRepository,
             IRepository<ParkEntrances,long> repository,
-            ICarInRecordRepository carInRecordRepository) {
+            IRepository<CarInRecord,long> carInRecordRepository) {
             _carUserRepository = carUserRepository;
             _repository = repository;
             _carInRecordRepository = carInRecordRepository;
@@ -29,7 +31,7 @@ namespace Park.Parks.ParkBox.Interfaces
         {
 
 
-            var entrance = _repository.GetAllIncluding(x => x.ParkEntrancePermission).Single(x => x.Id == entranceId);
+            var entrance = _repository.GetAllIncluding(x => x.ParkEntrancePermission).Where(x => x.Id == entranceId).FirstOrDefault();
 
             if (number.IsNoBrandCar())
             {  //无牌车
@@ -47,7 +49,12 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
-            var user = _carUserRepository.GetUser(number);
+            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.CarPorts, x => x.Park, x => x.ParkArea)
+                .Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number)))
+                .InculdeIn(x => x.CarPorts.Select(z => z.CarPortType))
+                .InculdeIn(x=>x.CarPorts.Select(z=>z.ParkLevel))
+                .InculdeIn(x => x.CarPorts.Select(z => z.ParkArea))
+                .FirstOrDefault();
             if (user == null) //临时车
             {
                 if (entrance.ParkEntrancePermission.IsTempCarIn)

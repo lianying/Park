@@ -62,7 +62,7 @@ namespace Park.EntityFramework
         public ParkDbContext()
             : base("Default")
         {
-
+            this.Configuration.LazyLoadingEnabled = false; //关闭延迟加载
         }
 
         /* NOTE:

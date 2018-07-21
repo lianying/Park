@@ -29,12 +29,12 @@ namespace Park.Entitys.Box
         /// </summary>
         public virtual CarUsers.CarUsers CarUser { get; set; }
 
-        public virtual long CarId { get; set; }
+        public virtual long? CarId { get; set; }
 
         [ForeignKey("CarPortId")]
         public virtual CarUsers.CarPort CarPort { get; set; }
 
-        public virtual long CarPortId { get; set; }
+        public virtual long? CarPortId { get; set; }
 
         /// <summary>
         /// 入场时场内集团车数量
@@ -65,13 +65,13 @@ namespace Park.Entitys.Box
         /// <summary>
         /// 临时车转月租车的时间
         /// </summary>
-        public virtual DateTime TempConvertMonthTime { get; set; }
+        public virtual DateTime? TempConvertMonthTime { get; set; }
 
 
         [ForeignKey("CarInPhotoId")]
         public virtual CarInOutImage CarInImage { get; set; }
 
-        public virtual long CarInPhotoId { get; set; }
+        public virtual long? CarInPhotoId { get; set; }
 
 
 
@@ -127,7 +127,7 @@ namespace Park.Entitys.Box
        public virtual CarInOutImage CarOutImage { get; set; }
 
 
-        public virtual long CarOutPhotoId { get; set; }
+        public virtual long? CarOutPhotoId { get; set; }
         /// <summary>
         /// 出场拍照时间
         /// </summary>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Park.IRepositories
 {
-    public interface ICarInRecordRepository : IRepository<CarInRecord,long>
-    {
-        CarInRecord IsCarIn(int parkId, string CarNumber);
+    //public interface ICarInRecordRepository : IRepository<CarInRecord,long>
+    //{
+    //    CarInRecord IsCarIn(int parkId, string CarNumber);
 
 
-        List<CarInRecord> GetCarInByUserId(long userId);
-    }
+    //    List<CarInRecord> GetCarInByUserId(long userId);
+    //}
 }

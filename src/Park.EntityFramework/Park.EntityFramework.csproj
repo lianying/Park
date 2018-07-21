@@ -209,6 +209,7 @@
     <Compile Include="EntityFramework\Repositories\CarUserRecordRepository.cs" />
     <Compile Include="EntityFramework\Repositories\ParkRepository.cs" />
     <Compile Include="EntityFramework\Repositories\ParkRepositoryBase.cs" />
+    <Compile Include="Expansions\IQueryableExpansion.cs" />
     <Compile Include="Migrations\201707261347311_Initial_Migration.cs" />
     <Compile Include="Migrations\201707261347311_Initial_Migration.Designer.cs">
       <DependentUpon>201707261347311_Initial_Migration.cs</DependentUpon>
@@ -248,6 +249,26 @@
     <Compile Include="Migrations\201807171202575_addCarInOutParkId.cs" />
     <Compile Include="Migrations\201807171202575_addCarInOutParkId.Designer.cs">
       <DependentUpon>201807171202575_addCarInOutParkId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180354492_TempConvertMonthTime is Null.cs" />
+    <Compile Include="Migrations\201807180354492_TempConvertMonthTime is Null.Designer.cs">
+      <DependentUpon>201807180354492_TempConvertMonthTime is Null.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180359002_edit carInRecord.cs" />
+    <Compile Include="Migrations\201807180359002_edit carInRecord.Designer.cs">
+      <DependentUpon>201807180359002_edit carInRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180447406_edit carOutRecord.cs" />
+    <Compile Include="Migrations\201807180447406_edit carOutRecord.Designer.cs">
+      <DependentUpon>201807180447406_edit carOutRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180547367_edit carOutRecord TempConvertMonthTime.cs" />
+    <Compile Include="Migrations\201807180547367_edit carOutRecord TempConvertMonthTime.Designer.cs">
+      <DependentUpon>201807180547367_edit carOutRecord TempConvertMonthTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807180549299_edit carOutRecord CarOutPhotoId null.cs" />
+    <Compile Include="Migrations\201807180549299_edit carOutRecord CarOutPhotoId null.Designer.cs">
+      <DependentUpon>201807180549299_edit carOutRecord CarOutPhotoId null.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -301,6 +322,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807171202575_addCarInOutParkId.resx">
       <DependentUpon>201807171202575_addCarInOutParkId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180354492_TempConvertMonthTime is Null.resx">
+      <DependentUpon>201807180354492_TempConvertMonthTime is Null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180359002_edit carInRecord.resx">
+      <DependentUpon>201807180359002_edit carInRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180447406_edit carOutRecord.resx">
+      <DependentUpon>201807180447406_edit carOutRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180547367_edit carOutRecord TempConvertMonthTime.resx">
+      <DependentUpon>201807180547367_edit carOutRecord TempConvertMonthTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807180549299_edit carOutRecord CarOutPhotoId null.resx">
+      <DependentUpon>201807180549299_edit carOutRecord CarOutPhotoId null.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,10 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Abp.Dependency;
 
 namespace Park.Parks.ParkBox.Core
 {
-    public class LedManager
+    public class LedManager:ISingletonDependency
     {
 
         private readonly IParkBoxOptions parkBoxOptions;

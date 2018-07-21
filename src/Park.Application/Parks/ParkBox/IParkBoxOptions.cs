@@ -15,6 +15,21 @@ namespace Park.ParkBox
 {
     public interface IParkBoxOptions: ISingletonDependency
     {
+        /// <summary>
+        /// 车场名
+        /// </summary>
+        string ParkName { get; set; }
+
+        /// <summary>
+        /// 车场编号
+        /// </summary>
+        int ParkId { get; set; }
+        /// <summary>
+        /// 本机IP列表
+        /// </summary>
+
+        List<string> LocalIps { get; set; }
+
 
         /// <summary>
         /// 是否展示实时画面

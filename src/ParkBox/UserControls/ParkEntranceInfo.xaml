@@ -6,67 +6,113 @@
              xmlns:local="clr-namespace:Park.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Foreground" Value="#666666"></Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid x:Name="Grd_Left">
             <Canvas   Name="Camera" VerticalAlignment="Stretch">
-        </Canvas>
+            </Canvas>
         <Canvas>
-            <TextBlock Name="EntranceName" Canvas.Left="20" Canvas.Top="20"></TextBlock>
-            <TextBlock Name="TimeClock" Canvas.Right="20" Canvas.Top="20"></TextBlock>
+                <DockPanel Width="{Binding ElementName=Grd_Left, Path=ActualWidth}">
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
 
-            <Button Name="btn_InOut" Canvas.Left="20" Canvas.Bottom="20" Click="btn_InOut_Click" Content="手工入场"></Button>
-            <Button Name="btn_OpenRod" Canvas.Right="60" Canvas.Bottom="20" Click="btn_OpenRod_Click" Content="开闸"></Button>
-            <Button Name="btn_CloseRod" Canvas.Right="20" Canvas.Bottom="20" Content="落闸"></Button>
+                        <TextBlock Name="EntranceName" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        <TextBlock Name="TimeClock" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
+                    </Grid>
+                </DockPanel>
 
-            
+                <DockPanel Width="{Binding ElementName=Grd_Left, Path=ActualWidth}"  Canvas.Bottom="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
 
-        </Canvas>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Button Name="btn_InOut"   Background="Red"   Width="100" Height="40" Click="btn_InOut_Click" Content="手工入场"></Button>
+                        </Grid>
+                        <Grid Grid.Column="1">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+
+                            </Grid.ColumnDefinitions>
+
+                            <Button Name="btn_OpenRod" Width="80" Background="Green"  Click="btn_OpenRod_Click" Content="开闸"></Button>
+                            <Button Name="btn_CloseRod" Grid.Column="1" Background="Orange"  Width="80" Height="40" Content="落闸"></Button>
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+
+
+
+            </Canvas>
         </Grid>
         <Grid Margin="5,5,5,0" Grid.Column="1" Name="Right">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Name="Img"></StackPanel>
             <StackPanel  Grid.Row="1"  MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" HorizontalAlignment="Center">
+                
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Name="Stack_CarNumber" Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_CarNumber" HorizontalAlignment="Right">车牌号:</Label>
-                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Name="txt_CarNumber" >123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" Name="txt_CarNumber" ></TextBlock>
                 </StackPanel>
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_CarType" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_CarType" HorizontalAlignment="Right">车类型:</Label>
-                    <TextBlock HorizontalAlignment="Right" Name="txt_CarType" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Name="txt_CarType" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <StackPanel  MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Name="Stack_InTime" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_InTime" >入场时间:</Label>
-                    <TextBlock  Name="txt_InTime" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock  Margin="2,0,0,0" Name="txt_InTime" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
 
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}"  Name="Stack_OutTime" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_OutTime" >出场时间:</Label>
-                    <TextBlock  Name="txt_OutTime" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock  Margin="2,0,0,0"  Name="txt_OutTime" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
 
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_UserName" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_UserName" HorizontalAlignment="Right">用户名:</Label>
-                    <TextBlock HorizontalAlignment="Right" Name="txt_UserName" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Name="txt_UserName" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_CarportsCount" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_CarportsCount" HorizontalAlignment="Right">车位数:</Label>
-                    <TextBlock HorizontalAlignment="Right" Name="txt_CarportsCount" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Name="txt_CarportsCount" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_CarInCount" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_CarInCount" HorizontalAlignment="Right">车位数:</Label>
-                    <TextBlock HorizontalAlignment="Right" Name="txt_CarInCount" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Name="txt_CarInCount" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
 
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_RematingDays" FlowDirection="LeftToRight" HorizontalAlignment="Left">
                     <Label Name="lbl_RematingDays" HorizontalAlignment="Right">车位数:</Label>
-                    <TextBlock HorizontalAlignment="Right" Name="txt_RematingDays" VerticalAlignment="Center">123123</TextBlock>
+                    <TextBlock HorizontalAlignment="Right" Name="txt_RematingDays" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>

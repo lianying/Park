@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using Park.Enum;
 using Park.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,12 +33,15 @@ namespace Park.Entitys.Box
         /// </summary>
         public virtual CarUsers.CarUsers CarUser { get; set; }
 
-        public virtual long CarId { get; set; }
+        public virtual long? CarId { get; set; }
 
         [ForeignKey("CarPortId")]
         public virtual CarUsers.CarPort CarPort { get; set; }
 
-        public virtual long CarPortId { get; set; }
+        public virtual long? CarPortId { get; set; }
+
+
+        public virtual InOutTypeEnum InType { get; set; }
 
 
 
@@ -60,7 +64,7 @@ namespace Park.Entitys.Box
         /// <summary>
         /// 临时车转月租车的时间
         /// </summary>
-        public virtual DateTime TempConvertMonthTime { get; set; }
+        public virtual DateTime? TempConvertMonthTime { get; set; }
 
 
 
@@ -73,6 +77,6 @@ namespace Park.Entitys.Box
         [ForeignKey("CarInPhotoId")]
         public virtual CarInOutImage CarInOutImage { get; set; }
 
-        public virtual long CarInPhotoId { get; set; }
+        public virtual long? CarInPhotoId { get; set; }
     }
 }

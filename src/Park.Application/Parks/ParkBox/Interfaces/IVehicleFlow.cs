@@ -20,11 +20,11 @@ namespace Park.Parks.ParkBox.Interfaces
         /// 入场流程
         /// </summary>
 
-        bool CarIn(CarInModel carIn, PermissionResult permissionResult);
+        CarInRecord CarIn(CarInModel carIn, PermissionResult permissionResult);
 
 
 
-        bool CarOut(CarInRecord carIn, CarOutModel carOutModel);
+        CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel);
 
 
 

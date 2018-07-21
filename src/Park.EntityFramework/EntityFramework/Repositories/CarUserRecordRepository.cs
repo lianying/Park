@@ -14,7 +14,7 @@ namespace Park.EntityFramework.Repositories
 {
     public class CarUserRecordRepository : ParkRepositoryBase<CarUsers,long>, ICarUserRepository
     {
-        protected CarUserRecordRepository(IDbContextProvider<ParkDbContext> dbContextProvider) : base(dbContextProvider)
+        public CarUserRecordRepository(IDbContextProvider<ParkDbContext> dbContextProvider) : base(dbContextProvider)
         {
         }
 

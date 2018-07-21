@@ -14,6 +14,7 @@ namespace Park.Expansions
 
         
         public static void SetImage(this System.Windows.Controls.Image image,Stream stream) {
+            stream.Seek(0, SeekOrigin.Begin);
             BitmapImage bitmapImage = new BitmapImage();
             bitmapImage.BeginInit();
             bitmapImage.StreamSource = stream;
