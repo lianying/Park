@@ -44,6 +44,9 @@ namespace Park.Entitys.Box
         public virtual InOutTypeEnum InType { get; set; }
 
 
+        public virtual CarNumberPermissionEnum CarInPermission { get; set; }
+
+
 
         /// <summary>
         /// 入场时集团场内车辆数

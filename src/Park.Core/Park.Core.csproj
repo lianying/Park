@@ -206,6 +206,10 @@
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />
     <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
+    <Compile Include="Entitys\FareRules\FareRule.cs" />
+    <Compile Include="Entitys\FareRules\ParkingDetails.cs" />
+    <Compile Include="Entitys\FareRules\RangeTime.cs" />
+    <Compile Include="Entitys\FareRules\TimeSpanExtensions.cs" />
     <Compile Include="Entitys\FeeRules\Charger.cs" />
     <Compile Include="Entitys\ParkAreas\ParkAreas.cs" />
     <Compile Include="Entitys\ParkEntrances\CarTypePermissions.cs" />
@@ -223,6 +227,7 @@
     <Compile Include="Enum\EquipmentManufacturers.cs" />
     <Compile Include="Enum\InOutTypeEnum.cs" />
     <Compile Include="Enum\NoNumberOptions.cs" />
+    <Compile Include="Enum\OutOfferTypeEnum.cs" />
     <Compile Include="Enum\PayTypeEnum.cs" />
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />

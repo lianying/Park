@@ -140,5 +140,11 @@ namespace Park.Entitys.Box
         public virtual PayTypeEnum PayType { get; set; }
 
 
+        public virtual OutOfferTypeEnum OutOfferType { get; set; }
+
+
+        public virtual string Remark { get; set; }
+
+
     }
 }
