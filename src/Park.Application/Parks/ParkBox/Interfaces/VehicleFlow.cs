@@ -7,6 +7,7 @@ using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Abp.Extensions;
 using Park.Entitys.Box;
+using Park.Entitys.CarUsers;
 using Park.Expansions;
 using Park.IRepositories;
 using Park.Parks.ParkBox.Models;
@@ -41,6 +42,33 @@ namespace Park.Parks.ParkBox.Interfaces
             _unitOfWorkManager.Current.SaveChanges();
 
             return _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        public CarOutRecord CarOut(string CarNumber, CarUsers users, CarOutModel carOutModel)
+        {
+            var carOut = new CarOutRecord()
+            {
+                InTime = DateTime.Now,
+                CarId = users?.Id,
+                OutTime = carOutModel.OutTime,
+                InType = Enum.InOutTypeEnum.Artificial,
+                Remark = "无在场记录出场",
+                CarPort = users?.CarPorts.FirstOrDefault(),
+                CarInCount = 0,
+                CarNumber = CarNumber,
+                CarOutPhotoId = carOutModel.ImageId,
+                OutPhotoTime = carOutModel.OutPhotoTime,
+                OutType = carOutModel.InOutType,
+                Pay = carOutModel.Pay,
+                AdvancePayment = 0,
+                ParkId = carOutModel.ParkId
+            };
+            var id = _carOutRecordRepository.InsertAndGetId(carOut);
+
+
+
+            return _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+
         }
 
         public IsCarInModel IsCarIn(int parkId, string carNumber)

@@ -1,9 +1,11 @@
 ﻿using Abp.Dependency;
+using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Castle.MicroKernel.Registration;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Park.CreateCameraPnel;
+using Park.Entitys.CarTypes;
 using Park.Entitys.ParkEntrances;
 using Park.Froms;
 using Park.ParkBox;
@@ -39,6 +41,8 @@ namespace Park.Froms
         private readonly ICarNumberPermission _carNumberPermission;
         private readonly LedManager _ledManager;
 
+        private readonly IRepository<CarTypes, long> _repositoryCarType;
+
         private EntranceDto _inEntranceDto = null;
 
         private EntranceDto _outEntranceDto = null;
@@ -48,7 +52,10 @@ namespace Park.Froms
         
         
         public MainWindow(IParkBoxOptions parkBoxOptions, ICreatePnel createPnel,
-            IVehicleFlow vehicleFlow,ICarNumberPermission carNumberPermission, LedManager ledManager)
+            IVehicleFlow vehicleFlow,
+            ICarNumberPermission carNumberPermission,
+            LedManager ledManager,
+            IRepository<CarTypes,long> repositoryCarType)
         {
             InitializeComponent();
             DataContext = this;
@@ -60,9 +67,10 @@ namespace Park.Froms
             var userCard = IocManager.Instance.Resolve<UserCard>();
             UserCard.Background = new SolidColorBrush(Colors.White);
             UserCard.Child = userCard;
-            
 
-            
+            _repositoryCarType = repositoryCarType;
+
+
 
             IocManager.Instance.IocContainer.Register(
                 Component.For<IManualEntryAndExit>().UsingFactoryMethod(() => this));
@@ -164,19 +172,52 @@ namespace Park.Froms
             var isCarIn = _vehicleFlow.IsCarIn(_outEntranceDto.ParkLevel.Park.Id, carNumber);
             if (isCarIn.IsCarIn)
             {
-                var outRcode = _vehicleFlow.CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
-                if (outRcode!=null)
+
+                var user = _carNumberPermission.GetUser(_outEntranceDto.ParkLevel.Park.Id, carNumber);
+                if (user != null)
                 {
+                    //月租车正常出场
+                    if (!isCarIn.CarInRecord.IsMonthTempIn)
+                    {
 
-                    parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
-                }
-                else {
 
-                    await this.ShowMessageAsync("提示", "出场失败!");
+                        var outRcode = _vehicleFlow.CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
+                        if (outRcode != null)
+                        {
+
+                            parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
+                        }
+                        else
+                        {
+
+                            await this.ShowMessageAsync("提示", "出场失败!");
+                        }
+                    }
+                    else
+                    {
+
+                    }
                 }
+                
             }
-            else {
+            else
+            {
+                Logger.Info(carNumber + " 无场内记录");
+                var user = _carNumberPermission.GetUser(_outEntranceDto.ParkLevel.Park.Id, carNumber);
+                if (user != null)
+                {
+                    var outRcode = _vehicleFlow.CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
+                    if (outRcode != null)
+                    {
 
+                        parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
+                    }
+                    else
+                    {
+
+                        await this.ShowMessageAsync("提示", "出场失败!");
+                    }
+                }
                 await this.ShowMessageAsync("提示", "当前车辆不在场内!");
             }
         }

@@ -10,7 +10,6 @@
         Title="TollWindow" Height="600" Width="360"
         WindowStyle="None"
         FontSize="16"
-               
         >
     <DockPanel Margin="30,10,10,10">
     <Grid Margin="2,2,2,2" x:Name="Grd_Content">
@@ -80,7 +79,6 @@
             <StackPanel x:Name="Spl_MoneyOrTime" Visibility="Collapsed" Margin="35,0,0,0">
                 <Label x:Name="lbl_MoneyOrTime">金额:</Label>
                     <TextBox x:Name="txt_MoneyOrTime" Margin="10,0,0,0" Width="150" VerticalAlignment="Center"
-                             Text="{Binding Path=LocalMoneyOrTime, Mode=TwoWay}"
                          Controls:TextBoxHelper.UseFloatingWatermark="True"
                          Controls:TextBoxHelper.Watermark="0">
                     </TextBox>

@@ -81,5 +81,8 @@ namespace Park.Entitys.Box
         public virtual CarInOutImage CarInOutImage { get; set; }
 
         public virtual long? CarInPhotoId { get; set; }
+
+
+        public virtual decimal AdvancePayment { get; set; }
     }
 }

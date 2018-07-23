@@ -27,6 +27,9 @@ namespace Park.Parks.ParkBox.Interfaces
         CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel);
 
 
+        CarOutRecord CarOut(string CarNumber, CarUsers users, CarOutModel carOutModel);
+
+
 
         IsCarInModel IsCarIn(int parkId, string carNumber);
 

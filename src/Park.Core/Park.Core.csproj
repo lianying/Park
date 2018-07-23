@@ -231,6 +231,7 @@
     <Compile Include="Enum\PayTypeEnum.cs" />
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
+    <Compile Include="Expansions\DateTimeExpansion.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
     <Compile Include="Expansions\StringExpansion.cs" />
     <Compile Include="Interfaces\IFilterable.cs" />

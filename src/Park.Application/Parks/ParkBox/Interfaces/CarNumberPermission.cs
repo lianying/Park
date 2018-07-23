@@ -19,12 +19,15 @@ namespace Park.Parks.ParkBox.Interfaces
         private readonly IRepository<CarUsers,long> _carUserRepository;
         private readonly IRepository<ParkEntrances, long> _repository;
         private readonly IRepository<CarInRecord,long> _carInRecordRepository;
+        private readonly IRepository<CarPort, long> _carPortRepository;
         public CarNumberPermission(IRepository<CarUsers,long> carUserRepository,
             IRepository<ParkEntrances,long> repository,
-            IRepository<CarInRecord,long> carInRecordRepository) {
+            IRepository<CarInRecord,long> carInRecordRepository,
+            IRepository<CarPort, long> carPortRepository) {
             _carUserRepository = carUserRepository;
             _repository = repository;
             _carInRecordRepository = carInRecordRepository;
+            _carPortRepository = carPortRepository;
         }
 
         public PermissionResult CheckCarNumberPermission(string number,long entranceId)
@@ -74,6 +77,20 @@ namespace Park.Parks.ParkBox.Interfaces
             {   //月租车
                 return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false);
             }
+        }
+
+        public CarUsers GetUser(int parkId, string number)
+        {
+            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.Park, x => x.ParkArea).Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number))).FirstOrDefault();
+
+            if (user != null)
+            {
+                var carport = _carPortRepository.GetAll().FirstOrDefault(x => x.StartTime <= DateTime.Now && x.EndTime >= DateTime.Now && x.CarUserId == user.Id);
+
+                user.CarPorts = new List<CarPort>() { carport };
+            }
+            return user;
+            
         }
     }
 }

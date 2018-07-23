@@ -14,8 +14,7 @@
               ShowIconOnTitleBar="False"
                FontFamily="思源黑体">
     <Window.Resources>
-        <ZoomPercentageConverter x:Key="PercentageConverter"> </ZoomPercentageConverter>
-        
+        <ZoomPercentageConverter x:Key="PercentageConverter"></ZoomPercentageConverter>
     </Window.Resources>
     <Grid>
         
@@ -44,8 +43,7 @@
                 <Border BorderBrush="#dddddd" BorderThickness="4" Grid.Row="1" Name="UserCard" >
                 </Border>
             </Grid>
-            <Grid Background="#eeeeee"  Grid.Row="1"
-                    Grid.Column="0">
+            <Grid Background="#eeeeee"  Grid.Row="1"  Grid.Column="0">
                 
                 <!--<i:Interaction.Behaviors>
                     <beh:ScaleFontBehavior MaxFontSize="28"></beh:ScaleFontBehavior>
@@ -55,12 +53,10 @@
                         <Setter Property="Margin" Value="0,2,0,2"></Setter>
                         <Setter Property="Foreground" Value="#e65252"></Setter>
                         <Setter Property="FontSize" Value="14"></Setter>
-                        
                     </Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="TextWrapping" Value="Wrap"></Setter>
                         <Setter Property="TextAlignment" Value="Center"></Setter>
-                        
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
@@ -83,7 +79,6 @@
                 </Button>
                 <Button  Grid.Row="1">
                     <Button.ContentTemplate >
-
                         <DataTemplate >
                             <TextBlock > 入场明细</TextBlock>
                         </DataTemplate>

@@ -91,6 +91,16 @@ namespace Park.Entitys.Box
         /// </summary>
         public virtual DateTime OutTime { get; set; }
 
+        /// <summary>
+        /// 应收金额
+        /// </summary>
+        public virtual decimal Receivable { get; set; }
+
+        /// <summary>
+        /// 提前缴费金额
+        /// </summary>
+        public virtual decimal AdvancePayment { get; set; }
+
 
         /// <summary>
         /// 实际付款金额

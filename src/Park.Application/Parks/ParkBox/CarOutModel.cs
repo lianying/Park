@@ -1,4 +1,5 @@
-﻿using Park.Entitys.CarUsers;
+﻿using Park.Entitys.Box;
+using Park.Entitys.CarUsers;
 using Park.Enum;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,15 @@ namespace Park.Parks.ParkBox
 {
     public class CarOutModel
     {
+
+        public CarInRecord CarInRecord { get; set; }
         /// <summary>
         /// 出场时间
         /// </summary>
         public DateTime OutTime { get; set; }
 
+
+        public decimal Receivable { get; set; }
 
         /// <summary>
         /// 实际付款金额
@@ -53,6 +58,12 @@ namespace Park.Parks.ParkBox
         /// </summary>
 
         public DateTime? OutPhotoTime { get; set; }
+
+
+        public long ImageId { get; set; }
+
+
+        public int ParkId { get; set; }
 
 
 

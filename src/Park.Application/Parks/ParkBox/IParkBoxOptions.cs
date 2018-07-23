@@ -102,5 +102,9 @@ namespace Park.ParkBox
 
 
 
+        int TempCarTypeId { get; set; }
+
+
+
     }
 }

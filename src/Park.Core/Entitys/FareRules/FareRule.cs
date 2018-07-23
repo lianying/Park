@@ -28,7 +28,7 @@ namespace Park.Entitys.FareRules
 
         public FareRule()
         {
-            base.InitMetaData();
+
         }
 
         public int id
@@ -149,13 +149,15 @@ namespace Park.Entitys.FareRules
         /// </summary>
         /// <param name="inTime"></param>
         /// <param name="outTime"></param>
+        /// <param name="disCountTime"></param>
+        /// <param name="isRegisterDisCountMoney"></param>
         /// <returns></returns>
-        public decimal CalculateFees(DateTime inTime, DateTime outTime, double disCountTime)
+        public decimal CalculateFees(DateTime inTime, DateTime outTime, double disCountTime,bool isRegisterDisCountMoney=false)
         {
             //var task = Task.Run(() => {
             try
             {
-                if (disCountTime > 0)
+                if (disCountTime > 0&&!isRegisterDisCountMoney)
                 {
                     outTime = outTime.AddMinutes(-disCountTime);
                 }
