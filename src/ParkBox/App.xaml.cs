@@ -4,6 +4,7 @@ using Abp.Runtime.Validation;
 using Abp.UI;
 using Castle.Core.Logging;
 using Castle.Facilities.Logging;
+using MahApps.Metro;
 using Park.Froms;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,12 @@ namespace Park
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Tuple<AppTheme, Accent> appStyle = ThemeManager.DetectAppStyle(Application.Current);
+
+            // now set the Green accent and dark theme
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent("Red"),
+                                        appStyle.Item1); // or appStyle.Item1
 
             _synchronizationContext = DispatcherSynchronizationContext.Current;
             _bootstrapper.Initialize();

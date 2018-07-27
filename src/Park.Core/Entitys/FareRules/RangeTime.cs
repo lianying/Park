@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -113,6 +114,9 @@ namespace Park.Entitys.FareRules
                 this.m_FareRuleId = value;
             }
         }
+
+
+        [ForeignKey("FareRuleId")]
         public FareRule FareRule { get; set; }
 
 

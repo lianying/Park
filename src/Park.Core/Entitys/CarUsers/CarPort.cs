@@ -1,11 +1,12 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Park.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.Entitys.CarUsers
 {
-    public class CarPort: FullAuditedEntity<long>, ISynchronize
+    public class CarPort : Entity<long>, IHasCreationTime, IModificationAudited, IHasModificationTime, IDeletionAudited, IHasDeletionTime, ISoftDelete, ISynchronize
     {
         /// <summary>
         /// 车位编号
@@ -57,9 +58,19 @@ namespace Park.Entitys.CarUsers
         
         public virtual long CarUserId { get; set; }
 
-        public virtual bool IsSuccess { get ; set ; }
+        public virtual DateTime CreationTime { get; set; }
+        public virtual long? LastModifierUserId { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
+        public virtual long? DeleterUserId { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
+        public virtual bool IsDeleted { get; set; }
 
 
-        public virtual string CloudId { get ; set ; }
+
+        public virtual bool IsSuccess { get; set; }
+
+        public virtual string CloudId { get; set; }
+
+
     }
 }

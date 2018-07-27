@@ -13,6 +13,7 @@ using Park.Entitys.ParkAreas;
 using Park.Entitys.Cameras;
 using Park.Entitys.CarUsers;
 using Park.Entitys.Box;
+using Park.Entitys.FareRules;
 
 namespace Park.EntityFramework
 {
@@ -21,7 +22,7 @@ namespace Park.EntityFramework
         //TODO: Define an IDbSet for your Entities...
 
             
-            public virtual IDbSet<ParkSet> Parks { get; set; }
+        public virtual IDbSet<ParkSet> Parks { get; set; }
 
         public virtual IDbSet<ParkLevels> ParkLevels { get; set; }
 
@@ -50,6 +51,15 @@ namespace Park.EntityFramework
         public virtual IDbSet<CarDiscount> CarDiscounts { get; set; }
 
 
+        public virtual IDbSet<FareRule> FareRules { get; set; }
+
+
+        public virtual IDbSet<RangeTime> RangeTimes { get; set; }
+
+
+        public virtual IDbSet<BlackList> BlackLists { get; set; }
+
+
         
 
 
@@ -62,7 +72,7 @@ namespace Park.EntityFramework
         public ParkDbContext()
             : base("Default")
         {
-            this.Configuration.LazyLoadingEnabled = false; //关闭延迟加载
+            
         }
 
         /* NOTE:
@@ -72,7 +82,7 @@ namespace Park.EntityFramework
         public ParkDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-
+            //this.Configuration.LazyLoadingEnabled = false; //关闭延迟加载
         }
 
         //This constructor is used in tests

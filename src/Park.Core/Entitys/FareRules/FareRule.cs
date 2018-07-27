@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Abp.Domain.Entities;
+using Park.Entitys.CarTypes;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Park.Entitys.FareRules
 {
-    public class FareRule
+    public class FareRule:Entity
     {
-        private int m_id;
-
         private int m_parkId;
-
-        private int m_ModeId;
-
-        private int m_CarTypeId;
+        
+        private long m_CarTypeId;
 
         private string m_Name;
 
@@ -30,18 +29,7 @@ namespace Park.Entitys.FareRules
         {
 
         }
-
-        public int id
-        {
-            get
-            {
-                return this.m_id;
-            }
-            set
-            {
-                this.m_id = value;
-            }
-        }
+        
 
         public int parkId
         {
@@ -54,20 +42,9 @@ namespace Park.Entitys.FareRules
                 this.m_parkId = value;
             }
         }
+        
 
-        public int ModeId
-        {
-            get
-            {
-                return this.m_ModeId;
-            }
-            set
-            {
-                this.m_ModeId = value;
-            }
-        }
-
-        public int CarTypeId
+        public long CarTypeId
         {
             get
             {
@@ -78,6 +55,9 @@ namespace Park.Entitys.FareRules
                 this.m_CarTypeId = value;
             }
         }
+
+        [ForeignKey("CarTypeId")]
+        public Park.Entitys.CarTypes.CarTypes CarType { get; set; }
 
         public string Name
         {

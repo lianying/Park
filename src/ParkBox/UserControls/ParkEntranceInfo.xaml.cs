@@ -62,10 +62,7 @@ namespace Park.UserControls
 
         }
 
-        private void Btn_InOut_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public void Init()
         {
@@ -124,6 +121,7 @@ namespace Park.UserControls
                 txt_CarType.Text = tempCarport == null ? "临时车" : tempCarport.First().CarPortType.CustomName;
                 txt_UserName.Text = carInRecord.CarUser?.Name;
                 txt_OutTime.Text = "";
+                txt_RematingDays.Text = tempCarport == null ? "0" : (tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays.ToString();
             }, null);
 
 
@@ -175,19 +173,28 @@ namespace Park.UserControls
             synchronizationContext.Post(x => _manualEntryAndExit?.ManualEntryAndExit(x as EntranceDto), deviceInfo?.EntranceDto);
         }
 
-        private void btn_OpenRod_Click(object sender, System.Windows.RoutedEventArgs e)
+        private async void btn_OpenRod_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            OpenRod();
+          await  OpenRod();
         }
 
-        public void OpenRod() {
+        public async Task OpenRod()
+        {
             if (deviceInfo == null)
             {
                 _logger.Info("open rod error::::deviceInfo==null");
                 return;
             }
-            deviceInfo.Controlable?.Camerable?.OpenRod();
-            _logger.Info("btn openRodClick success");
+            if (deviceInfo.Controlable != null && deviceInfo.Controlable.Camerable != null)
+            {
+                await deviceInfo.Controlable?.Camerable?.OpenRod();
+                _logger.Info("btn openRodClick success");
+            }
+            else
+            {
+                _logger.Info("deviceInfo.Controlable ==null or deviceInfo.Controlable?.Camerable==null");
+            }
+            return;
         }
 
         public DeviceInfoDto GetDeviceInfo()

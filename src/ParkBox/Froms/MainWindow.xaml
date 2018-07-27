@@ -12,24 +12,40 @@
         Title="MainWindow" Height="1000" Width="950"
                WindowStartupLocation ="CenterScreen"
               ShowIconOnTitleBar="False"
-               FontFamily="思源黑体">
+               FontFamily="思源黑体"
+               TitlebarHeight="50"
+               ShowMinButton="False"
+               ShowCloseButton="False"
+               ShowMaxRestoreButton="False"
+               ResizeMode="NoResize"
+               Topmost="False"
+               WindowState="Maximized"
+               SourceInitialized="AbpWindow_SourceInitialized"
+               Closing="AbpWindow_Closing"
+               Closed="AbpWindow_Closed"
+               >
+
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource Locator}"></Binding>
+    </Window.DataContext>
     <Window.Resources>
         <ZoomPercentageConverter x:Key="PercentageConverter"></ZoomPercentageConverter>
     </Window.Resources>
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="103*"></ColumnDefinition>
+            <ColumnDefinition Width="630*"/>
+            <ColumnDefinition Width="209*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Controls:FlipView Name="ContentCamera" IsBannerEnabled="False" Orientation="Vertical">
-           
+        <Controls:FlipView Name="ContentCamera" IsBannerEnabled="False" Orientation="Vertical" MouseHoverBorderEnabled="False" Grid.ColumnSpan="2">
+
         </Controls:FlipView>
-        <Grid Grid.Column="1" Margin="5,5,5,0" Name="Grd_Right">
-            
+        <Grid Grid.Column="2" Margin="5,5,5,0" Name="Grd_Right">
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="2*"></RowDefinition>
@@ -44,7 +60,7 @@
                 </Border>
             </Grid>
             <Grid Background="#eeeeee"  Grid.Row="1"  Grid.Column="0">
-                
+
                 <!--<i:Interaction.Behaviors>
                     <beh:ScaleFontBehavior MaxFontSize="28"></beh:ScaleFontBehavior>
                 </i:Interaction.Behaviors>-->
@@ -122,69 +138,81 @@
                     </Button.ContentTemplate>
                 </Button>
                 <Button Grid.Row="7" Grid.RowSpan="2" >
-                   
+
                 </Button>
 
             </Grid>
         </Grid>
     </Grid>
     <Controls:MetroWindow.Flyouts>
-        <Controls:FlyoutsControl>
+        <Controls:FlyoutsControl >
 
 
-            <Controls:Flyout Header="手工入场" Position="Right" Theme="Accent"  >
-                <Grid Width="400" Margin="10">
-                    <StackPanel>
-                        <TextBox Name="txt_InCarNumber" SpellCheck.IsEnabled="True" HorizontalContentAlignment="Stretch"
+            <Controls:Flyout  TitleVisibility="Collapsed" CloseButtonVisibility="Collapsed"  Header="手工入场" Position="Right" Theme="Light"  >
+                <StackPanel Orientation="Horizontal" Height="{Binding ElementName=Grd_Right, Path=ActualHeight}">
+                <Grid Width="400" Margin="30,0,0,50">
+                        <StackPanel  VerticalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Left" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
+                                <Image Width="28" Height="28" Source="/arrow.png"></Image>
+                            </StackPanel>
+                            <Border Margin="0,20,0,0" BorderBrush="Black" BorderThickness="0,1,0,0">
+                            </Border>
+
+
+                            <TextBlock Margin="0,20,0,0" Foreground="#666666" FontSize="20" >车牌号</TextBlock>
+                            <TextBox  Margin="0,20,0,0" FontSize="18" BorderBrush="Red" Name="txt_InCarNumber" SpellCheck.IsEnabled="True" HorizontalContentAlignment="Stretch"
                          Controls:TextBoxHelper.ClearTextButton="True"
-                         Controls:TextBoxHelper.IsWaitingForData="True"
-                         Controls:TextBoxHelper.UseFloatingWatermark="True"
-                         Controls:TextBoxHelper.Watermark="Watermark"
-                         Controls:TextBoxHelper.WatermarkAlignment="Right"
                                  ToolTip="车牌号" Text="">
                             
                         </TextBox>
-                        <Button Name="btn_In" Content="手工入场" Click="btn_In_Click"></Button>
+                            <Button  Margin="0,20,0,0" FontSize="20" Foreground="White" Background="Red" Name="btn_In" Content="手工入场" Click="btn_In_Click"></Button>
                     </StackPanel>
                 </Grid>
+                </StackPanel>
             </Controls:Flyout>
 
 
-            <Controls:Flyout Header="手工出场" Position="Right" Theme="Accent">
+            <Controls:Flyout  TitleVisibility="Collapsed" CloseButtonVisibility="Collapsed"   Header="手工出场" Position="Right" Theme="Light">
 
-                <Grid Width="400" Margin="10">
-                    <StackPanel>
-                        <TextBox Name="txt_OutCarNumber" SpellCheck.IsEnabled="True" Text="">
-                            <TextBox.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="车牌号" />
-                                </ContextMenu>
-                            </TextBox.ContextMenu>
-                        </TextBox>
+                <StackPanel Orientation="Horizontal" Height="{Binding ElementName=Grd_Right, Path=ActualHeight}">
+                    <Grid Width="400" Margin="30,0,0,50">
+                        <StackPanel  VerticalAlignment="Center">
+                            <StackPanel HorizontalAlignment="Left" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1">
+                                <Image Width="28" Height="28" Source="/arrow.png"></Image>
+                            </StackPanel>
+                            <Border Margin="0,20,0,0" BorderBrush="Black" BorderThickness="0,1,0,0">
+                            </Border>
 
-                        <Button Name="btn_Out" Content="手工出场" Click="btn_Out_Click"></Button>
-                    </StackPanel>
 
+                            <TextBlock Margin="0,20,0,0" Foreground="#666666" FontSize="20" >车牌号</TextBlock>
+                            <TextBox  Margin="0,20,0,0" FontSize="18" BorderBrush="Red" Name="txt_OutCarNumber" SpellCheck.IsEnabled="True" HorizontalContentAlignment="Stretch"
+                         Controls:TextBoxHelper.ClearTextButton="True"
+                                 ToolTip="车牌号" Text="">
+
+                            </TextBox>
+                            <Button  Margin="0,20,0,0" FontSize="20" Foreground="White" Background="Red" Name="btn_Out" Content="手工出场" Click="btn_Out_Click"></Button>
+                        </StackPanel>
                     </Grid>
+                </StackPanel>
             </Controls:Flyout>
 
 
-            <Controls:Flyout Header="出场明细" Position="Right" Theme="Accent" Width="{Binding Converter={StaticResource PercentageConverter},
+            <Controls:Flyout   Header="出场明细" Position="Right" Theme="Accent" Width="{Binding Converter={StaticResource PercentageConverter},
                                                                                   Path=ActualWidth, 
                                                                                   ConverterParameter=0.8}">
                 <Grid Name="OutRecord">
-                    
+
                 </Grid>
             </Controls:Flyout>
 
 
             <Controls:Flyout Header="入场明细" Position="Right" Theme="Accent">
                 <Grid  Name="CarInRecord"></Grid>
-                
+
             </Controls:Flyout>
         </Controls:FlyoutsControl>
 
 
-       
+
     </Controls:MetroWindow.Flyouts>
 </src:AbpWindow>

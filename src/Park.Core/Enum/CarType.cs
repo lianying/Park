@@ -9,24 +9,24 @@ namespace Park.Enum
     /// <summary>
     /// 收费标准 
     /// </summary>
-    public enum CarType
+    public enum CarType:byte
     {
         /// <summary>
         /// 月租车
         /// </summary>
-        Month,
+        Month=1,
         /// <summary>
-        /// 储值车
+        /// 储值车   暂时禁用
         /// </summary>
-        Store,
+        Store=2,
         /// <summary>
         /// 临时车
         /// </summary>
-        Tempoary,
+        Tempoary=4,
         /// <summary>
         /// 亲情车
         /// </summary>
-        Family
+        Family=3
 
     }
 }

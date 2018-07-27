@@ -2,6 +2,7 @@
 using Abp.Application.Features;
 using Abp.Authorization;
 using Abp.Configuration;
+using Abp.Dependency;
 using Abp.Domain.Uow;
 using Abp.Events.Bus;
 using Abp.Localization;
@@ -57,6 +58,8 @@ namespace Park.Froms
 
         public string LocalizationSourceName { get; set; }
 
+        public IocManager IocManager { get; set; }
+
 
         private ILocalizationSource _localizationSource;
 
@@ -72,6 +75,7 @@ namespace Park.Froms
             LocalizationSourceName = ParkConsts.LocalizationSourceName;
 
             SynchronizationContext = DispatcherSynchronizationContext.Current;
+             IocManager = IocManager.Instance;
 
         }
 

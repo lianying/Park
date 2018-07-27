@@ -249,6 +249,7 @@
     <Compile Include="Parks\ParkBox\Interfaces\CarNumberPermission.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\IBoxMessageable.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\ICarNumberPermission.cs" />
+    <Compile Include="Parks\ParkBox\Interfaces\ICharger.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\INotifyConfim.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\IVehicleFlow.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\VehicleFlow.cs" />

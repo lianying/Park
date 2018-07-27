@@ -197,6 +197,8 @@
     <Compile Include="Chat\ChatMessageReadState.cs" />
     <Compile Include="Chat\ChatSide.cs" />
     <Compile Include="Common\ActionQueue.cs" />
+    <Compile Include="DelayAction.cs" />
+    <Compile Include="Entitys\Box\BlackList.cs" />
     <Compile Include="Entitys\Box\CarInOutImage.cs" />
     <Compile Include="Entitys\Box\CarInRecord.cs" />
     <Compile Include="Entitys\Box\CarOutRecord.cs" />
@@ -225,8 +227,10 @@
     <Compile Include="Enum\DeviceType.cs" />
     <Compile Include="Enum\EntranceType.cs" />
     <Compile Include="Enum\EquipmentManufacturers.cs" />
+    <Compile Include="Enum\FullInType.cs" />
     <Compile Include="Enum\InOutTypeEnum.cs" />
     <Compile Include="Enum\NoNumberOptions.cs" />
+    <Compile Include="Enum\OutEnum.cs" />
     <Compile Include="Enum\OutOfferTypeEnum.cs" />
     <Compile Include="Enum\PayTypeEnum.cs" />
     <Compile Include="Enum\SDKEnum.cs" />

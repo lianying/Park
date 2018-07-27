@@ -39,6 +39,7 @@ namespace Park.Parks.ParkBox
         public TimeSpan? OfferTime { get; set; }
 
 
+
         /// <summary>
         /// 优惠券
         /// </summary>
@@ -60,11 +61,19 @@ namespace Park.Parks.ParkBox
         public DateTime? OutPhotoTime { get; set; }
 
 
-        public long ImageId { get; set; }
+        public long? ImageId { get; set; }
 
 
         public int ParkId { get; set; }
 
+
+        public string Remark { get; set; }
+
+        
+        public PayTypeEnum PayType { get; set; }
+
+
+        public bool IsErrorOut { get; set; }
 
 
     }

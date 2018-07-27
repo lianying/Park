@@ -102,9 +102,9 @@ namespace Park.ParkBox
 
 
 
-        int TempCarTypeId { get; set; }
+        long TempCarTypeId { get; set; }
 
 
-
+        bool IsZeroMoneyOut { get; set; }
     }
 }

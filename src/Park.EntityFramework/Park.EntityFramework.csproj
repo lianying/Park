@@ -270,6 +270,38 @@
     <Compile Include="Migrations\201807180549299_edit carOutRecord CarOutPhotoId null.Designer.cs">
       <DependentUpon>201807180549299_edit carOutRecord CarOutPhotoId null.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201807240833574_add FareRules.cs" />
+    <Compile Include="Migrations\201807240833574_add FareRules.Designer.cs">
+      <DependentUpon>201807240833574_add FareRules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807260159442_add isErrorOut.cs" />
+    <Compile Include="Migrations\201807260159442_add isErrorOut.Designer.cs">
+      <DependentUpon>201807260159442_add isErrorOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807260235386_close Audit.cs" />
+    <Compile Include="Migrations\201807260235386_close Audit.Designer.cs">
+      <DependentUpon>201807260235386_close Audit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807260239598_close Audit CarUsers.cs" />
+    <Compile Include="Migrations\201807260239598_close Audit CarUsers.Designer.cs">
+      <DependentUpon>201807260239598_close Audit CarUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807260244187_close Audit CarNumber CarPort.cs" />
+    <Compile Include="Migrations\201807260244187_close Audit CarNumber CarPort.Designer.cs">
+      <DependentUpon>201807260244187_close Audit CarNumber CarPort.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807260855545_add blackList.cs" />
+    <Compile Include="Migrations\201807260855545_add blackList.Designer.cs">
+      <DependentUpon>201807260855545_add blackList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807261108585_add user FullInType.cs" />
+    <Compile Include="Migrations\201807261108585_add user FullInType.Designer.cs">
+      <DependentUpon>201807261108585_add user FullInType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201807261115029_edit entrancePermission types.cs" />
+    <Compile Include="Migrations\201807261115029_edit entrancePermission types.Designer.cs">
+      <DependentUpon>201807261115029_edit entrancePermission types.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -337,6 +369,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807180549299_edit carOutRecord CarOutPhotoId null.resx">
       <DependentUpon>201807180549299_edit carOutRecord CarOutPhotoId null.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807240833574_add FareRules.resx">
+      <DependentUpon>201807240833574_add FareRules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807260159442_add isErrorOut.resx">
+      <DependentUpon>201807260159442_add isErrorOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807260235386_close Audit.resx">
+      <DependentUpon>201807260235386_close Audit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807260239598_close Audit CarUsers.resx">
+      <DependentUpon>201807260239598_close Audit CarUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807260244187_close Audit CarNumber CarPort.resx">
+      <DependentUpon>201807260244187_close Audit CarNumber CarPort.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807260855545_add blackList.resx">
+      <DependentUpon>201807260855545_add blackList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807261108585_add user FullInType.resx">
+      <DependentUpon>201807261108585_add user FullInType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201807261115029_edit entrancePermission types.resx">
+      <DependentUpon>201807261115029_edit entrancePermission types.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

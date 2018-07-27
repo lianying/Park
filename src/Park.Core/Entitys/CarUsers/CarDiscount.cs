@@ -15,27 +15,31 @@ namespace Park.Entitys.CarUsers
     /// </summary>
     public class CarDiscount : Entity<long>, IHasCreationTime, ISoftDelete
     {
-        public string DiscountId { get; set; }
+        public virtual string DiscountId { get; set; }
 
-        public CarDiscountEnum DiscountType { get; set; }
+        public virtual CarDiscountEnum DiscountType { get; set; }
 
         [StringLength(20)]
-        public string CarNumber { get; set; }
+        public virtual string CarNumber { get; set; }
 
         [StringLength(200)]
-        public string DiscountValue { get; set; }
+        public virtual string DiscountValue { get; set; }
 
 
-        public DateTime DiscountExpire { get; set; }
+        public virtual DateTime DiscountExpire { get; set; }
 
 
-        public string CloudParkId { get; set; }
+        public virtual string CloudParkId { get; set; }
 
 
 
 
 
-        public DateTime CreationTime { get ; set ; }
-        public bool IsDeleted { get; set; }
+        public virtual DateTime CreationTime { get ; set ; }
+        public virtual bool IsDeleted { get; set; }
+
+
+        public virtual int ParkId { get; set; }
+
     }
 }

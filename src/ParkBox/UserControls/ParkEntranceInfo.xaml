@@ -10,6 +10,7 @@
         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Height" Value="40"></Setter>
             <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
         </Style>
         <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
             <Setter Property="Foreground" Value="#666666"></Setter>
@@ -30,8 +31,9 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-
-                        <TextBlock Name="EntranceName" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        <StackPanel  VerticalAlignment="Center" HorizontalAlignment="Left">
+                        <TextBlock Margin="50,0,0,0" Name="EntranceName" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </StackPanel>
                         <TextBlock Name="TimeClock" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"></TextBlock>
                     </Grid>
                 </DockPanel>
@@ -56,13 +58,22 @@
                         <Grid Grid.Column="1">
 
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
 
                             </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
 
-                            <Button Name="btn_OpenRod" Width="80" Background="Green"  Click="btn_OpenRod_Click" Content="开闸"></Button>
-                            <Button Name="btn_CloseRod" Grid.Column="1" Background="Orange"  Width="80" Height="40" Content="落闸"></Button>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+
+                                </Grid.ColumnDefinitions>
+
+                                <Button Name="btn_OpenRod" Width="80" Background="Green"  Click="btn_OpenRod_Click" Content="开闸"></Button>
+                                <Button Name="btn_CloseRod" Grid.Column="1" Background="Orange"  Width="80" Height="40" Content="落闸"></Button>
+                            </Grid>
+                           
                         </Grid>
                     </Grid>
                 </DockPanel>
@@ -71,7 +82,7 @@
 
             </Canvas>
         </Grid>
-        <Grid Margin="5,5,5,0" Grid.Column="1" Name="Right">
+        <Grid Background="#eeeeee" Margin="5,5,5,0" Grid.Column="1" Name="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>
@@ -106,12 +117,12 @@
                     <TextBlock HorizontalAlignment="Right" Name="txt_CarportsCount" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_CarInCount" FlowDirection="LeftToRight" HorizontalAlignment="Left">
-                    <Label Name="lbl_CarInCount" HorizontalAlignment="Right">车位数:</Label>
+                    <Label Name="lbl_CarInCount" HorizontalAlignment="Right">场内车辆:</Label>
                     <TextBlock HorizontalAlignment="Right" Name="txt_CarInCount" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
 
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Orientation="Horizontal" Name="Stack_RematingDays" FlowDirection="LeftToRight" HorizontalAlignment="Left">
-                    <Label Name="lbl_RematingDays" HorizontalAlignment="Right">车位数:</Label>
+                    <Label Name="lbl_RematingDays" HorizontalAlignment="Right">剩余天数:</Label>
                     <TextBlock HorizontalAlignment="Right" Name="txt_RematingDays" VerticalAlignment="Center"></TextBlock>
                 </StackPanel>
             </StackPanel>

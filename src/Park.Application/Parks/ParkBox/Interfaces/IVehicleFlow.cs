@@ -1,6 +1,8 @@
 ﻿using Abp.Application.Services;
 using Park.Entitys.Box;
 using Park.Entitys.CarUsers;
+using Park.Parks.Devices.Interfaces;
+using Park.Parks.Entrance;
 using Park.Parks.ParkBox.Models;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,8 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
+        void CarOutRecord(string carNumber, EntranceDto entranceDto, IDeviceable deviceable, Action openRod, Action<CarOutRecord> setOutInfo, Action<string, string> showMessage);
+
         CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel);
 
 
@@ -32,6 +36,19 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
         IsCarInModel IsCarIn(int parkId, string carNumber);
+
+
+        /// <summary>
+        /// 根据车牌号获取相似场内相似车牌
+        /// </summary>
+        /// <param name="parkId"></param>
+        /// <param name="carNumber"></param>
+        /// <returns></returns>
+        List<CarInRecord> LevenshteinDistance(int parkId, string carNumber);
+
+
+
+        CarDiscount GetCarDiscount(int parkId, string carNumber);
 
 
 

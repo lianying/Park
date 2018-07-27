@@ -14,6 +14,8 @@ namespace Park
             Database.SetInitializer(new CreateDatabaseIfNotExists<ParkDbContext>());
 
             Configuration.DefaultNameOrConnectionString = "Default";
+
+            
         }
 
         public override void Initialize()

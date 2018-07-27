@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
 using Park.Entitys.Box;
 using Park.Entitys.CarUsers;
 using Park.Entitys.ParkEntrances;
@@ -42,7 +43,6 @@ namespace Park.Parks.ParkBox.Interfaces
                 {
                     case Enum.NoNumberOptions.CarIn:
                         return new PermissionResult(true, Enum.CarNumberPermissionEnum.TempIn, null, false);
-
                     case Enum.NoNumberOptions.Confirm:
                         return new PermissionResult(null, Enum.CarNumberPermissionEnum.TempConfimIn, null, false);
                     case Enum.NoNumberOptions.CanNotIn:
@@ -55,8 +55,9 @@ namespace Park.Parks.ParkBox.Interfaces
             var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.CarPorts, x => x.Park, x => x.ParkArea)
                 .Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number)))
                 .InculdeIn(x => x.CarPorts.Select(z => z.CarPortType))
-                .InculdeIn(x=>x.CarPorts.Select(z=>z.ParkLevel))
+                .InculdeIn(x => x.CarPorts.Select(z => z.ParkLevel))
                 .InculdeIn(x => x.CarPorts.Select(z => z.ParkArea))
+                .InculdeIn(x => x.ParkArea.Park)
                 .FirstOrDefault();
             if (user == null) //临时车
             {
@@ -75,20 +76,42 @@ namespace Park.Parks.ParkBox.Interfaces
             }
             else
             {   //月租车
-                return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false);
+                //判断出入口权限
+                bool hasPermission = false;
+                foreach (var item in user.CarPorts)
+                {
+                    if (entrance.ParkEntrancePermission.CarTypes.Any(x => x.Id == item.CarPortTypeId))
+                    {
+                        hasPermission = true;
+                        break;
+                    }
+                }
+                if (!hasPermission)
+                {
+                    return new PermissionResult(false, Enum.CarNumberPermissionEnum.NoPermissionNotIn, user, false);
+                }
+                var inCount = _carInRecordRepository.GetAll().Where(x => x.CarId == user.Id).Count();
+                if (inCount >= user.CarPorts.Count)
+                {
+                    if (user.FullInType == Enum.FullInType.Temp)
+                        return new PermissionResult(true, Enum.CarNumberPermissionEnum.CarportsFullIn, user, true);
+                    else
+
+                        return new PermissionResult(false, Enum.CarNumberPermissionEnum.CarportsFullNotIn, user, false);
+                }
+                else
+                    return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false);
             }
         }
 
         public CarUsers GetUser(int parkId, string number)
         {
-            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.Park, x => x.ParkArea).Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number))).FirstOrDefault();
-
-            if (user != null)
-            {
-                var carport = _carPortRepository.GetAll().FirstOrDefault(x => x.StartTime <= DateTime.Now && x.EndTime >= DateTime.Now && x.CarUserId == user.Id);
-
-                user.CarPorts = new List<CarPort>() { carport };
-            }
+            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.Park, x => x.ParkArea, x => x.CarPorts)
+                .Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number)))
+                .Where(x => x.CarPorts.Any(i => i.StartTime <= DateTime.Now && i.EndTime >= DateTime.Now))
+                .InculdeIn(x=>x.CarPorts.Select(i=>i.CarPortType))
+                .FirstOrDefault();
+            
             return user;
             
         }

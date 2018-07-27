@@ -75,6 +75,7 @@ namespace Park.ParkBox
 
         public List<string> LocalIps { get; set; }
 
-        public int TempCarTypeId { get; set; }
+        public long TempCarTypeId { get; set; }
+        public bool IsZeroMoneyOut { get; set; }
     }
 }

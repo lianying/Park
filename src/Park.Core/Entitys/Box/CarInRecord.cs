@@ -1,4 +1,6 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Auditing;
+using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Park.Enum;
 using Park.Interfaces;
 using System;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Park.Entitys.Box
 {
-    public class CarInRecord : FullAuditedEntity<long>, ISynchronize
+    public class CarInRecord :Entity<long>, IHasCreationTime, IModificationAudited, IHasModificationTime, IDeletionAudited, IHasDeletionTime, ISoftDelete, ISynchronize
     {
         /// <summary>
         /// 车牌号
@@ -27,6 +29,7 @@ namespace Park.Entitys.Box
         /// </summary>
         public virtual DateTime InTime { get; set; }
 
+        [DisableAuditing]
         [ForeignKey("CarId")]
         /// <summary>
         /// 系统用户
@@ -77,6 +80,7 @@ namespace Park.Entitys.Box
 
         public virtual string CloudId { get; set; }
 
+        [DisableAuditing]
         [ForeignKey("CarInPhotoId")]
         public virtual CarInOutImage CarInOutImage { get; set; }
 
@@ -84,5 +88,14 @@ namespace Park.Entitys.Box
 
 
         public virtual decimal AdvancePayment { get; set; }
+
+
+
+        public virtual DateTime CreationTime { get; set; }
+        public virtual long? LastModifierUserId { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
+        public virtual long? DeleterUserId { get; set; }
+        public virtual DateTime? DeletionTime { get; set; }
+        public virtual bool IsDeleted { get; set; }
     }
 }

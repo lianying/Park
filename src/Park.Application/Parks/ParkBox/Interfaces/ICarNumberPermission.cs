@@ -14,7 +14,12 @@ namespace Park.Parks.ParkBox.Interfaces
 
         PermissionResult CheckCarNumberPermission(string number,long entranceId);
 
-
+        /// <summary>
+        /// 获取在有效期内的用户
+        /// </summary>
+        /// <param name="parkId"></param>
+        /// <param name="number"></param>
+        /// <returns></returns>
         CarUsers GetUser(int parkId, string number);
     }
 }

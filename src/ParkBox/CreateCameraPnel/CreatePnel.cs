@@ -125,7 +125,7 @@ namespace Park.CreateCameraPnel
                         if (!dic.Keys.Contains(deviceInfoDtos[o].Key))
                         {
                             parkEntrance = new ParkEntranceInfo(deviceInfoDtos[o].First(), _parkBoxOptions, Logger);
-                            parkEntrance.Margin = new System.Windows.Thickness() { Bottom = 5, Left = 5, Right = 5, Top = 5 };
+                            parkEntrance.Margin = new System.Windows.Thickness() { Bottom = 5, Left = 0, Right = 5, Top = 5 };
                             grid.Children.Add(parkEntrance);
 
                             if (o == 1)

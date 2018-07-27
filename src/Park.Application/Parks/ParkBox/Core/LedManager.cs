@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abp.Dependency;
+using Park.Enum;
 
 namespace Park.Parks.ParkBox.Core
 {
@@ -62,6 +63,21 @@ namespace Park.Parks.ParkBox.Core
         }
 
 
-        
+        public async Task SpeakAndShowText(Devices.Interfaces.IDeviceable deviceable, CarOutModel carOut, OutEnum outEnum)
+        {
+            if (deviceable == null)
+                return;
+            var temp = GetLedables(deviceable);
+
+            await Task.Run(() => temp?.ForEach(x =>
+            {
+                x.Speak(string.Empty);
+                x.Show(string.Empty);
+            }));
+        }
+
+
+
+
     }
 }

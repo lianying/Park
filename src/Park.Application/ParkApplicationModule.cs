@@ -17,6 +17,7 @@ namespace Park
     {
         public override void PreInitialize()
         {
+            //Configuration.Auditing.IsEnabled = false;
         }
 
         public override void Initialize()
