@@ -37,5 +37,15 @@ namespace Park.UserControls
             base.Source = bitmapImage;
             return Task.CompletedTask;
         }
+
+        public void SetWidthAndHeight(double width, double height)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IHandler.SetImage(Stream stream)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

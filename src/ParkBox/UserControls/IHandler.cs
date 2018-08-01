@@ -10,6 +10,9 @@ namespace Park.UserControls
     public interface IHandler
     {
         IntPtr IntPtr { get; }
-        
+
+        void SetImage(Stream stream);
+
+
     }
 }

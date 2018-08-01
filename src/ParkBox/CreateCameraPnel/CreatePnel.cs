@@ -50,6 +50,13 @@ namespace Park.CreateCameraPnel
                     grid.Children.Add(entrance);
                    
                     entrance.Init();
+                    //if (_parkBoxOptions.IsListView)
+                    //{
+                    //    entrance.Loaded += delegate
+                    //    {
+                    //        entrance.ReSizePic();
+                    //    };
+                    //}
                 }
                 else   //两个出入口
                 {
@@ -67,6 +74,13 @@ namespace Park.CreateCameraPnel
                             Grid.SetColumn(parkEntrance, i);
                             dic.Add(item.Key, parkEntrance);
                             parkEntrance.Init();
+                            //if (_parkBoxOptions.IsListView)
+                            //{
+                            //    parkEntrance.Loaded += delegate
+                            //    {
+                            //        parkEntrance.ReSizePic();
+                            //    };
+                            //}
                             i++;
                         }
                     }
@@ -127,7 +141,13 @@ namespace Park.CreateCameraPnel
                             parkEntrance = new ParkEntranceInfo(deviceInfoDtos[o].First(), _parkBoxOptions, Logger);
                             parkEntrance.Margin = new System.Windows.Thickness() { Bottom = 5, Left = 0, Right = 5, Top = 5 };
                             grid.Children.Add(parkEntrance);
-
+                            //if (_parkBoxOptions.IsListView)
+                            //{
+                            //    parkEntrance.Loaded += delegate
+                            //    {
+                            //        parkEntrance.ReSizePic();
+                            //    };
+                            //}
                             if (o == 1)
                             {
                                 Grid.SetColumn(parkEntrance, 1);

@@ -23,6 +23,7 @@
                SourceInitialized="AbpWindow_SourceInitialized"
                Closing="AbpWindow_Closing"
                Closed="AbpWindow_Closed"
+               Loaded="AbpWindow_Loaded"
                >
 
     <Window.DataContext>

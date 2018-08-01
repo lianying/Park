@@ -302,6 +302,10 @@
     <Compile Include="Migrations\201807261115029_edit entrancePermission types.Designer.cs">
       <DependentUpon>201807261115029_edit entrancePermission types.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808010707570_add CarErrorOut.cs" />
+    <Compile Include="Migrations\201808010707570_add CarErrorOut.Designer.cs">
+      <DependentUpon>201808010707570_add CarErrorOut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -393,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201807261115029_edit entrancePermission types.resx">
       <DependentUpon>201807261115029_edit entrancePermission types.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808010707570_add CarErrorOut.resx">
+      <DependentUpon>201808010707570_add CarErrorOut.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,6 +6,7 @@ using Castle.MicroKernel.Registration;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Park.CreateCameraPnel;
+using Park.Entitys.Box;
 using Park.Entitys.CarTypes;
 using Park.Entitys.CarUsers;
 using Park.Entitys.FareRules;
@@ -48,9 +49,9 @@ namespace Park.Froms
         private readonly LedManager _ledManager;
 
         private readonly IRepository<CarTypes, long> _repositoryCarType;
-        private readonly IRepository<CarPort, long> _repositoryCarPort;
         private readonly IRepository<RangeTime> _repositoryRangeTime;
-        
+        private readonly IRepository<BlackList,int > _repositoryBlackList;
+
 
         private readonly IRepository<FareRule> _repositoryFareRule;
 
@@ -68,7 +69,8 @@ namespace Park.Froms
             LedManager ledManager,
             IRepository<CarTypes,long> repositoryCarType,
            IRepository<FareRule> repositoryFareRule,
-           IRepository<RangeTime> repositoryRangeTime)
+           IRepository<RangeTime> repositoryRangeTime,
+           IRepository<BlackList, int> repositoryBlackList)
         {
             InitializeComponent();
             DataContext = this;
@@ -84,6 +86,7 @@ namespace Park.Froms
             _repositoryCarType = repositoryCarType;
             _repositoryFareRule = repositoryFareRule;
             _repositoryRangeTime = repositoryRangeTime;
+            _repositoryBlackList = repositoryBlackList;
 
             IocManager.Instance.IocContainer.Register(
                 Component.For<IManualEntryAndExit>().UsingFactoryMethod(() => this));
@@ -148,6 +151,23 @@ namespace Park.Froms
             }
             using (var unitOfWork = UnitOfWorkManager.Begin())
             {
+                var backList = await _repositoryBlackList.FirstOrDefaultAsync(x => x.CarNumber == carNumber);
+                if (backList != null)
+                {
+                    if (!parkBoxOptions.IsListView)
+                    {
+                        var cancle = await this.ShowMessageAsync("提示", "当前车辆在黑名单是否放行？", MessageDialogStyle.AffirmativeAndNegative);
+                        if (cancle == MessageDialogResult.Negative)
+                            return;
+                    }
+                    else
+                    { //打开实时监控画面时   Metro自带的弹窗会被盖住 采用系统弹窗
+                        var cancle = MessageBox.Show( "当前车辆在黑名单是否放行？", "提示", MessageBoxButton.OKCancel);
+                        if (cancle == MessageBoxResult.Cancel)
+                            return;
+                    }
+                }
+
                 var result = _carNumberPermission.CheckCarNumberPermission(carNumber, _inEntranceDto.Id);
                 var carInModel = new Parks.ParkBox.CarInModel()
                 {
@@ -157,6 +177,38 @@ namespace Park.Froms
                     InTime = DateTime.Now,
                     Entrance = _inEntranceDto
                 };
+                if(result.IsCarIn.HasValue&&!result.IsCarIn.Value)
+                {
+                    Logger.Debug(carNumber + "no permission" + result.ToString());
+                    if (!parkBoxOptions.IsListView)
+                    {
+                        var cancle = await this.ShowMessageAsync("当前车辆无权进入是否放行？", "提示", MessageDialogStyle.AffirmativeAndNegative);
+                        if (cancle == MessageDialogResult.Negative)
+                            return;
+                    }
+                    else
+                    {
+                        var cancle = MessageBox.Show("提示", "当前车辆无权进入是否放行？", MessageBoxButton.OKCancel);
+                        if (cancle ==  MessageBoxResult.Cancel)
+                            return;
+                    }
+                }
+                //入场时检查是否有场内记录 
+                var isCarIn = _vehicleFlow.IsCarIn(_inEntranceDto.ParkLevel.Park.Id, carNumber);
+                if (isCarIn.IsCarIn)
+                {
+                    var carOutModel = new CarOutModel()
+                    {
+                        CarInRecord = isCarIn.CarInRecord,
+                        InOutType = Enum.InOutTypeEnum.Artificial,
+                        OutTime = DateTime.Now,
+                        Receivable = 0,
+                        ParkId = _outEntranceDto.ParkLevel.Park.Id,
+                        Remark = "有场内纪录，再次入场"
+
+                    };
+                    _vehicleFlow.CarErrorOut(isCarIn.CarInRecord, carOutModel);
+                }
                 var carIn = _vehicleFlow.CarIn(carInModel, result);
                 if (carIn != null)
                 {
@@ -176,7 +228,7 @@ namespace Park.Froms
         }
         private async void btn_Out_Click(object sender, RoutedEventArgs e)
         {
-            #region   移到接口实现
+            #region   移到接口实现  接口实现中无法调用收费界面
             if (_outEntranceDto == null)
             {
                 await this.ShowMessageAsync("提示", "未找到出入口信息");
@@ -499,6 +551,24 @@ namespace Park.Froms
         {
             TiggleFlyout(1);
 
+        }
+
+        private async void AbpWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //await Task.Delay(1000).ContinueWith((task) =>
+            //{
+            //    SynchronizationContext.Post((x) =>
+            //    {
+            //        if (parkEntrances != null && parkEntrances.Count > 0)
+            //        {
+            //            foreach (var item in parkEntrances.Values)
+            //            {
+            //                item.ReSizePic();
+            //            }
+            //        }
+            //    }, null);
+               
+            //});
         }
     }
 }

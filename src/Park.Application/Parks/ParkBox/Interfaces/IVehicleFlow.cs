@@ -50,7 +50,7 @@ namespace Park.Parks.ParkBox.Interfaces
 
         CarDiscount GetCarDiscount(int parkId, string carNumber);
 
-
-
+        CarErrorRecord CarErrorOut(CarInRecord carIn, CarOutModel carOutModel);
+        
     }
 }

@@ -245,6 +245,15 @@
     </Compile>
     <Compile Include="Helpers\VisualHelper.cs" />
     <Compile Include="IManualEntryAndExit.cs" />
+    <Compile Include="UserControls\CoverLayer.xaml.cs">
+      <DependentUpon>CoverLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CoverLayerWinform.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CoverLayerWinform.Designer.cs">
+      <DependentUpon>CoverLayerWinform.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\EntranceInfo.xaml.cs">
       <DependentUpon>EntranceInfo.xaml</DependentUpon>
     </Compile>
@@ -257,6 +266,9 @@
     </Compile>
     <Compile Include="UserControls\NotListViewImage.xaml.cs">
       <DependentUpon>NotListViewImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PageUC.xaml.cs">
+      <DependentUpon>PageUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ParkEntranceInfo.xaml.cs">
       <DependentUpon>ParkEntranceInfo.xaml</DependentUpon>
@@ -292,6 +304,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\CoverLayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\EntranceInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,6 +323,10 @@
     <Page Include="UserControls\NotListViewImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PageUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\ParkEntranceInfo.xaml">
       <SubType>Designer</SubType>
@@ -335,6 +355,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\CoverLayerWinform.resx">
+      <DependentUpon>CoverLayerWinform.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="log4net.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

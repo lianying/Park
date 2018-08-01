@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Park.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Setter Property="Height" Value="40"></Setter>
@@ -16,15 +17,16 @@
             <Setter Property="Foreground" Value="#666666"></Setter>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="Body">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid x:Name="Grd_Left">
-            <Canvas   Name="Camera" VerticalAlignment="Stretch">
-            </Canvas>
-        <Canvas>
+            <Grid Panel.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="{Binding ElementName=Grd_Left, Path=ActualWidth}" Height="{Binding ElementName=Grd_Left, Path=ActualHeight}">
+                <DockPanel   Name="Camera" VerticalAlignment="Stretch"></DockPanel>
+            </Grid>
+            <Canvas x:Name="Cav_CoverLayer" Panel.ZIndex="999">
                 <DockPanel Width="{Binding ElementName=Grd_Left, Path=ActualWidth}">
                     <Grid Margin="0,20,0,0">
                         <Grid.ColumnDefinitions>
@@ -82,12 +84,12 @@
 
             </Canvas>
         </Grid>
-        <Grid Background="#eeeeee" Margin="5,5,5,0" Grid.Column="1" Name="Right">
+        <Grid Background="#eeeeee" Margin="5,0,5,0" Grid.Column="1" Name="Right">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Name="Img"></StackPanel>
+            <DockPanel  MinWidth="{Binding  ElementName=Right,Path=ActualWidth}"  Name="Img"></DockPanel>
             <StackPanel  Grid.Row="1"  MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" HorizontalAlignment="Center">
                 
                 <StackPanel MinWidth="{Binding  ElementName=Right,Path=ActualWidth}" Name="Stack_CarNumber" Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Left">

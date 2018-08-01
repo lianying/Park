@@ -27,6 +27,7 @@ namespace Park.Parks.ParkBox.Interfaces
     {
         private readonly IRepository<CarInRecord, long> _carInRecordRepository;
         private readonly IRepository<CarOutRecord, long> _carOutRecordRepository;
+        private readonly IRepository<CarErrorRecord, long> _carErrorRecordRepository;
         private readonly IRepository<CarPort, long> _carPortrepository;
         private readonly IRepository<CarDiscount, long> _carDiscountrepository;
 
@@ -57,7 +58,8 @@ namespace Park.Parks.ParkBox.Interfaces
            ICarNumberPermission carNumberPermission,
            IParkBoxOptions parkBoxOption,
            LedManager ledManager,
-            IRepository<CarDiscount, long> carDiscountrepository)
+            IRepository<CarDiscount, long> carDiscountrepository,
+            IRepository<CarErrorRecord, long> carErrorRecordRepository)
         {
             _carInRecordRepository = carInRecordRepository;
             _unitOfWorkManager = unitOfWorkManager;
@@ -72,6 +74,7 @@ namespace Park.Parks.ParkBox.Interfaces
             _repositoryCarPort = repositoryCarPort;
             _iocManager = IocManager.Instance;
             _carDiscountrepository = carDiscountrepository;
+            _carErrorRecordRepository = carErrorRecordRepository;
         }
         public CarInRecord CarIn(CarInModel carIn, PermissionResult permissionResult)
         {
@@ -505,6 +508,42 @@ namespace Park.Parks.ParkBox.Interfaces
         public CarDiscount GetCarDiscount(int parkId, string carNumber)
         {
             return _carDiscountrepository.GetAll().FirstOrDefault(x => x.ParkId == parkId && x.CarNumber == carNumber && DateTime.Now <= x.DiscountExpire);
+        }
+
+        public CarErrorRecord CarErrorOut(CarInRecord carIn, CarOutModel carOutModel)
+        {
+            var carOut = new CarErrorRecord()
+            {
+                CarInCount = carIn.CarInCount,
+                ParkId = carIn.ParkId,
+                CarId = carIn.CarId,
+                CarNumber = carIn.CarNumber,
+                InTime = carIn.InTime,
+                Pay = carOutModel.Pay,
+                Receivable = carOutModel.Receivable,
+                Remark = carOutModel.Remark,
+                CarPortId = carIn.CarPortId,
+                IsMonthTempIn = carIn.IsMonthTempIn,
+                TempConvertMonthTime = carIn.TempConvertMonthTime,
+                PayType = carOutModel.PayType,
+                OfferTime = carOutModel.OfferTime,
+                OfferMoney = carOutModel.OfferMoney,
+                CarInPhotoId = carIn.CarInPhotoId,
+                CarOutPhotoId = carOutModel.ImageId,
+                InCloudId = carIn.CloudId,
+                IsMonthTimeOutInt = carIn.IsMonthTimeOutInt,
+                InType = carIn.InType,
+                IsErrorOut = carOutModel.IsErrorOut,
+                OutTime = carOutModel.OutTime,
+                OutPhotoTime = carOutModel.OutPhotoTime
+            };
+            _carInRecordRepository.Delete(carIn.Id);
+
+            var id = _carErrorRecordRepository.InsertAndGetId(carOut);
+
+            _unitOfWorkManager.Current.SaveChanges();
+
+            return _carErrorRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

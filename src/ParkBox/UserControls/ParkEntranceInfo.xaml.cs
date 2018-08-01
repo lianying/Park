@@ -9,11 +9,14 @@ using Park.Parks.Entrance;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms.Integration;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Park.UserControls
 {
@@ -22,6 +25,10 @@ namespace Park.UserControls
     /// </summary>
     public partial class ParkEntranceInfo : UserControl
     {
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, int flags);
+
         private DeviceInfoDto deviceInfo;
         private readonly IParkBoxOptions _parkBoxOptions;
         private IHandler handler;
@@ -40,26 +47,40 @@ namespace Park.UserControls
             _logger = logger;
             _manualEntryAndExit = IocManager.Instance.Resolve<IManualEntryAndExit>();
             synchronizationContext = SynchronizationContext.Current;
-            if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.In)
+            if (_parkBoxOptions.IsListView)
             {
-                TimeClock.Foreground = new SolidColorBrush(Colors.Orange);
-                EntranceName.Foreground = new SolidColorBrush(Colors.Orange);
+
+                //CoverLayerWinform coverLayer = new CoverLayerWinform(deviceInfo, parkBoxOptions, logger, async () => await OpenRod(), InOutAction);
+                //coverLayer.Dock = System.Windows.Forms.DockStyle.Fill;
+                //coverLayer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+                Grd_Left.Children.Remove(Cav_CoverLayer);
+                //coverLayer.SetImage(_parkBoxOptions.DefultCarmeraImg);
+                //host.Child = coverLayer;
+
             }
             else
             {
-                TimeClock.Foreground = new SolidColorBrush(Colors.Green);
-                EntranceName.Foreground = new SolidColorBrush(Colors.Green);
-            }
-            if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.Out)
-            {
-                this.btn_InOut.Content = "手工出场";
-            }
-            timer = new Timer(x =>
-            {
-                synchronizationContext.Post(z => this.TimeClock.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), null);
-            }, null, 1000, 1000);
+               // Grd_Left.Children.Remove(Cav_Winform);
+                if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.In)
+                {
+                    TimeClock.Foreground = new SolidColorBrush(Colors.Orange);
+                    EntranceName.Foreground = new SolidColorBrush(Colors.Orange);
+                }
+                else
+                {
+                    TimeClock.Foreground = new SolidColorBrush(Colors.Green);
+                    EntranceName.Foreground = new SolidColorBrush(Colors.Green);
+                }
+                if (deviceInfo.EntranceDto.EntranceType == Enum.EntranceType.Out)
+                {
+                    this.btn_InOut.Content = "手工出场";
+                }
+                timer = new System.Threading.Timer(x =>
+                {
+                    synchronizationContext.Post(z => this.TimeClock.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"), null);
+                }, null, 1000, 1000);
 
-
+            }
         }
 
        
@@ -73,6 +94,7 @@ namespace Park.UserControls
             }
             EntranceName.Text = deviceInfo.EntranceDto.EntranceName;
             Image = new Image();
+            
             Image.SetImage(_parkBoxOptions.DefultCarmeraImg);
             if (_parkBoxOptions.IsListView)
             {
@@ -80,16 +102,17 @@ namespace Park.UserControls
                 {
                     var pic = new LanKaPicture();
                     handler = pic;
-
+                    //WindowsFormsHost windowsFormsHost
                     Camera.Children.Add(pic);
                 }
                 else
                 {
-                    var pic = new HiKPicture();
+                    var pic = new HiKPicture(deviceInfo, async () => await OpenRod(), InOutAction);
                     pic.SetImage(_parkBoxOptions.DefultCarmeraImg);
                     handler = pic;
                     Camera.Children.Add(pic);
                 }
+                Image.Stretch = Stretch.Fill;
                 Img.Children.Add(Image);
             }
             else
@@ -101,6 +124,11 @@ namespace Park.UserControls
 
             }
             deviceInfo.Handler = handler?.IntPtr;
+
+            //Dispatcher.Invoke(new Action(() =>
+            //{
+            //    this.ReSizePic();
+            //}), DispatcherPriority.Loaded);
         }
 
         /// <summary>
@@ -132,7 +160,7 @@ namespace Park.UserControls
         {
 
             var tempCarport = carOutRecord.CarUser?.CarPorts?.Where(z => z.StartTime <= DateTime.Now && z.EndTime >= DateTime.Now);
-            synchronizationContext.Post(x =>
+            synchronizationContext.Post(x => 
             {
                 txt_CarNumber.Text = carOutRecord.CarNumber;
                 txt_CarInCount.Text = carOutRecord.CarInCount.ToString();
@@ -169,13 +197,17 @@ namespace Park.UserControls
         /// <param name="e"></param>
         private void btn_InOut_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            InOutAction();
+        }
+        private void InOutAction()
+        {
 
             synchronizationContext.Post(x => _manualEntryAndExit?.ManualEntryAndExit(x as EntranceDto), deviceInfo?.EntranceDto);
         }
 
         private async void btn_OpenRod_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-          await  OpenRod();
+            OpenRod();
         }
 
         public async Task OpenRod()
@@ -200,6 +232,25 @@ namespace Park.UserControls
         public DeviceInfoDto GetDeviceInfo()
         {
             return deviceInfo;
+        }
+
+        public Tuple<double,double> GetWithAndHeight()
+        {
+            return new Tuple<double, double>(Grd_Left.Width, Grd_Left.Height);
+        }
+
+        
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //Task.Delay(1000).ContinueWith(task =>
+            //{
+            //    synchronizationContext.Post((x) =>
+            //    {
+
+            //        SetWindowPos(host.Handle, new IntPtr(-1), 0, 0, 0, 0, 3);
+            //    }, null);
+            //});
         }
     }
 }

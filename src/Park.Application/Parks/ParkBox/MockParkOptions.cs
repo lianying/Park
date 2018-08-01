@@ -39,7 +39,7 @@ namespace Park.Parks.ParkBox
 
             parkBoxOptions.DeciceInfos = deviceInfos;
 
-            parkBoxOptions.IsListView = false;
+            parkBoxOptions.IsListView = true;
 
             parkBoxOptions.ParkName = "测试停车场";
 

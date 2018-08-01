@@ -46,5 +46,10 @@ namespace Park.UserControls
         {
             return Task.CompletedTask;
         }
+
+        void IHandler.SetImage(Stream stream)
+        {
+
+        }
     }
 }

@@ -199,6 +199,7 @@
     <Compile Include="Common\ActionQueue.cs" />
     <Compile Include="DelayAction.cs" />
     <Compile Include="Entitys\Box\BlackList.cs" />
+    <Compile Include="Entitys\Box\CarErrorRecord.cs" />
     <Compile Include="Entitys\Box\CarInOutImage.cs" />
     <Compile Include="Entitys\Box\CarInRecord.cs" />
     <Compile Include="Entitys\Box\CarOutRecord.cs" />

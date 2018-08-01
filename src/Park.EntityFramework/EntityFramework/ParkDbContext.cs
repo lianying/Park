@@ -59,6 +59,8 @@ namespace Park.EntityFramework
 
         public virtual IDbSet<BlackList> BlackLists { get; set; }
 
+        public virtual IDbSet<CarErrorRecord> CarErrorRecords { get; set; }
+
 
         
 
