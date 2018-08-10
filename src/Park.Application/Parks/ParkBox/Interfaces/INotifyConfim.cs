@@ -1,16 +1,34 @@
-﻿using System;
+﻿using Park.Entitys.Box;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Abp.Dependency;
 
 namespace Park.Parks.ParkBox.Interfaces
 {
-    public interface INotifyConfim
+    public interface INotify
     {
-        bool Confirm(string title, string message);
 
 
         void Message(string titi, string message);
+    }
+
+
+    public interface ISetInfo:ISingletonDependency
+    {
+        Task SetInfo( CarInRecord carInRecord);
+
+
+        Task SetInfo(CarOutRecord carOutRecord);
+
+
+        Task SetImage( Stream stream);
+
+        Task OpenRod();
+
+
     }
 }

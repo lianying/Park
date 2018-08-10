@@ -33,6 +33,8 @@ namespace Park.UserControls
 
         private Action _openRod;
         private Action _inOutAction;
+        private IParkBoxOptions _parkBoxOptions;
+        private ParkEntranceInfo _parkEntranceInfo;
 
         private void InitCoverLayer(Panel panel)
         {
@@ -59,10 +61,6 @@ namespace Park.UserControls
 
             _labelName.Top = _labelTime.Top = 20;
             _labelName.Left = 50;
-            
-
-
-
 
         }
         private void InitControls()
@@ -123,10 +121,12 @@ namespace Park.UserControls
     
 
 
-        public HiKPicture(DeviceInfoDto deviceInfoDto,Action openRod, Action inOutAction)
+        public HiKPicture(DeviceInfoDto deviceInfoDto,Action openRod, Action inOutAction,IParkBoxOptions parkBoxOptions,ParkEntranceInfo parkEntranceInfo)
         {
             InitializeComponent();
             deviceInfo = deviceInfoDto;
+            _parkBoxOptions = parkBoxOptions;
+            _parkEntranceInfo = parkEntranceInfo;
             //      System.Windows.Forms.Integration.WindowsFormsHost host =
             //new System.Windows.Forms.Integration.WindowsFormsHost();
             _openRod = openRod;
@@ -137,21 +137,22 @@ namespace Park.UserControls
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox.BackgroundImageLayout = ImageLayout.Stretch;
             pictureBox.SendToBack();
+            deviceInfoDto.Handler = panel.Handle;
             panel.Controls.Add(pictureBox);
             InitCoverLayer(panel);
             host.Child = panel;
         }
 
-        public Task SetImage(Stream stream)
-        {
-            pictureBox.Image = System.Drawing.Image.FromStream(stream);
-            return Task.CompletedTask;
-        }
+        //public Task SetImage(Stream stream)
+        //{
+        //    pictureBox.Image = System.Drawing.Image.FromStream(stream);
+        //    return Task.CompletedTask;
+        //}
 
-        void IHandler.SetImage(Stream stream)
-        {
-            pictureBox.Image = System.Drawing.Image.FromStream(stream);
-        }
+        //void IHandler.SetImage(Stream stream)
+        //{
+        //    pictureBox.Image = System.Drawing.Image.FromStream(stream);
+        //}
 
         private void Content_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -165,7 +166,15 @@ namespace Park.UserControls
             this._btnOpen.Left = (int)(this.ActualWidth / 2 + 30);
             this._btnClose.Left = (int)(this.ActualWidth / 2 + 50 + 80);
 
+            pictureBox.Image = System.Drawing.Image.FromStream(_parkBoxOptions.DefultCarmeraImg);
+        }
 
+        public void SetImage(Stream stream)
+        {
+            if (!_parkBoxOptions.IsListView)
+                pictureBox.Image = System.Drawing.Image.FromStream(stream);
+            else
+                _parkEntranceInfo.SetImage(stream);
         }
     }
 }

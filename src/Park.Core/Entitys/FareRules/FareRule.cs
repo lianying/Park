@@ -31,7 +31,7 @@ namespace Park.Entitys.FareRules
         }
         
 
-        public int parkId
+        public int ParkId
         {
             get
             {
@@ -106,7 +106,7 @@ namespace Park.Entitys.FareRules
                 this.m_DayMaxMoney = value;
             }
         }
-        public float preFeeDate
+        public float PreFeeDate
         {
             get
             {

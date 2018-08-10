@@ -10,6 +10,7 @@ using Abp.Dependency;
 using System.IO;
 using Park.Users.Dto;
 using Park.Authorization.Users;
+using Park.Parks.ParkBox.Interfaces;
 
 namespace Park.ParkBox
 {
@@ -106,5 +107,8 @@ namespace Park.ParkBox
 
 
         bool IsZeroMoneyOut { get; set; }
+
+        Dictionary<long, ISetInfo> SetInfosDic { get; set; }
+        
     }
 }

@@ -211,6 +211,7 @@
     <Compile Include="Dto\FileDto.cs" />
     <Compile Include="Dto\PagedAndSortedInputDto.cs" />
     <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="EventHandlers\CarOutHandler.cs" />
     <Compile Include="Navigation\MenuExtenstion.cs" />
     <Compile Include="Navigation\NgMenu.cs" />
     <Compile Include="ParkApplicationModule.cs" />
@@ -243,7 +244,6 @@
     <Compile Include="Parks\Level\Dto\ParkLevelDto.cs" />
     <Compile Include="Parks\ParkBox\CarInModel.cs" />
     <Compile Include="Parks\ParkBox\CarOutModel.cs" />
-    <Compile Include="Parks\ParkBox\Core\BoxMessage.cs" />
     <Compile Include="Parks\ParkBox\Core\FeeManager.cs" />
     <Compile Include="Parks\ParkBox\Core\LedManager.cs" />
     <Compile Include="Parks\ParkBox\Interfaces\CarNumberPermission.cs" />

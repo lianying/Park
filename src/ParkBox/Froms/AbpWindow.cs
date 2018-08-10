@@ -11,6 +11,7 @@ using Abp.ObjectMapping;
 using Abp.Runtime.Session;
 using Castle.Core.Logging;
 using MahApps.Metro.Controls;
+using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +34,8 @@ namespace Park.Froms
         public IPermissionChecker PermissionChecker { get; set; }
 
         public SynchronizationContext SynchronizationContext { get; private set; }
+
+
 
         public IActiveUnitOfWork ActiveUnitOfWork => UnitOfWorkManager.Current;
 
@@ -63,7 +66,7 @@ namespace Park.Froms
 
         private ILocalizationSource _localizationSource;
 
-        public AbpWindow() 
+        public AbpWindow()
         {
             AbpSession = NullAbpSession.Instance;
             Logger = NullLogger.Instance;
@@ -75,7 +78,7 @@ namespace Park.Froms
             LocalizationSourceName = ParkConsts.LocalizationSourceName;
 
             SynchronizationContext = DispatcherSynchronizationContext.Current;
-             IocManager = IocManager.Instance;
+            IocManager = IocManager.Instance;
 
         }
 

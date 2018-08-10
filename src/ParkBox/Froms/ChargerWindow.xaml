@@ -180,8 +180,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="Btn_OK" Click="Btn_OK_Click">已缴费放行</Button>
-            <Button x:Name="Btn_Clean" Grid.Column="1" Click="Btn_Clean_Click" >异常放行</Button>
+            <Button x:Name="Btn_OK" Background="#e65252" FontSize="12" Click="Btn_OK_Click">已缴费放行</Button>
+            <Button x:Name="Btn_Clean" Grid.Column="1"  FontSize="12" Click="Btn_Clean_Click" >异常放行</Button>
         </Grid>
     </Grid>
 </src:AbpWindow>

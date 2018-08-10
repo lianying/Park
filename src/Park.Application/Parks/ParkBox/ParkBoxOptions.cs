@@ -10,6 +10,7 @@ using Park.Authorization.Users;
 using Park.Devices.Models;
 using Park.Expansions;
 using Park.Interfaces;
+using Park.Parks.ParkBox.Interfaces;
 using Park.Users.Dto;
 
 namespace Park.ParkBox
@@ -77,5 +78,6 @@ namespace Park.ParkBox
 
         public long TempCarTypeId { get; set; }
         public bool IsZeroMoneyOut { get; set; }
+        public Dictionary<long, ISetInfo> SetInfosDic { get; set; }
     }
 }

@@ -38,13 +38,14 @@ namespace Park.UserControls
             SynchronizationContext = DispatcherSynchronizationContext.Current;
             this.parkBoxOptions = parkBoxOptions;
             loginTime = DateTime.Now;
-            onlineTime = new Timer(x=> {
+            onlineTime = new Timer(x =>
+            {
                 SynchronizationContext.Post(z =>
                 {
                     var time = DateTime.Now - loginTime;
                     this.txt_OnlineTime.Text = time.Hours + "小时" + time.Minutes + "分";
                 }, null);
-            },null,1000,60000);
+            }, null, 1000, 60000);
             InitUserImge();
             SetUserInfo();
             this.txt_FeeMoney.Text = "0.00 元";
@@ -96,7 +97,7 @@ namespace Park.UserControls
 
         private void btn_Settlement_Click(object sender, RoutedEventArgs e)
         {
-
+            Settlement();
         }
         /// <summary>
         /// 登出
@@ -105,6 +106,9 @@ namespace Park.UserControls
         /// <param name="e"></param>
         private void btn_LoginOut_Click(object sender, RoutedEventArgs e)
         {
+            ///应用程序重启
+            System.Windows.Forms.Application.Restart();
+            Application.Current.Shutdown();
 
         }
     }

@@ -306,6 +306,10 @@
     <Compile Include="Migrations\201808010707570_add CarErrorOut.Designer.cs">
       <DependentUpon>201808010707570_add CarErrorOut.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808020554430_add CarInNumbers.cs" />
+    <Compile Include="Migrations\201808020554430_add CarInNumbers.Designer.cs">
+      <DependentUpon>201808020554430_add CarInNumbers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -400,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808010707570_add CarErrorOut.resx">
       <DependentUpon>201808010707570_add CarErrorOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808020554430_add CarInNumbers.resx">
+      <DependentUpon>201808020554430_add CarInNumbers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

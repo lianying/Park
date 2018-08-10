@@ -47,7 +47,7 @@
                 <TextBlock Name="txt_UserCode" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
                 <TextBlock HorizontalAlignment="Right" Name="lbl_OnlineTime"  Grid.Row="2">在线时长:</TextBlock>
                 <TextBlock Name="txt_OnlineTime" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
-                <TextBlock HorizontalAlignment="Right" Name="lbl_FeeMoney" Grid.Row="3">在线时长:</TextBlock>
+                <TextBlock HorizontalAlignment="Right" Name="lbl_FeeMoney" Grid.Row="3">收费金额:</TextBlock>
                 <TextBlock Name="txt_FeeMoney" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"></TextBlock>
 
                 <Button Name="btn_ChangeShift" Grid.Row="4" Click="btn_ChangeShift_Click">换班</Button>

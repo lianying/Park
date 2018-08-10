@@ -17,5 +17,15 @@ namespace Park.Expansions
         public static bool IsNoBrandCar(this string number) {
             return number.IsNullOrEmpty() || number.Equals("未识别") || number.Equals("无车牌");
         }
+
+        //public static bool IsNullOrEmpty(this string str)
+        //{
+        //    return string.IsNullOrEmpty(str);
+        //}
+
+        public static bool IsNoNumber(this string str)
+        {
+            return IsNoBrandCar (str);
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Park.Devices.Interfaces
         /// <returns></returns>
         Task<bool> OpenRod();
 
-        Tuple<string,Stream, ResultCarInfo,CarTypeEnum> GetPlateNumber();
+        Tuple<string, Task<Stream>, ResultCarInfo, CarTypeEnum> GetPlateNumber();
 
     }
 }

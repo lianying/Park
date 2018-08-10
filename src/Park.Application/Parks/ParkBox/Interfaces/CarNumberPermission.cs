@@ -31,7 +31,7 @@ namespace Park.Parks.ParkBox.Interfaces
             _carPortRepository = carPortRepository;
         }
 
-        public PermissionResult CheckCarNumberPermission(string number,long entranceId)
+        public PermissionResult CheckCarNumberPermission(string number, long entranceId)
         {
 
 
@@ -76,6 +76,8 @@ namespace Park.Parks.ParkBox.Interfaces
             }
             else
             {   //月租车
+
+                var inCount = _carInRecordRepository.GetAll().Where(x => x.CarId == user.Id && x.CarNumber != number).Select(x => x.CarNumber).ToList();
                 //判断出入口权限
                 bool hasPermission = false;
                 foreach (var item in user.CarPorts)
@@ -88,19 +90,18 @@ namespace Park.Parks.ParkBox.Interfaces
                 }
                 if (!hasPermission)
                 {
-                    return new PermissionResult(false, Enum.CarNumberPermissionEnum.NoPermissionNotIn, user, false);
+                    return new PermissionResult(false, Enum.CarNumberPermissionEnum.NoPermissionNotIn, user, false, inCount.Count, inCount);
                 }
-                var inCount = _carInRecordRepository.GetAll().Where(x => x.CarId == user.Id).Count();
-                if (inCount >= user.CarPorts.Count)
+                if (inCount.Count >= user.CarPorts.Count)
                 {
                     if (user.FullInType == Enum.FullInType.Temp)
-                        return new PermissionResult(true, Enum.CarNumberPermissionEnum.CarportsFullIn, user, true);
+                        return new PermissionResult(true, Enum.CarNumberPermissionEnum.CarportsFullIn, user, true, inCount.Count, inCount);
                     else
 
-                        return new PermissionResult(false, Enum.CarNumberPermissionEnum.CarportsFullNotIn, user, false);
+                        return new PermissionResult(false, Enum.CarNumberPermissionEnum.CarportsFullNotIn, user, false, inCount.Count, inCount);
                 }
                 else
-                    return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false);
+                    return new PermissionResult(true, Enum.CarNumberPermissionEnum.MonthIn, user, false, inCount.Count, inCount);
             }
         }
 

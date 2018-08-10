@@ -8,6 +8,7 @@ using Castle.Core.Logging;
 using MahApps.Metro.Controls;
 using Park.ParkBox;
 using Park.Parks.Entrance;
+using Park.Parks.ParkBox.Interfaces;
 using Park.UserControls;
 
 namespace Park.CreateCameraPnel
@@ -23,8 +24,8 @@ namespace Park.CreateCameraPnel
         {
 
             _parkBoxOptions = parkBoxOptions;
-            deviceInfoDtos = _parkBoxOptions.DeciceInfos.GroupBy(x => x.EntranceDto.Id).ToList();
-            countEntrances = deviceInfoDtos.Count();
+            deviceInfoDtos = _parkBoxOptions.DeciceInfos?.GroupBy(x => x.EntranceDto.Id).ToList();
+            countEntrances = deviceInfoDtos?.Count() ?? 0;
             Logger = NullLogger.Instance;
         }
         /// <summary>
@@ -32,12 +33,12 @@ namespace Park.CreateCameraPnel
         /// </summary>
         /// <param name="window"></param>
         /// <returns></returns>
-        public Dictionary<long, ParkEntranceInfo> CreatePnels(Control window)
+        public Dictionary<long, ISetInfo> CreatePnels(Control window)
         {
             if (countEntrances == 0)
                 return null;
             FlipView flipView = window as FlipView;
-            Dictionary<long, ParkEntranceInfo> dic = new Dictionary<long, ParkEntranceInfo>();
+            Dictionary<long, ISetInfo> dic = new Dictionary<long, ISetInfo>();
             if (countEntrances <= 2)
             {
                 FlipViewItem flipViewItem = new FlipViewItem();

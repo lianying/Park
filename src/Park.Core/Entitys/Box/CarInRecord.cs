@@ -97,5 +97,8 @@ namespace Park.Entitys.Box
         public virtual long? DeleterUserId { get; set; }
         public virtual DateTime? DeletionTime { get; set; }
         public virtual bool IsDeleted { get; set; }
+
+
+        public virtual string CarInNumbers { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using Park.Entitys.Box;
 using Park.Expansions;
 using Park.ParkBox;
 using Park.Parks.Entrance;
+using Park.Parks.ParkBox.Interfaces;
 using System;
 using System.IO;
 using System.Linq;
@@ -23,11 +24,8 @@ namespace Park.UserControls
     /// <summary>
     /// ParkEntranceInfo.xaml 的交互逻辑
     /// </summary>
-    public partial class ParkEntranceInfo : UserControl
+    public partial class ParkEntranceInfo : UserControl,ISetInfo
     {
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, int flags);
 
         private DeviceInfoDto deviceInfo;
         private readonly IParkBoxOptions _parkBoxOptions;
@@ -100,15 +98,15 @@ namespace Park.UserControls
             {
                 if (deviceInfo.EquipmentManufacturers == Enum.EquipmentManufacturers.LanKa)
                 {
-                    var pic = new LanKaPicture();
+                    var pic = new LanKaPicture(deviceInfo, async () => await OpenRod(), InOutAction,this);
                     handler = pic;
                     //WindowsFormsHost windowsFormsHost
                     Camera.Children.Add(pic);
                 }
                 else
                 {
-                    var pic = new HiKPicture(deviceInfo, async () => await OpenRod(), InOutAction);
-                    pic.SetImage(_parkBoxOptions.DefultCarmeraImg);
+                    var pic = new HiKPicture(deviceInfo, async () => await OpenRod(), InOutAction, _parkBoxOptions, this);
+                    
                     handler = pic;
                     Camera.Children.Add(pic);
                 }
@@ -117,10 +115,13 @@ namespace Park.UserControls
             }
             else
             {
-                Img.Visibility = System.Windows.Visibility.Collapsed;
-                ImageBrush imageBrush = new ImageBrush();
-                imageBrush.ImageSource = _parkBoxOptions.DefultCarmeraImg.GetBitmapImage();
-                Camera.Background = imageBrush;
+                //Img.Visibility = System.Windows.Visibility.Collapsed;
+                //ImageBrush imageBrush = new ImageBrush();
+                //imageBrush.ImageSource = _parkBoxOptions.DefultCarmeraImg.GetBitmapImage();
+                //Camera.Background = imageBrush;
+
+                Image.Stretch = Stretch.Fill;
+                Camera.Children.Add(Image);
 
             }
             deviceInfo.Handler = handler?.IntPtr;
@@ -149,7 +150,7 @@ namespace Park.UserControls
                 txt_CarType.Text = tempCarport == null ? "临时车" : tempCarport.First().CarPortType.CustomName;
                 txt_UserName.Text = carInRecord.CarUser?.Name;
                 txt_OutTime.Text = "";
-                txt_RematingDays.Text = tempCarport == null ? "0" : (tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays.ToString();
+                txt_RematingDays.Text = tempCarport == null ? "0" : ((int)(tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays).ToString();
             }, null);
 
 
@@ -170,6 +171,8 @@ namespace Park.UserControls
                 txt_CarType.Text = tempCarport == null ? "临时车" : tempCarport.First().CarPortType.CustomName;
                 txt_UserName.Text = carOutRecord.CarUser?.Name;
                 txt_OutTime.Text = carOutRecord.OutTime.ToString("yyyy-MM-dd hh:mm:ss");
+
+                txt_RematingDays.Text = tempCarport == null ? "0" : ((int)(tempCarport.Max(c => c.EndTime) - DateTime.Now).TotalDays).ToString();
             }, null);
             return Task.CompletedTask;
         }
@@ -188,7 +191,14 @@ namespace Park.UserControls
 
         private void SetImageSource(Stream stream)
         {
-            Image.SetImage(stream);
+            synchronizationContext.Post((x) => {
+                //if (!_parkBoxOptions.IsListView)
+                //{
+                //    handler.SetImage(stream);
+                //    return;
+                //}
+                Image.SetImage(stream);
+            }, null);
         }
         /// <summary>
         /// 手工入场
@@ -251,6 +261,21 @@ namespace Park.UserControls
             //        SetWindowPos(host.Handle, new IntPtr(-1), 0, 0, 0, 0, 3);
             //    }, null);
             //});
+        }
+
+        public Task SetInfo(long entranceId, CarInRecord carInRecord)
+        {
+            return SetInfo(carInRecord);
+        }
+
+        public Task SetInfo(long entranceId, CarOutRecord carOutRecord)
+        {
+            return SetInfo(carOutRecord);
+        }
+
+        public Task SetImage(long entranceId, Stream stream)
+        {
+            return SetImage(stream);
         }
     }
 }

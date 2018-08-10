@@ -21,8 +21,10 @@ using Park.Parks.ParkBox.Interfaces;
 using Park.UserControls;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,6 +53,8 @@ namespace Park.Froms
         private readonly IRepository<CarTypes, long> _repositoryCarType;
         private readonly IRepository<RangeTime> _repositoryRangeTime;
         private readonly IRepository<BlackList,int > _repositoryBlackList;
+        private readonly IRepository<CarPort, long> _repositoryCarPort;
+        private readonly ParkMainControl _parkMainControl;
 
 
         private readonly IRepository<FareRule> _repositoryFareRule;
@@ -59,7 +63,7 @@ namespace Park.Froms
 
         private EntranceDto _outEntranceDto = null;
 
-        private Dictionary<long, ParkEntranceInfo> parkEntrances;
+        private Dictionary<long, ISetInfo> parkEntrances;
 
         
         
@@ -70,7 +74,9 @@ namespace Park.Froms
             IRepository<CarTypes,long> repositoryCarType,
            IRepository<FareRule> repositoryFareRule,
            IRepository<RangeTime> repositoryRangeTime,
-           IRepository<BlackList, int> repositoryBlackList)
+           IRepository<BlackList, int> repositoryBlackList,
+           IRepository<CarPort, long> repositoryCarPort,
+           ParkMainControl parkMainControl)
         {
             InitializeComponent();
             DataContext = this;
@@ -87,13 +93,21 @@ namespace Park.Froms
             _repositoryFareRule = repositoryFareRule;
             _repositoryRangeTime = repositoryRangeTime;
             _repositoryBlackList = repositoryBlackList;
+            _repositoryCarPort = repositoryCarPort;
+            _parkMainControl = parkMainControl;
 
             IocManager.Instance.IocContainer.Register(
                 Component.For<IManualEntryAndExit>().UsingFactoryMethod(() => this));
+            //IocManager.Instance.IocContainer.Register(Component.For<TaskScheduler>().Instance(TaskScheduler.FromCurrentSynchronizationContext()).LifestyleSingleton());
+            IocManager.Instance.IocContainer.Register(Component.For<SynchronizationContext>().Instance(base.SynchronizationContext).LifestyleSingleton());
+
 
             Title = parkBoxOptions.ParkName;
             parkEntrances = _createPnel.CreatePnels(this.ContentCamera);
-
+            parkBoxOptions.SetInfosDic = parkEntrances;
+#if Release
+     this.TopMost=true;
+#endif
 
         }
 
@@ -203,7 +217,7 @@ namespace Park.Froms
                         InOutType = Enum.InOutTypeEnum.Artificial,
                         OutTime = DateTime.Now,
                         Receivable = 0,
-                        ParkId = _outEntranceDto.ParkLevel.Park.Id,
+                        ParkId = _inEntranceDto.ParkLevel.Park.Id,
                         Remark = "有场内纪录，再次入场"
 
                     };
@@ -214,7 +228,7 @@ namespace Park.Froms
                 {
                     await parkEntrances[_inEntranceDto.Id]?.OpenRod();
                     //await deviceInfoDto.Controlable.Camerable.OpenRod(); //抬杆
-                    await _ledManager.SpeakAndShowText(parkEntrances[_inEntranceDto.Id].GetDeviceInfo(), carInModel, result); //播报语音
+                    await _ledManager.SpeakAndShowText((parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carInModel, result); //播报语音
                     parkEntrances[_inEntranceDto.Id]?.SetInfo(carIn);
                 }
                 else
@@ -260,7 +274,7 @@ namespace Park.Froms
                                 var outRcode = _vehicleFlow.CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
                                 if (outRcode != null)
                                 {
-                                    parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
+                                    parkEntrances[_outEntranceDto.Id]?.SetInfo( outRcode);
                                 }
                                 else
                                 {
@@ -297,7 +311,7 @@ namespace Park.Froms
                                         await parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
 
                                         await parkEntrances[_outEntranceDto.Id]?.OpenRod();
-                                        await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                                        await _ledManager.SpeakAndShowText((parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
                                     }
                                     else
                                     {
@@ -308,8 +322,8 @@ namespace Park.Froms
                                 }
 
 
-                                await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
-                                var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, parkEntrances[_outEntranceDto.Id].GetDeviceInfo(),_repositoryFareRule,_repositoryRangeTime);
+                                await _ledManager.SpeakAndShowText((parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
+                                var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, (parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(),_repositoryFareRule,_repositoryRangeTime,null);
                                 tollWindow.Init();
                                 var isFree = tollWindow.ShowDialog();
                                 if (isFree.HasValue && isFree.Value)
@@ -318,7 +332,7 @@ namespace Park.Froms
 
                                     await parkEntrances[_outEntranceDto.Id]?.OpenRod();
                                     await parkEntrances[_outEntranceDto.Id]?.SetInfo(tollWindow.CarOutRecord);
-                                    await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                                    await _ledManager.SpeakAndShowText((parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
                                 }
                             }
                         }
@@ -349,7 +363,7 @@ namespace Park.Froms
                                     await parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
 
                                     await parkEntrances[_outEntranceDto.Id]?.OpenRod();
-                                    await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                                    await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
                                 }
                                 else
                                 {
@@ -359,8 +373,8 @@ namespace Park.Froms
                                 return;
                             }
 
-                            await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
-                            var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime);
+                            await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
+                            var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, (parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime,null);
                             tollWindow.Init();
                             var isFree = tollWindow.ShowDialog();
                             if (isFree.HasValue && isFree.Value)
@@ -371,7 +385,7 @@ namespace Park.Froms
                                 await parkEntrances[_outEntranceDto.Id]?.SetInfo(tollWindow.CarOutRecord);
 
 
-                                await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                                await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
                             }
                         }
                     }
@@ -405,7 +419,7 @@ namespace Park.Froms
                                 await parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
 
                                 await parkEntrances[_outEntranceDto.Id]?.OpenRod();
-                                await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                                await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
                             }
                             else
                             {
@@ -415,8 +429,8 @@ namespace Park.Froms
                             return;
                         }
 
-                        await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
-                        var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow,parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime);
+                        await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.CalculationFee); //播报语音
+                        var tollWindow = new ChargerWindow(_ledManager, carOutModel, fareRule, receivable, _repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, (parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime,null);
                         tollWindow.Init();
                         var isFree = tollWindow.ShowDialog();
                         if (isFree.HasValue && isFree.Value)
@@ -427,7 +441,7 @@ namespace Park.Froms
                             await parkEntrances[_outEntranceDto.Id]?.SetInfo(tollWindow.CarOutRecord);
 
 
-                            await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
+                            await _ledManager.SpeakAndShowText((parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), carOutModel, OutEnum.SuccessfulPayment); //播报语音
 
 
                         }
@@ -450,7 +464,7 @@ namespace Park.Froms
                             await parkEntrances[_outEntranceDto.Id]?.SetInfo(outRcode);
 
 
-                            await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), model, OutEnum.SuccessfulPayment); //播报语音
+                            await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), model, OutEnum.SuccessfulPayment); //播报语音
                         }
                         else
                         {
@@ -466,7 +480,7 @@ namespace Park.Froms
                         fareRule.TimeRangeList = rangTimes;
 
                         ///弹出收费框
-                        var tollWindow = new ChargerWindow(_ledManager, carNumber, fareRule, InOutTypeEnum.Artificial ,_repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime);
+                        var tollWindow = new ChargerWindow(_ledManager, carNumber, fareRule, InOutTypeEnum.Artificial ,_repositoryCarType, parkBoxOptions, _repositoryCarPort, _vehicleFlow, (parkEntrances[_inEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), _repositoryFareRule, _repositoryRangeTime,null);
                         tollWindow.Init();
 
                         var isFree = tollWindow.ShowDialog();
@@ -475,10 +489,10 @@ namespace Park.Froms
 
 
                             await parkEntrances[_outEntranceDto.Id]?.OpenRod();
-                            await parkEntrances[_outEntranceDto.Id]?.SetInfo(tollWindow.CarOutRecord);
+                            await parkEntrances[_outEntranceDto.Id]?.SetInfo( tollWindow.CarOutRecord);
 
 
-                            await _ledManager.SpeakAndShowText(parkEntrances[_outEntranceDto.Id].GetDeviceInfo(), tollWindow.CarOutModel, OutEnum.SuccessfulPayment); //播报语音
+                            await _ledManager.SpeakAndShowText((parkEntrances[_outEntranceDto.Id] as ParkEntranceInfo)?.GetDeviceInfo(), tollWindow.CarOutModel, OutEnum.SuccessfulPayment); //播报语音
 
 
                         }
@@ -553,22 +567,22 @@ namespace Park.Froms
 
         }
 
-        private async void AbpWindow_Loaded(object sender, RoutedEventArgs e)
+       
+
+        
+
+        public void Message(string titi, string message)
         {
-            //await Task.Delay(1000).ContinueWith((task) =>
-            //{
-            //    SynchronizationContext.Post((x) =>
-            //    {
-            //        if (parkEntrances != null && parkEntrances.Count > 0)
-            //        {
-            //            foreach (var item in parkEntrances.Values)
-            //            {
-            //                item.ReSizePic();
-            //            }
-            //        }
-            //    }, null);
-               
-            //});
+            SynchronizationContext.Post(async (x) =>
+            {
+                await this.ShowMessageAsync(titi, message);
+            }, null);
+        }
+        
+
+        private void AbpWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //_parkMainControl.StartThreads();
         }
     }
 }

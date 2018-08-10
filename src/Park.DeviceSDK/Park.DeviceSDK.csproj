@@ -31,8 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.BLC_IPNCLib">
+      <HintPath>..\lib\AxInterop.BLC_IPNCLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,7 +55,23 @@
     <Compile Include="Models\ResultCarInfo.cs" />
     <Compile Include="Models\ScreenshotsResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SDK\LanKa\HttpUtility.cs" />
+    <Compile Include="SDK\LanKa\Ini.cs" />
+    <Compile Include="SDK\LanKa\JsonUtility.cs" />
+    <Compile Include="SDK\LanKa\LanKaControl.cs" />
+    <Compile Include="SDK\LanKa\LankaResultInfo.cs" />
+    <Compile Include="SDK\LanKa\LanKaResultModel.cs" />
+    <Compile Include="SDK\LanKa\MyHttpServer.cs" />
+    <Compile Include="SDK\NullDevice.cs" />
+    <Compile Include="StringExtenspents.cs" />
+    <Compile Include="WriteLog.cs" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Park.Core\Park.Core.csproj">
+      <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
+      <Name>Park.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

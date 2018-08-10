@@ -202,7 +202,9 @@
     <Compile Include="Entitys\Box\CarErrorRecord.cs" />
     <Compile Include="Entitys\Box\CarInOutImage.cs" />
     <Compile Include="Entitys\Box\CarInRecord.cs" />
+    <Compile Include="Entitys\Box\CarOuRecordEventData.cs" />
     <Compile Include="Entitys\Box\CarOutRecord.cs" />
+    <Compile Include="Entitys\CameraInfoBase.cs" />
     <Compile Include="Entitys\CarUsers\CarDiscount.cs" />
     <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
     <Compile Include="Entitys\CarUsers\CarPort.cs" />
@@ -221,6 +223,7 @@
     <Compile Include="Entitys\ParkLevels\ParkLevels.cs" />
     <Compile Include="Entitys\Parks\Park.cs" />
     <Compile Include="Entitys\Parks\ParkBase.cs" />
+    <Compile Include="Entitys\SDKControlParametes.cs" />
     <Compile Include="Enum\CarDiscountEnum.cs" />
     <Compile Include="Enum\CarNumberPermissionEnum.cs" />
     <Compile Include="Enum\CarType.cs" />

@@ -11,63 +11,41 @@ using System.Text;
 using System.Threading.Tasks;
 using Park.Parks.Devices.Interfaces;
 using System.IO;
+using Park.Entitys;
+using Park.SDK;
+using Park.DeviceSDK;
+using Park.DeviceSDK.LanKa;
 
 namespace Park.Devices.Models
 {
     [AutoMap(typeof(Device))]
-    public  class DeviceInfoDto: IDeviceable
+    public  class DeviceInfoDto: CameraInfoBase,IDeviceable
     {
-        public string Ip { get; set; }
-
-        public long Port { get; set; }
-
-        public string UserName { get; set; }
-
-        public string Password { get; set; }
-
-        public EquipmentManufacturers EquipmentManufacturers { get; set; }
 
         public EntranceDto EntranceDto { get; set; }
 
-        public DeviceType DeviceType { get; set; }
 
-        public int Sort { get; set; }
-
-        /// <summary>
-        /// 登录ID
-        /// </summary>
-        public long LoginId { get; set; }
-
-        public virtual void InitDevice()
-        {
-
-        }
 
         [NotMapped]
         public Park.Devices.Interfaces.IControlable Controlable { get; private set; }
-        /// <summary>
-        /// 设备状态
-        /// </summary>
-        [NotMapped]
-        public DeviceStatus DeviceStatus { get; set; }
-        /// <summary>
-        /// 客户数据
-        /// </summary>
-        [NotMapped]
-        public object CalBackData { get; set; }
 
-        /// <summary>
-        /// 实时监控中fromHandler
-        /// </summary>
-        [NotMapped]
-        public IntPtr? Handler { get; set; }
+        public override void InitDevice(SDKControlParametes controlParametes)
+        {
+            switch (EquipmentManufacturers)
+            {
+                case EquipmentManufacturers.HaiKang:
 
-        /// <summary>
-        /// 拍照图片
-        /// </summary>
-        [NotMapped]
-        public Stream Image { get; set; }
+                    Controlable = new NullDevice();
+                    break;
 
+                case EquipmentManufacturers.LanKa:
+                    var c = new LanKaControl(controlParametes);
+                    Controlable = c;
+                    c.MockTest();
+                    
+                    break;
+            }
 
+        }
     }
 }

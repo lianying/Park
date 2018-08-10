@@ -31,6 +31,9 @@ namespace Park
 
         private SynchronizationContext _synchronizationContext;
 
+
+        
+
         public App()
         {
             _bootstrapper = AbpBootstrapper.Create<ParkBoxWpfModule>();

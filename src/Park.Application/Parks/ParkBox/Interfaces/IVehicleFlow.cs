@@ -26,7 +26,7 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
-        void CarOutRecord(string carNumber, EntranceDto entranceDto, IDeviceable deviceable, Action openRod, Action<CarOutRecord> setOutInfo, Action<string, string> showMessage);
+        //void CarOutRecord(string carNumber, EntranceDto entranceDto, IDeviceable deviceable, Action openRod, Action<CarOutRecord> setOutInfo, Action<string, string> showMessage);
 
         CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel);
 

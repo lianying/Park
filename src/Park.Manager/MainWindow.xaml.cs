@@ -14,12 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Park.Manager
+namespace Park.Froms
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow 
     {
         public MainWindow()
         {

@@ -21,7 +21,7 @@
         public const string Description = "停车场管理系统";
 
 
-       public const string TempCarInConfirmMessage = "临时车是否进入?";
+        public const string TempCarInConfirmMessage = "临时车是否进入?";
 
 
         public const string NoNumberCarInConfirmMessage = "无牌车是否进入?";
@@ -35,6 +35,31 @@
         public const string CarportsFullNotInMessage = "集团车位已满禁止进入";
 
         public const string TempCarNotInMessage = "临时车禁止进入";
+
+
+        public static string[] CarNumberList = { "浙A54265",
+            "浙A54266",
+            "浙A12345",
+            "浙A12346",
+            "浙A12347",
+            "浙A12348",
+            "浙A12349",
+            "浙A12351",
+            "浙A12352",
+            "浙A12353",
+            "浙A12354",
+            "浙A12355",
+            "浙A12356",
+            "浙A12357" };
+
+
+        public static string[] DeviceIds = {
+            "00001",
+            "00002",
+            "00003",
+            "00004",
+            "00005"
+        };
 
 
     }

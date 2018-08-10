@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Abp.Dependency;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
+using Abp.Events.Bus;
 using Abp.Extensions;
 using Castle.Core.Logging;
 using Park.Entitys.Box;
@@ -47,6 +48,8 @@ namespace Park.Parks.ParkBox.Interfaces
         private readonly IocManager _iocManager;
         private readonly IRepository<CarPort, long> _repositoryCarPort;
 
+        private readonly IEventBus _eventBus;
+
         private ILogger Logger { get; set; }
         public VehicleFlow(IRepository<CarInRecord, long> carInRecordRepository,
             IUnitOfWorkManager unitOfWorkManager,
@@ -59,7 +62,8 @@ namespace Park.Parks.ParkBox.Interfaces
            IParkBoxOptions parkBoxOption,
            LedManager ledManager,
             IRepository<CarDiscount, long> carDiscountrepository,
-            IRepository<CarErrorRecord, long> carErrorRecordRepository)
+            IRepository<CarErrorRecord, long> carErrorRecordRepository,
+            IEventBus eventBus)
         {
             _carInRecordRepository = carInRecordRepository;
             _unitOfWorkManager = unitOfWorkManager;
@@ -75,15 +79,17 @@ namespace Park.Parks.ParkBox.Interfaces
             _iocManager = IocManager.Instance;
             _carDiscountrepository = carDiscountrepository;
             _carErrorRecordRepository = carErrorRecordRepository;
+            _eventBus = eventBus;
         }
         public CarInRecord CarIn(CarInModel carIn, PermissionResult permissionResult)
         {
-            var carInRecord = new CarInRecord() { CarNumber = carIn.CarNumber, InType = carIn.InOutType, InTime = carIn.InTime, CarUser = permissionResult.CarUser, CarPort = permissionResult.CarUser?.CarPorts.FirstOrDefault(), ParkId = carIn.Entrance.ParkLevel.Park.Id, CarInCount = 0 };
+
+            var carInRecord = new CarInRecord() { CarNumber = carIn.CarNumber, InType = carIn.InOutType, InTime = carIn.InTime, CarUser = permissionResult.CarUser, CarPort = permissionResult.CarUser?.CarPorts.FirstOrDefault(), ParkId = carIn.Entrance.ParkLevel.Park.Id, IsMonthTempIn = permissionResult.IsMonthTempIn, CarInCount = permissionResult.CarInCount, CarInNumbers = permissionResult.CarInNumbers, CarInPermission = permissionResult.CarNumberPermission };
             var id = _carInRecordRepository.InsertAndGetId(carInRecord);
             _unitOfWorkManager.Current.SaveChanges();
             return _carInRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
         }
-        public CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel)
+        public  CarOutRecord CarOut(CarInRecord carIn, CarOutModel carOutModel)
         {
             var carOut = new CarOutRecord()
             {
@@ -112,11 +118,17 @@ namespace Park.Parks.ParkBox.Interfaces
             };
             _carInRecordRepository.Delete(carIn.Id);
 
-            var id = _carOutRecordRepository.InsertAndGetId(carOut);
+            var id =  _carOutRecordRepository.InsertAndGetId(carOut);
 
             _unitOfWorkManager.Current.SaveChanges();
 
-            return _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+
+            var outRecord= _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+
+
+             _eventBus.Trigger(new CarOutRecordCreateedEventData() { CarOutRecord = outRecord });
+
+            return outRecord;
         }
         /// <summary>
         /// 月租车无在场记录 根据车牌出场
@@ -149,242 +161,248 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
-            return _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+            var outRecord = _carOutRecordRepository.GetAllIncluding(x => x.CarPort, x => x.CarUser, x => x.Park).Where(x => x.Id == id).FirstOrDefault();
+
+            _eventBus.Trigger(new CarOutRecordCreateedEventData() { CarOutRecord = outRecord });
+
+            return outRecord;
 
         }
 
-        public async void CarOutRecord(string carNumber, EntranceDto entranceDto, IDeviceable deviceable, Action openRod, Action<CarOutRecord> setOutInfo, Action<string, string> showMessage)
-        {
-            var isCarIn = IsCarIn(entranceDto.ParkLevel.Park.Id, carNumber);
-            if (isCarIn.IsCarIn)
-            {
+        #region 注释
+        //public async void CarOutRecord(string carNumber, EntranceDto entranceDto, IDeviceable deviceable, Action openRod, Action<CarOutRecord> setOutInfo, Action<string, string> showMessage)
+        //{
+        //    var isCarIn = IsCarIn(entranceDto.ParkLevel.Park.Id, carNumber);
+        //    if (isCarIn.IsCarIn)
+        //    {
 
-                var user = _carNumberPermission.GetUser(entranceDto.ParkLevel.Park.Id, carNumber);
-                if (user != null)
-                {
-                    var typeId = user.CarPorts.FirstOrDefault()?.CarPortTypeId;
-                    var carType = _repositoryCarType.GetAll().FirstOrDefault(x => x.Id == (typeId.HasValue ? typeId.Value : _parkBoxOptions.TempCarTypeId));
-                    //月租车正常出场
-                    if (carType.Category == CarType.Month)
-                    {
-                        if (!isCarIn.CarInRecord.IsMonthTempIn)
-                        {
+        //        var user = _carNumberPermission.GetUser(entranceDto.ParkLevel.Park.Id, carNumber);
+        //        if (user != null)
+        //        {
+        //            var typeId = user.CarPorts.FirstOrDefault()?.CarPortTypeId;
+        //            var carType = _repositoryCarType.GetAll().FirstOrDefault(x => x.Id == (typeId.HasValue ? typeId.Value : _parkBoxOptions.TempCarTypeId));
+        //            //月租车正常出场
+        //            if (carType.Category == CarType.Month)
+        //            {
+        //                if (!isCarIn.CarInRecord.IsMonthTempIn)
+        //                {
 
-                            var outRcode = CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
-                            if (outRcode != null)
-                            {
-                                setOutInfo?.Invoke(outRcode);
-                            }
-                            else
-                            {
+        //                    var outRcode = CarOut(isCarIn.CarInRecord, new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now });
+        //                    if (outRcode != null)
+        //                    {
+        //                        setOutInfo?.Invoke(outRcode);
+        //                    }
+        //                    else
+        //                    {
 
-                                showMessage?.Invoke("提示", "出场失败!");
-                            }
-                        }
-                        else
-                        {  //月租车收费
-                            DateTime outTime = DateTime.Now;
+        //                        showMessage?.Invoke("提示", "出场失败!");
+        //                    }
+        //                }
+        //                else
+        //                {  //月租车收费
+        //                    DateTime outTime = DateTime.Now;
 
-                            FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
-                            if (isCarIn.CarInRecord.TempConvertMonthTime.HasValue)
-                            {
-                                outTime = isCarIn.CarInRecord.TempConvertMonthTime.Value;
-                            }
-                            var receivable = fareRule.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0);
-                            var carOutModel = new CarOutModel()
-                            {
-                                CarInRecord = isCarIn.CarInRecord,
-                                InOutType = Enum.InOutTypeEnum.Artificial,
-                                OutTime = DateTime.Now,
-                                Receivable = receivable,
-                                ParkId = entranceDto.ParkLevel.Park.Id
-                            };
-                            if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
-                            {
-                                var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
-                                if (outRcode != null)
-                                {
-                                    openRod?.Invoke();
-                                    setOutInfo?.Invoke(outRcode);
-                                    await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
-                                }
-                                else
-                                {
+        //                    FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
+        //                    if (isCarIn.CarInRecord.TempConvertMonthTime.HasValue)
+        //                    {
+        //                        outTime = isCarIn.CarInRecord.TempConvertMonthTime.Value;
+        //                    }
+        //                    var receivable = fareRule.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0);
+        //                    var carOutModel = new CarOutModel()
+        //                    {
+        //                        CarInRecord = isCarIn.CarInRecord,
+        //                        InOutType = Enum.InOutTypeEnum.Artificial,
+        //                        OutTime = DateTime.Now,
+        //                        Receivable = receivable,
+        //                        ParkId = entranceDto.ParkLevel.Park.Id
+        //                    };
+        //                    if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
+        //                    {
+        //                        var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
+        //                        if (outRcode != null)
+        //                        {
+        //                            openRod?.Invoke();
+        //                            setOutInfo?.Invoke(outRcode);
+        //                            await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                        }
+        //                        else
+        //                        {
 
-                                    showMessage?.Invoke("提示", "出场失败!");
-                                }
-                                return;
-                            }
-
-
-                            await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
-                            var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
-                            tollWindow.Init(false);
-                            var isFree = tollWindow.ShowDialog();
-                            if (isFree.HasValue && isFree.Value)
-                            {
+        //                            showMessage?.Invoke("提示", "出场失败!");
+        //                        }
+        //                        return;
+        //                    }
 
 
-                                openRod?.Invoke();
-                                setOutInfo?.Invoke(tollWindow.CarOutRecord);
-                                await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //其他车类型
-                        DateTime outTime = DateTime.Now;
-
-                        FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == carType.Id);
-
-                        var receivable = fareRule?.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0) ?? 0;
-                        var carOutModel = new CarOutModel()
-                        {
-                            CarInRecord = isCarIn.CarInRecord,
-                            InOutType = Enum.InOutTypeEnum.Artificial,
-                            OutTime = outTime,
-                            Receivable = receivable,
-                            ParkId = entranceDto.ParkLevel.Park.Id
-                        };
-
-                        if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
-                        {
-                            var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
-                            if (outRcode != null)
-                            {
-                                openRod?.Invoke();
-                                setOutInfo?.Invoke(outRcode);
-                                await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
-                            }
-                            else
-                            {
-
-                                showMessage?.Invoke("提示", "出场失败!");
-                            }
-                            return;
-                        }
-
-                        await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
-                        var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
-                        tollWindow.Init(false);
-                        var isFree = tollWindow.ShowDialog();
-                        if (isFree.HasValue && isFree.Value)
-                        {
+        //                    await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
+        //                    var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
+        //                    tollWindow.Init(false);
+        //                    var isFree = tollWindow.ShowDialog();
+        //                    if (isFree.HasValue && isFree.Value)
+        //                    {
 
 
-                            openRod?.Invoke();
-                            setOutInfo?.Invoke(tollWindow.CarOutRecord);
+        //                        openRod?.Invoke();
+        //                        setOutInfo?.Invoke(tollWindow.CarOutRecord);
+        //                        await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                //其他车类型
+        //                DateTime outTime = DateTime.Now;
+
+        //                FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == carType.Id);
+
+        //                var receivable = fareRule?.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0) ?? 0;
+        //                var carOutModel = new CarOutModel()
+        //                {
+        //                    CarInRecord = isCarIn.CarInRecord,
+        //                    InOutType = Enum.InOutTypeEnum.Artificial,
+        //                    OutTime = outTime,
+        //                    Receivable = receivable,
+        //                    ParkId = entranceDto.ParkLevel.Park.Id
+        //                };
+
+        //                if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
+        //                {
+        //                    var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
+        //                    if (outRcode != null)
+        //                    {
+        //                        openRod?.Invoke();
+        //                        setOutInfo?.Invoke(outRcode);
+        //                        await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                    }
+        //                    else
+        //                    {
+
+        //                        showMessage?.Invoke("提示", "出场失败!");
+        //                    }
+        //                    return;
+        //                }
+
+        //                await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
+        //                var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
+        //                tollWindow.Init(false);
+        //                var isFree = tollWindow.ShowDialog();
+        //                if (isFree.HasValue && isFree.Value)
+        //                {
 
 
-                            await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
-                        }
-                    }
-                }
-                else
-                {  //临时车
-
-                    DateTime outTime = DateTime.Now;
-
-                    FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
+        //                    openRod?.Invoke();
+        //                    setOutInfo?.Invoke(tollWindow.CarOutRecord);
 
 
-                    var receivable = fareRule?.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0) ?? 0;
+        //                    await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {  //临时车
 
-                    var carOutModel = new CarOutModel()
-                    {
-                        CarInRecord = isCarIn.CarInRecord,
-                        InOutType = Enum.InOutTypeEnum.Artificial,
-                        OutTime = outTime,
-                        Receivable = receivable,
-                        ParkId = entranceDto.ParkLevel.Park.Id
-                    };
+        //            DateTime outTime = DateTime.Now;
 
-                    if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
-                    {
-                        var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
-                        if (outRcode != null)
-                        {
-                            openRod?.Invoke();
-                            setOutInfo?.Invoke(outRcode);
-                            await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
-                        }
-                        else
-                        {
-
-                            showMessage?.Invoke("提示", "出场失败!");
-                        }
-                        return;
-                    }
-
-                    await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
-                    var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
-                    tollWindow.Init(false);
-                    var isFree = tollWindow.ShowDialog();
-                    if (isFree.HasValue && isFree.Value)
-                    {
+        //            FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
 
 
-                        openRod?.Invoke();
-                        setOutInfo?.Invoke(tollWindow.CarOutRecord);
+        //            var receivable = fareRule?.CalculateFees(isCarIn.CarInRecord.InTime, outTime, 0) ?? 0;
+
+        //            var carOutModel = new CarOutModel()
+        //            {
+        //                CarInRecord = isCarIn.CarInRecord,
+        //                InOutType = Enum.InOutTypeEnum.Artificial,
+        //                OutTime = outTime,
+        //                Receivable = receivable,
+        //                ParkId = entranceDto.ParkLevel.Park.Id
+        //            };
+
+        //            if (_parkBoxOptions.IsZeroMoneyOut && receivable == 0) //收费为0 直接放行
+        //            {
+        //                var outRcode = CarOut(isCarIn.CarInRecord, carOutModel);
+        //                if (outRcode != null)
+        //                {
+        //                    openRod?.Invoke();
+        //                    setOutInfo?.Invoke(outRcode);
+        //                    await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                }
+        //                else
+        //                {
+
+        //                    showMessage?.Invoke("提示", "出场失败!");
+        //                }
+        //                return;
+        //            }
+
+        //            await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.CalculationFee); //播报语音
+        //            var tollWindow = _iocManager.Resolve<ICharger>(new { carOutModel = carOutModel, fareRule = fareRule, receivable = receivable, _repositoryCarType, parkBoxOptions = _parkBoxOptions, _repositoryCarPort, vehicleFlow = this });
+        //            tollWindow.Init(false);
+        //            var isFree = tollWindow.ShowDialog();
+        //            if (isFree.HasValue && isFree.Value)
+        //            {
 
 
-                        await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                openRod?.Invoke();
+        //                setOutInfo?.Invoke(tollWindow.CarOutRecord);
 
 
-                    }
-                }
-
-            }
-            else
-            {
-                Logger.Info(carNumber + " 无场内记录");
-                //无在场记录如果为月租车直接放行  否则弹出收费框
-                var user = _carNumberPermission.GetUser(entranceDto.ParkLevel.Park.Id, carNumber);
-                if (user != null)
-                {
-                    var model = new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now, ParkId = entranceDto.ParkLevel.Park.Id };
-                    var outRcode = CarOut(carNumber, user, model);
-                    if (outRcode != null)
-                    {
-
-                        openRod?.Invoke();
-                        setOutInfo?.Invoke(outRcode);
+        //                await _ledManager.SpeakAndShowText(deviceable, carOutModel, OutEnum.SuccessfulPayment); //播报语音
 
 
-                        await _ledManager.SpeakAndShowText(deviceable, model, OutEnum.SuccessfulPayment); //播报语音
-                    }
-                    else
-                    {
+        //            }
+        //        }
 
-                        showMessage?.Invoke("提示", "出场失败!");
-                    }
-                    return;
-                }
-                else
-                {
-                    FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
-                    ///弹出收费框
-                    var tollWindow = _iocManager.Resolve<ICharger>(new { ledManager = _ledManager, carNumber = carNumber, fareRule = fareRule, parkBoxOptions = _parkBoxOptions, vehicleFlow = this });
-                    tollWindow.Init(false);
+        //    }
+        //    else
+        //    {
+        //        Logger.Info(carNumber + " 无场内记录");
+        //        //无在场记录如果为月租车直接放行  否则弹出收费框
+        //        var user = _carNumberPermission.GetUser(entranceDto.ParkLevel.Park.Id, carNumber);
+        //        if (user != null)
+        //        {
+        //            var model = new Parks.ParkBox.CarOutModel() { Pay = 0, InOutType = Enum.InOutTypeEnum.Artificial, OutTime = DateTime.Now, ParkId = entranceDto.ParkLevel.Park.Id };
+        //            var outRcode = CarOut(carNumber, user, model);
+        //            if (outRcode != null)
+        //            {
 
-                    var isFree = tollWindow.ShowDialog();
-                    if (isFree.HasValue && isFree.Value)
-                    {
-
-                        openRod?.Invoke();
-                        setOutInfo?.Invoke(tollWindow.CarOutRecord);
+        //                openRod?.Invoke();
+        //                setOutInfo?.Invoke(outRcode);
 
 
-                        await _ledManager.SpeakAndShowText(deviceable, tollWindow.CarOutModel, OutEnum.SuccessfulPayment); //播报语音
+        //                await _ledManager.SpeakAndShowText(deviceable, model, OutEnum.SuccessfulPayment); //播报语音
+        //            }
+        //            else
+        //            {
+
+        //                showMessage?.Invoke("提示", "出场失败!");
+        //            }
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            FareRule fareRule = _repositoryFareRule.GetAll().FirstOrDefault(x => x.CarTypeId == _parkBoxOptions.TempCarTypeId);
+        //            ///弹出收费框
+        //            var tollWindow = _iocManager.Resolve<ICharger>(new { ledManager = _ledManager, carNumber = carNumber, fareRule = fareRule, parkBoxOptions = _parkBoxOptions, vehicleFlow = this });
+        //            tollWindow.Init(false);
+
+        //            var isFree = tollWindow.ShowDialog();
+        //            if (isFree.HasValue && isFree.Value)
+        //            {
+
+        //                openRod?.Invoke();
+        //                setOutInfo?.Invoke(tollWindow.CarOutRecord);
 
 
-                    }
-                    return;
-                }
-                //await this.ShowMessageAsync("提示", "当前车辆不在场内!");
-            }
-        }
+        //                await _ledManager.SpeakAndShowText(deviceable, tollWindow.CarOutModel, OutEnum.SuccessfulPayment); //播报语音
+
+
+        //            }
+        //            return;
+        //        }
+        //        //await this.ShowMessageAsync("提示", "当前车辆不在场内!");
+        //    }
+        //} 
+        #endregion
 
         public IsCarInModel IsCarIn(int parkId, string carNumber)
         {

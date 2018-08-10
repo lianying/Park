@@ -10,13 +10,15 @@ namespace Park.Parks.ParkBox.Models
 {
     public class PermissionResult
     {
-        public PermissionResult (bool? isCarIn,CarNumberPermissionEnum carNumberPermissionEnum, CarUsers carUsers,bool IsMonthTempIn)
+        public PermissionResult(bool? isCarIn, CarNumberPermissionEnum carNumberPermissionEnum, CarUsers carUsers, bool IsMonthTempIn, int countInCount = 0, List<string> carInNumbers = null)
         {
 
             this.IsCarIn = IsCarIn;
             this.CarNumberPermission = carNumberPermissionEnum;
             this.CarUser = carUsers;
             this.IsMonthTempIn = IsMonthTempIn;
+            this.CarInCount = countInCount;
+            this.carInNumbers = carInNumbers;
         }
 
         /// <summary>
@@ -31,6 +33,12 @@ namespace Park.Parks.ParkBox.Models
 
 
         public bool IsMonthTempIn { get;private set; }
+
+        public int CarInCount
+        {
+            get;
+            private set;
+        }
 
 
 
@@ -64,7 +72,20 @@ namespace Park.Parks.ParkBox.Models
             return $"{CarNumberPermission.ToString()}";
         }
 
+        private List<string> carInNumbers;
 
+
+        public string CarInNumbers
+        {
+            get
+            {
+                if (carInNumbers?.Any() ?? false)
+                {
+                    return string.Join(",", carInNumbers);
+                }
+                return string.Empty;
+            }
+        }
 
     }
 }

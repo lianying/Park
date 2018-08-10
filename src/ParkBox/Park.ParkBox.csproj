@@ -236,6 +236,7 @@
     <Compile Include="Behaviors\ScaleFontBehavior.cs" />
     <Compile Include="Controls\MenuViewControl.cs" />
     <Compile Include="Converter\MathConvert.cs" />
+    <Compile Include="Core\BoxMessage.cs" />
     <Compile Include="CreateCameraPnel\CreatePnel.cs" />
     <Compile Include="CreateCameraPnel\ICreatePnel.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
@@ -245,6 +246,7 @@
     </Compile>
     <Compile Include="Helpers\VisualHelper.cs" />
     <Compile Include="IManualEntryAndExit.cs" />
+    <Compile Include="ParkMainControl.cs" />
     <Compile Include="UserControls\CoverLayer.xaml.cs">
       <DependentUpon>CoverLayer.xaml</DependentUpon>
     </Compile>
@@ -272,6 +274,9 @@
     </Compile>
     <Compile Include="UserControls\ParkEntranceInfo.xaml.cs">
       <DependentUpon>ParkEntranceInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TransparentLabel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="UserControls\UserCard.xaml.cs">
       <DependentUpon>UserCard.xaml</DependentUpon>

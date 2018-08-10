@@ -17,6 +17,7 @@ using Park.ViewModel;
 using Park.Parks.Devices.Interfaces;
 using MahApps.Metro.Controls.Dialogs;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Park.Froms
 {
@@ -64,6 +65,19 @@ namespace Park.Froms
         
         public IDeviceable Deviceable { get; private set; }
 
+        private ManualResetEvent _manualResetEvent;
+
+
+        private bool? isClose;
+        public bool? IsClose
+        {
+            get { return isClose; }
+            set
+            {
+                this.isClose = value;
+                _manualResetEvent?.Set();
+            }
+        }
         /// <summary>
         /// 平台下发优惠券
         /// </summary>
@@ -117,7 +131,8 @@ namespace Park.Froms
             IVehicleFlow vehicleFlow,
             IDeviceable device,
             IRepository<FareRule> repositoryFareRule,
-            IRepository<RangeTime> repositoryRangeTime)
+            IRepository<RangeTime> repositoryRangeTime,
+            ManualResetEvent  manualResetEvent)
         {
 
             InitializeComponent();
@@ -134,7 +149,9 @@ namespace Park.Froms
             chargerViewModel = new ChargerViewModel();
             this.DataContext = chargerViewModel;
             chargerViewModel.Remark = "正常缴费";
-            
+            _manualResetEvent = manualResetEvent;
+
+
         }
 
 
@@ -145,7 +162,8 @@ namespace Park.Froms
             IVehicleFlow vehicleFlow,
             IDeviceable deviceable, 
             IRepository<FareRule> repositoryFareRule,
-            IRepository<RangeTime> repositoryRangeTime) :this(ledManager, fareRule, repositoryCarTypes, parkBoxOptions, repositoryCarPort, vehicleFlow, deviceable, repositoryFareRule, repositoryRangeTime)
+            IRepository<RangeTime> repositoryRangeTime,
+             ManualResetEvent manualResetEvent) :this(ledManager, fareRule, repositoryCarTypes, parkBoxOptions, repositoryCarPort, vehicleFlow, deviceable, repositoryFareRule, repositoryRangeTime,manualResetEvent)
         {
 
             CarOutModel = carOutModel;
@@ -165,15 +183,23 @@ namespace Park.Froms
             chargerViewModel.DiscountedPrice = DisCountMoney;
         }
 
-        public void Init(bool isRestFare=false)
+        private void SyncDoAction(Action action)
         {
-            
+            SynchronizationContext.Post((x) =>
+            {
+                action();
+            }, null);
+        }
+
+        public void Init(bool isRestFare = false)
+        {
+
             if (CarOutModel != null)
             {
                 CarOutModel.CarDiscount = _vehicleFlow.GetCarDiscount(CarOutModel.ParkId, CarOutModel.CarInRecord?.CarNumber);
                 if (CarOutModel.CarInRecord.IsMonthTempIn)
                 {
-                    txt_CarType.Text = "月租车（车位满以临时车入场）";
+                    SyncDoAction(() => txt_CarType.Text = "月租车（车位满以临时车入场）");
                 }
                 else
                 {
@@ -203,11 +229,11 @@ namespace Park.Froms
                     }
                     if (carPort == null || carPort.Id == _parkBoxOptions.TempCarTypeId)
                     {
-                        txt_CarType.Text = "临时车";
+                        SyncDoAction(()=> txt_CarType.Text = "临时车");
                     }
                     else
                     {
-                        txt_CarType.Text = carPort?.CustomName;
+                        SyncDoAction(() => txt_CarType.Text = carPort?.CustomName);
                     }
                 }
             }
@@ -224,12 +250,14 @@ namespace Park.Froms
              IVehicleFlow vehicleFlow,
              IDeviceable deviceable,
              IRepository<FareRule> repositoryFareRule,
-            IRepository<RangeTime> repositoryRangeTime) : this(ledManager, fareRule, repositoryCarTypes, parkBoxOptions, repositoryCarPort, vehicleFlow, deviceable, repositoryFareRule,repositoryRangeTime)
+            IRepository<RangeTime> repositoryRangeTime,
+             ManualResetEvent manualResetEvent) : this(ledManager, fareRule, repositoryCarTypes, parkBoxOptions, repositoryCarPort, vehicleFlow, deviceable, repositoryFareRule,repositoryRangeTime,manualResetEvent)
         {
-
+            var inTime = DateTime.Now;
             var list = _vehicleFlow.LevenshteinDistance(parkBoxOptions.ParkId, carNumber);
-            chargerViewModel.InTime = chargerViewModel.OutTime = DateTime.Now;
+            chargerViewModel.InTime = chargerViewModel.OutTime = inTime;
             chargerViewModel.CarNumber = carNumber;
+            CarOutModel = new CarOutModel() { CarInRecord = new CarInRecord() { CarNumber = carNumber, InTime = inTime, ParkId = deviceable.EntranceDto.ParkLevel.Park.Id }, OutTime = inTime, ParkId = deviceable.EntranceDto.ParkLevel.Park.Id };
             AddMenu(list);
             txt_CarType.Text = "无在场记录，请匹配场内车辆";
         }
@@ -336,14 +364,23 @@ namespace Park.Froms
             }
         }
 
-        public new bool? ShowDialog()
+        public new  bool? ShowDialog()
         {
+            //bool? flg = false;
+            //SynchronizationContext.Post((x) => {
+            //    flg = base.ShowDialog();
+            //}, null);
+            //return flg;
             return base.ShowDialog();
+
         }
 
         public new void Show()
         {
-            base.Show();
+            SynchronizationContext.Post((x) => {
+                base.Show();
+            }, null);
+            
         }
 
         private  void txt_MoneyOrTime_TextChanged(object sender, TextChangedEventArgs e)
@@ -381,13 +418,15 @@ namespace Park.Froms
 
         private void Btn_OK_Click(object sender, RoutedEventArgs e)
         {
-
+            
             CarOut(false);
+            this.Close();
         }
 
         private void Btn_Clean_Click(object sender, RoutedEventArgs e)
         {
             CarOut(true);
+            this.Close();
         }
 
 
@@ -401,7 +440,14 @@ namespace Park.Froms
                 this.ShowMessageAsync("提示", "出场失败");
                 return;
             }
-            this.DialogResult = true;
+            if (this._manualResetEvent == null)
+            {
+                this.DialogResult = true;
+            }
+            else
+            {
+                IsClose = isErrorOut;
+            }
         }
 
         private void SetCarOutModel()
