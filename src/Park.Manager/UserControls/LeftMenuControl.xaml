@@ -42,7 +42,7 @@
             </Border>
         </StackPanel>
         <WrapPanel>
-            <ListBox ItemTemplate="{StaticResource ChildMenu}">
+            <ListBox ItemTemplate="{StaticResource ChildMenu}" >
                
             </ListBox>
         </WrapPanel>
