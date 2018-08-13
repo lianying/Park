@@ -8,12 +8,17 @@
              mc:Ignorable="d" >
     <UserControl.Resources>
         
-        <Style TargetType="TextBlock">
+        <Style x:Key="chirldText" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
-        </Style>
-        <Style TargetType="StackPanel">
+            <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                        <Setter Property="Background" Value="#e65252"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        <Style x:Key="chirldSpl" TargetType="StackPanel">
             <Setter Property="Width" Value="{Binding ElementName=spl_Warp,Path=ActualWidth}"></Setter>
             <Setter Property="Background" Value="#DDDDDD"></Setter>
             <Setter Property="Height" Value="40"> </Setter>
@@ -23,18 +28,10 @@
             <!--<Setter Property="Height" Value="40"></Setter>-->
         </Style>
         <DataTemplate x:Key="ChildMenu">
-            <StackPanel Visibility="Visible">
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsOpen}" Value="True">
-                                <Setter Property="Background" Value="#e65252"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
+            <StackPanel Style="{StaticResource ResourceKey=chirldSpl}" >
+               
                 <Border Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}}}">
-                    <TextBlock Text="{Binding Title}"></TextBlock>
+                    <TextBlock Text="{Binding Title}" Style="{StaticResource ResourceKey=chirldText}"></TextBlock>
                 </Border>
             </StackPanel>
             <DataTemplate.Triggers>
@@ -62,8 +59,12 @@
                     </Style.Triggers>
                 </Style>
             </WrapPanel.Style>
-            <ListBox ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
-               
+            <ListBox Style="{x:Null}" ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <ItemsPresenter />
+                    </ControlTemplate>
+                </ListBox.Template>
             </ListBox>
         </WrapPanel>
     </WrapPanel>

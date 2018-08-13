@@ -51,14 +51,19 @@
         
         <Controls:SplitView x:Name="leftMenu" Grid.Row="1"  DisplayMode="Inline"
                                 IsPaneOpen="True"
-                            OpenPaneLength="300" Background="White">
+                            OpenPaneLength="300" Background="White" Margin="0,0,0,0">
             <Controls:SplitView.Pane>
-                <ListBox x:Name="lbx_Menus" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
+                <ListBox x:Name="lbx_Menus" Style="{x:Null}" Margin="0,0,0,0" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <UserControl:LeftMenuControl Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"></UserControl:LeftMenuControl>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <ItemsPresenter />
+                        </ControlTemplate>
+                    </ListBox.Template>
                 </ListBox>
             </Controls:SplitView.Pane>
 
