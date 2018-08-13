@@ -37,7 +37,7 @@ namespace Park.Froms
 
 
 
-        public IActiveUnitOfWork ActiveUnitOfWork => UnitOfWorkManager.Current;
+        public IActiveUnitOfWork ActiveUnitOfWork => UnitOfWorkManager?.Current;
 
         public ILocalizationSource LocalizationSource
         {

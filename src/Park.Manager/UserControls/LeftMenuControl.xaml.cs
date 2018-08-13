@@ -24,5 +24,12 @@ namespace Park.UserControls
         {
             InitializeComponent();
         }
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var control = sender as StackPanel;
+            var menu = control.DataContext as Park.ViewModel.Menu;
+            menu.IsOpen = !menu.IsOpen;
+        }
     }
 }

@@ -3,7 +3,10 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:src="clr-namespace:Park.Froms"
-                      Title="MainWindow"
+               xmlns:UserControl="clr-namespace:Park.UserControls"
+               xmlns:c="clr-namespace:System.Collections;assembly=mscorlib"
+               xmlns:local="clr-namespace:Park.ViewModel"
+               Title="MainWindow"
                       Height="600"
                       Width="800"
                       WindowStyle="None"
@@ -12,10 +15,34 @@
                       ShowCloseButton="False"
                        ShowMaxRestoreButton="False"
                         WindowState="Maximized">
+    <Window.Resources>
+        <CollectionViewSource  x:Key="Menus"  >
+            <CollectionViewSource.Source>
+            <c:ArrayList >
+                <local:Menu  Title="首页" IsOpen="False"></local:Menu>
+                <local:Menu  Title="车场基础信息" IsOpen="False">
+                    <local:Menu.Menus>
+                        <local:Menu Title="车场基本信息"></local:Menu>
+                        <local:Menu Title="区域配置"></local:Menu>
+                        <local:Menu Title="停车位"></local:Menu>
+                        <local:Menu Title="岗亭设置"></local:Menu>
+                    </local:Menu.Menus>
+                </local:Menu>
+                <local:Menu  Title="车主账号设置" IsOpen="False">
+                    <local:Menu.Menus>
+                        <local:Menu Title="用户管理"></local:Menu>
+                        <local:Menu Title="免费用户"></local:Menu>
+                        <local:Menu Title="车位催缴"></local:Menu>
+                    </local:Menu.Menus>
+                </local:Menu>
+            </c:ArrayList>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
-            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel x:Name="spl_top">
             <Image x:Name="logo"></Image>
@@ -26,9 +53,13 @@
                                 IsPaneOpen="True"
                             OpenPaneLength="300" Background="White">
             <Controls:SplitView.Pane>
-                <Grid Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}">
-                    
-                </Grid>
+                <ListBox x:Name="lbx_Menus" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <UserControl:LeftMenuControl Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"></UserControl:LeftMenuControl>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </Controls:SplitView.Pane>
 
             

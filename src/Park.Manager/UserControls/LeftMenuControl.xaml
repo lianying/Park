@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:Park.UserControls"
              mc:Ignorable="d" >
     <UserControl.Resources>
+        
         <Style TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
@@ -22,7 +23,16 @@
             <!--<Setter Property="Height" Value="40"></Setter>-->
         </Style>
         <DataTemplate x:Key="ChildMenu">
-            <StackPanel >
+            <StackPanel Visibility="Visible">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                <Setter Property="Background" Value="#e65252"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
                 <Border Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}}}">
                     <TextBlock Text="{Binding Title}"></TextBlock>
                 </Border>
@@ -35,14 +45,24 @@
         </DataTemplate>
         
     </UserControl.Resources>
-    <WrapPanel x:Name="spl_Warp" Width="750">
-        <StackPanel Width="{Binding ElementName=spl_Warp, Path=ActualWidth}"  Background="#e65252" Height="45">
+    <WrapPanel x:Name="spl_Warp" >
+        <StackPanel Width="{Binding ElementName=spl_Warp, Path=ActualWidth}" MouseDown="StackPanel_MouseDown"   Background="#e65252" Height="45">
             <Border Height="45">
-                <TextBlock x:Name="tbl_Title"  FontSize="18" >title</TextBlock>
+                <TextBlock x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
             </Border>
         </StackPanel>
-        <WrapPanel>
-            <ListBox ItemTemplate="{StaticResource ChildMenu}" >
+        <WrapPanel Visibility="Visible">
+            <WrapPanel.Style>
+                <Style TargetType="WrapPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                            <Setter Property="Visibility" Value="Visible"></Setter>
+                        </DataTrigger>
+                        
+                    </Style.Triggers>
+                </Style>
+            </WrapPanel.Style>
+            <ListBox ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
                
             </ListBox>
         </WrapPanel>

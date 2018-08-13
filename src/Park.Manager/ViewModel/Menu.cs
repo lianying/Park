@@ -1,20 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Park.ViewModel
 {
-    public class Menu
+    public class Menu: INotifyPropertyChanged
     {
-        public string Title { get; set; }
+        public Menu Parent { get; set; }
+        private string title;
+        public string Title
+        {
+            get { return title; }
+            set
+            {
+                title = value;
+                NotifyPropertyChanged("Title");
+            }
+        }
 
         public Object Tag { get; set; }
 
-        public bool IsOpen { get; set; }
+        private bool isOpen;
+        public bool IsOpen
+        {
+            get { return isOpen; }
+            set
+            {
+               
+                    isOpen = value;
+                NotifyPropertyChanged("IsOpen");
+            }
+        }
+
+        public Menu[] Menus { get; set; }
 
 
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
