@@ -29,7 +29,20 @@ namespace Park.UserControls
         {
             var control = sender as StackPanel;
             var menu = control.DataContext as Park.ViewModel.Menu;
+            if (menu.Parent != null)
+            {
+                foreach (var item in menu.Parent.Menus)
+                {
+                    item.IsOpen = false;
+                }
+            }
             menu.IsOpen = !menu.IsOpen;
+           
+        }
+
+        public static implicit operator TemplateContent(LeftMenuControl v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

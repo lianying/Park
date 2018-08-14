@@ -16,36 +16,53 @@
                        ShowMaxRestoreButton="False"
                         WindowState="Maximized">
     <Window.Resources>
-        <CollectionViewSource  x:Key="Menus"  >
-            <CollectionViewSource.Source>
-            <c:ArrayList >
-                <local:Menu  Title="首页" IsOpen="False"></local:Menu>
-                <local:Menu  Title="车场基础信息" IsOpen="False">
-                    <local:Menu.Menus>
-                        <local:Menu Title="车场基本信息"></local:Menu>
-                        <local:Menu Title="区域配置"></local:Menu>
-                        <local:Menu Title="停车位"></local:Menu>
-                        <local:Menu Title="岗亭设置"></local:Menu>
-                    </local:Menu.Menus>
-                </local:Menu>
-                <local:Menu  Title="车主账号设置" IsOpen="False">
-                    <local:Menu.Menus>
-                        <local:Menu Title="用户管理"></local:Menu>
-                        <local:Menu Title="免费用户"></local:Menu>
-                        <local:Menu Title="车位催缴"></local:Menu>
-                    </local:Menu.Menus>
-                </local:Menu>
-            </c:ArrayList>
-            </CollectionViewSource.Source>
-        </CollectionViewSource>
+        <Style x:Key="listBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{x:Null}">
+            <Setter Property="Padding" Value="0">
+            </Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    
+                </Trigger>
+
+                <EventTrigger   RoutedEvent="MouseEnter"></EventTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="9*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel x:Name="spl_top">
-            <Image x:Name="logo"></Image>
+            <!--Head-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel HorizontalAlignment="Left">
+                <Grid Height="{Binding ElementName=spl_top, Path=ActualHeight}">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="1" Grid.Row="1" Stretch="None"  Source="icon\logo.png"></Image>
+                </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid>
+                        
+                    </Grid>
+                </StackPanel>
+            </Grid>
             
         </StackPanel>
         
@@ -53,12 +70,13 @@
                                 IsPaneOpen="True"
                             OpenPaneLength="300" Background="White" Margin="0,0,0,0">
             <Controls:SplitView.Pane>
-                <ListBox x:Name="lbx_Menus" Style="{x:Null}" Margin="0,0,0,0" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
+                <ListBox x:Name="lbx_Menus" ItemContainerStyle="{StaticResource listBoxItem}"  Margin="0,0,0,0" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <UserControl:LeftMenuControl Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"></UserControl:LeftMenuControl>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
+
                     <ListBox.Template>
                         <ControlTemplate>
                             <ItemsPresenter />
@@ -66,7 +84,7 @@
                     </ListBox.Template>
                 </ListBox>
             </Controls:SplitView.Pane>
-
+            
             
         </Controls:SplitView>
     </Grid>

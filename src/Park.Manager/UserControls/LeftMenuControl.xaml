@@ -7,59 +7,87 @@
              xmlns:local="clr-namespace:Park.UserControls"
              mc:Ignorable="d" >
     <UserControl.Resources>
-        
-        <Style x:Key="chirldText" TargetType="TextBlock">
-            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="15"></Setter>
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Style x:Key="listBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{x:Null}">
+            <Setter Property="Padding" Value="0">
+            </Setter>
+            <Setter Property="BorderBrush" Value="Transparent"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
             <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsOpen}" Value="True">
-                        <Setter Property="Background" Value="#e65252"></Setter>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
-        <Style x:Key="chirldSpl" TargetType="StackPanel">
+                <Trigger Property="IsSelected" Value="True">
+
+                </Trigger>
+
+                <EventTrigger   RoutedEvent="MouseEnter">
+
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="parkentText" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style x:Key="chirldSpl" TargetType="{x:Type StackPanel}">
             <Setter Property="Width" Value="{Binding ElementName=spl_Warp,Path=ActualWidth}"></Setter>
             <Setter Property="Background" Value="#DDDDDD"></Setter>
             <Setter Property="Height" Value="40"> </Setter>
         </Style>
-        <Style TargetType="Border">
-
-            <!--<Setter Property="Height" Value="40"></Setter>-->
-        </Style>
+        
         <DataTemplate x:Key="ChildMenu">
-            <StackPanel Style="{StaticResource ResourceKey=chirldSpl}" >
-               
+            <StackPanel Style="{StaticResource ResourceKey=chirldSpl}" MouseDown="StackPanel_MouseDown" >
+
                 <Border Height="{Binding Height, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}}}">
-                    <TextBlock Text="{Binding Title}" Style="{StaticResource ResourceKey=chirldText}"></TextBlock>
+                    <TextBlock Text="{Binding Title}" >
+                        <TextBlock.Style>
+                            <Style  TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                <Setter Property="FontSize" Value="15"></Setter>
+                                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                                <Setter Property="Foreground" Value="#B3B3B3"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                        <Setter Property="Foreground" Value="#828282"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </Border>
             </StackPanel>
-            <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding IsOpen}" Value="True">
-                    <Setter  Property="Visibility" Value="Visible"></Setter>
-                </DataTrigger>
-            </DataTemplate.Triggers>
         </DataTemplate>
         
     </UserControl.Resources>
     <WrapPanel x:Name="spl_Warp" >
-        <StackPanel Width="{Binding ElementName=spl_Warp, Path=ActualWidth}" MouseDown="StackPanel_MouseDown"   Background="#e65252" Height="45">
+        <StackPanel  MouseDown="StackPanel_MouseDown">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Height" Value="45"></Setter>
+                    <Setter Property="Background" Value="#656D7A"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                    <Setter Property="Width" Value="{Binding ElementName=spl_Warp, Path=ActualWidth}"></Setter>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                            <Setter Property="Background" Value="#E65252"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
             <Border Height="45">
-                <TextBlock x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
+                <TextBlock Style="{StaticResource parkentText}" x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
             </Border>
         </StackPanel>
-        <WrapPanel Visibility="Visible">
+        <WrapPanel>
             <WrapPanel.Style>
                 <Style TargetType="WrapPanel">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsOpen}" Value="True">
                             <Setter Property="Visibility" Value="Visible"></Setter>
                         </DataTrigger>
-                        
                     </Style.Triggers>
                 </Style>
             </WrapPanel.Style>
-            <ListBox Style="{x:Null}" ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
+            <ListBox Style="{x:Null}" ItemContainerStyle="{StaticResource listBoxItem}" ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
                 <ListBox.Template>
                     <ControlTemplate>
                         <ItemsPresenter />
