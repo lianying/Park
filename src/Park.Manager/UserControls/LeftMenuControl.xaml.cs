@@ -20,9 +20,12 @@ namespace Park.UserControls
     /// </summary>
     public partial class LeftMenuControl : UserControl
     {
-        public LeftMenuControl()
+        private List<Park.ViewModel.Menu> _menus;
+        public LeftMenuControl( List<Park.ViewModel.Menu> menus)
         {
             InitializeComponent();
+            _menus = menus;
+            lbx_Menus.ItemsSource = _menus;
         }
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
@@ -36,13 +39,17 @@ namespace Park.UserControls
                     item.IsOpen = false;
                 }
             }
+            else
+            {
+                foreach (var item in _menus)
+                {
+                    item.IsOpen = false;
+                } 
+            }
             menu.IsOpen = !menu.IsOpen;
            
         }
 
-        public static implicit operator TemplateContent(LeftMenuControl v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

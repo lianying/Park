@@ -55,45 +55,70 @@
                 </Border>
             </StackPanel>
         </DataTemplate>
+
+        <DataTemplate x:Key="ListMenuTemplate">
+            <WrapPanel x:Name="spl_Warp" >
+                <StackPanel  MouseDown="StackPanel_MouseDown">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Height" Value="45"></Setter>
+                            <Setter Property="Background" Value="#656D7A"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                            <Setter Property="Width" Value="{Binding ElementName=spl_Warp, Path=ActualWidth}"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                    <Setter Property="Background" Value="#E65252"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <Border Height="45">
+                        <TextBlock Style="{StaticResource parkentText}" x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
+                    </Border>
+                </StackPanel>
+                <WrapPanel>
+                    <WrapPanel.Style>
+                        <Style TargetType="WrapPanel">
+                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                                <Trigger Property="Visibility" Value="Visible">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                             From="0.0" To="1.0" Duration="0:0:0.5"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </WrapPanel.Style>
+                    <ListBox Style="{x:Null}" ItemContainerStyle="{StaticResource listBoxItem}" ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
+                        <ListBox.Template>
+                            <ControlTemplate>
+                                <ItemsPresenter />
+                            </ControlTemplate>
+                        </ListBox.Template>
+                    </ListBox>
+                </WrapPanel>
+            </WrapPanel>
+        </DataTemplate>
         
     </UserControl.Resources>
-    <WrapPanel x:Name="spl_Warp" >
-        <StackPanel  MouseDown="StackPanel_MouseDown">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Setter Property="Height" Value="45"></Setter>
-                    <Setter Property="Background" Value="#656D7A"></Setter>
-                    <Setter Property="HorizontalAlignment" Value="Center"></Setter>
-                    <Setter Property="Width" Value="{Binding ElementName=spl_Warp, Path=ActualWidth}"></Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsOpen}" Value="True">
-                            <Setter Property="Background" Value="#E65252"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Border Height="45">
-                <TextBlock Style="{StaticResource parkentText}" x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
-            </Border>
-        </StackPanel>
-        <WrapPanel>
-            <WrapPanel.Style>
-                <Style TargetType="WrapPanel">
-                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsOpen}" Value="True">
-                            <Setter Property="Visibility" Value="Visible"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </WrapPanel.Style>
-            <ListBox Style="{x:Null}" ItemContainerStyle="{StaticResource listBoxItem}" ItemTemplate="{StaticResource ChildMenu}"  ItemsSource="{Binding Menus}" >
-                <ListBox.Template>
-                    <ControlTemplate>
-                        <ItemsPresenter />
-                    </ControlTemplate>
-                </ListBox.Template>
-            </ListBox>
-        </WrapPanel>
-    </WrapPanel>
+    <ListBox x:Name="lbx_Menus" ItemContainerStyle="{StaticResource listBoxItem}" ItemTemplate="{StaticResource ListMenuTemplate}" >
+        <!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
+       
+
+        <ListBox.Template>
+            <ControlTemplate>
+                <ItemsPresenter />
+            </ControlTemplate>
+        </ListBox.Template>
+    </ListBox>
+
+
 </UserControl>

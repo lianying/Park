@@ -188,6 +188,7 @@ namespace Park.Entitys.FareRules
         private decimal fareRegister(DateTime inTime, DateTime outTime)
         {
             var parkDetail = new ParkingDetails(inTime, outTime, TimeRangeList);
+            bool IsInculdTwo = false;
             if (parkDetail.ParkInfo.TotalMinutes < 1 || parkDetail.ParkInfo.TotalMinutes <= FreeTime || inTime > outTime) //不足1分钟和在免费时长内 收费为0
                 return 0;
             var inTimeRange = parkDetail.InTimeRange;
@@ -210,17 +211,24 @@ namespace Park.Entitys.FareRules
 				 */
                 if (whileInTime >= inTimeRange.Item2.Item2)
                 { //当前时间大于区间结束时间
-                    if (whileInTime == inTimeRange.Item2.Item2)
-                    {
-                        rangeMoney += inTimeRange.Item1.FeeMoney;
-                    }
+                    //if (whileInTime == inTimeRange.Item2.Item2)
+                    //{
+                    //    rangeMoney += inTimeRange.Item1.FeeMoney;
+                    //}
 
-                    if (inTimeRange.Item2.Item2 != whileInTime && (inTimeRange.Item2.Item2 - whileInTime.AddMinutes(-inTimeRange.Item1.FeeMinutes)).TotalMinutes > inTimeRange.Item1.MinSpanTime)
-                    {
-                        //距离区间结束最近的跳费时间 是否大于当前区间的最小跨度时间  如果大于则跳一次费 
-                        rangeMoney += inTimeRange.Item1.FeeMoney;
-                    }
-
+                    //#region 原方法 比较有误
+                    ////if (inTimeRange.Item2.Item2 != whileInTime && (inTimeRange.Item2.Item2 - whileInTime.AddMinutes(-inTimeRange.Item1.FeeMinutes)).TotalMinutes > inTimeRange.Item1.MinSpanTime)
+                    ////{
+                    ////    //距离区间结束最近的跳费时间 是否大于当前区间的最小跨度时间  如果大于则跳一次费 
+                    ////    rangeMoney += inTimeRange.Item1.FeeMoney;
+                    ////}
+                    //#endregion
+                    //if (inTimeRange.Item2.Item2 != whileInTime && (whileInTime - inTimeRange.Item2.Item2.AddMinutes(1)).TotalMinutes > inTimeRange.Item1.MinSpanTime)
+                    //{
+                    //    //距离区间结束最近的跳费时间 是否大于当前区间的最小跨度时间  如果大于则跳一次费 
+                    //    rangeMoney += inTimeRange.Item1.FeeMoney;
+                    //}
+                    rangeMoney += inTimeRange.Item1.FeeMoney;
                     whileInTime = inTimeRange.Item2.Item2.AddMinutes(1); //区间算费结束 将算费时间置于下个区间的开始时间
 
                     if (IsStartTopMoney)
@@ -237,6 +245,7 @@ namespace Park.Entitys.FareRules
 
                     parkDetail = new ParkingDetails(inTimeRange.Item2.Item2.AddMinutes(1), outTime, TimeRangeList);
                     inTimeRange = parkDetail.InTimeRange;
+                    IsInculdTwo = true;
                     continue;
                     //payMoney += inTimeRange.Item1.FeeMoney;
                 }
@@ -250,8 +259,19 @@ namespace Park.Entitys.FareRules
                         rangeMoney = rangeMoney > inTimeRange.Item1.TopMoney ? inTimeRange.Item1.TopMoney : rangeMoney;
                         payMoney += rangeMoney;
                     }
-                    if ((outTime - whileInTime.AddMinutes(-inTimeRange.Item1.FeeMinutes)).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
-                    { //出场时间超出最小跨度时间
+                    #region 原方法  未判断是否跳出当前区间
+                    //if ((outTime - whileInTime.AddMinutes(-inTimeRange.Item1.FeeMinutes)).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
+                    //{ //出场时间超出最小跨度时间
+                    //    payMoney -= inTimeRange.Item1.FeeMoney;
+                    //} 
+                    #endregion
+                    //if (outTime > new DateTime(outTime.Year, outTime.Month, outTime.Day, inTimeRange.Item1.EndTime.Hours, inTimeRange.Item1.EndTime.Minutes, inTimeRange.Item1.EndTime.Seconds) && (outTime - whileInTime.AddMinutes(-inTimeRange.Item1.FeeMinutes)).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
+                    //{ //出场时间超出最小跨度时间
+                    //    payMoney -= inTimeRange.Item1.FeeMoney;
+                    //}
+
+                    if (IsInculdTwo && (outTime-inTimeRange.Item2.Item1).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
+                    { //出场时间不超出最小跨度时间
                         payMoney -= inTimeRange.Item1.FeeMoney;
                     }
                     break;

@@ -36,6 +36,23 @@ namespace Park.ViewModel
             }
         }
 
+        private string icon;
+        public string Icon
+        {
+            get
+            {
+                return icon;
+            }
+            set
+            {
+                icon = value;
+                NotifyPropertyChanged("Icon");
+            }
+        }
+
+
+        public Type PageType { get; set; }
+
         public Menu[] Menus { get; set; }
 
 

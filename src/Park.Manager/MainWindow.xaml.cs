@@ -62,8 +62,9 @@ namespace Park.Froms
                     }
                 }
             }
-
-            lbx_Menus.ItemsSource = menus;
+            LeftMenuControl control = new LeftMenuControl(menus);
+            Dkp_LeftMenu.Children.Add(control);
+            //lbx_Menus.ItemsSource = menus;
         }
     }
 }

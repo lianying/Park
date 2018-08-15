@@ -15,21 +15,6 @@
                       ShowCloseButton="False"
                        ShowMaxRestoreButton="False"
                         WindowState="Maximized">
-    <Window.Resources>
-        <Style x:Key="listBoxItem" TargetType="{x:Type ListBoxItem}" BasedOn="{x:Null}">
-            <Setter Property="Padding" Value="0">
-            </Setter>
-            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-            <Setter Property="BorderThickness" Value="0"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    
-                </Trigger>
-
-                <EventTrigger   RoutedEvent="MouseEnter"></EventTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
@@ -68,24 +53,15 @@
         
         <Controls:SplitView x:Name="leftMenu" Grid.Row="1"  DisplayMode="Inline"
                                 IsPaneOpen="True"
-                            OpenPaneLength="300" Background="White" Margin="0,0,0,0">
+                            OpenPaneLength="250" Background="#F0F0F0" Margin="0,0,0,0">
             <Controls:SplitView.Pane>
-                <ListBox x:Name="lbx_Menus" ItemContainerStyle="{StaticResource listBoxItem}"  Margin="0,0,0,0" Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"><!--ItemsSource="{Binding Source={StaticResource Menus}}"-->
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <UserControl:LeftMenuControl Width="{Binding ElementName=leftMenu, Path=OpenPaneLength}"></UserControl:LeftMenuControl>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                <DockPanel Background="#656D7A" x:Name="Dkp_LeftMenu">
 
-                    <ListBox.Template>
-                        <ControlTemplate>
-                            <ItemsPresenter />
-                        </ControlTemplate>
-                    </ListBox.Template>
-                </ListBox>
+                </DockPanel>
             </Controls:SplitView.Pane>
-            
-            
+            <DockPanel x:Name="Dkp_Content" Margin="20,25,20,0">
+                <Frame x:Name="Fram_Content"></Frame>
+            </DockPanel>
         </Controls:SplitView>
     </Grid>
 

@@ -1,0 +1,35 @@
+﻿<Page x:Class="Park.Pages.Index"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Park.Pages"
+      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Index">
+    <Page.Resources>
+        <ResourceDictionary Source="/ResDics/ResDic.xaml" />
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+                <Border Padding="5" CornerRadius="20" BorderThickness="1" BorderBrush="#E75D5D" SnapsToDevicePixels="True" Background="White">
+                    <TextBox Background="Transparent" BorderThickness="0"  Controls:TextBoxHelper.Watermark="请输入想要查找停车场名称" Width="400" Height="30" FontSize="16"
+                          Style="{DynamicResource SearchMetroTextBox}"></TextBox>
+                </Border>
+                <WrapPanel HorizontalAlignment="Right" Margin="30,0,0,0">
+                    <Button Height="40" Background="#90D065" Width="100" Foreground="White">添加停车场</Button>
+                    <Button Height="40" Margin="30,0,0,0" Width="100" BorderBrush="#E75D5D" BorderThickness="1" Foreground="#E75D5D">删除</Button>
+                </WrapPanel>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Template="{StaticResource MyScrollViewerControlTemplate}" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <WrapPanel></WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

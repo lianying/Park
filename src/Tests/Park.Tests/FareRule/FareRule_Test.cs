@@ -13,6 +13,8 @@ namespace Park.Tests.FareRule
         [Fact]
         public void time()
         {
+
+            var inTime = new DateTime(2018, 8, 15, 16, 39, 0);var outTime = new DateTime(2018, 8, 16, 3, 03, 2);
             Park.Entitys.FareRules.FareRule fareRule = new Entitys.FareRules.FareRule();
             fareRule.TimeRangeList = new List<RangeTime>() {
                 new RangeTime() {  StartTime=new TimeSpan(7,0,0), FareRule=fareRule, EndTime=new TimeSpan(20,0,0), FeeMinutes=60,  FeeMoney=2, TopMoney=26, MinSpanTime=30 },
@@ -25,9 +27,9 @@ namespace Park.Tests.FareRule
             fareRule.FreeTime = 30;
             fareRule.PreFeeDate = 15;
 
-            var money = fareRule.CalculateFees(new DateTime(2018, 8, 14, 6, 28, 0), new DateTime(2018, 8, 14, 7, 31, 2), 0);
+            var money = fareRule.CalculateFees(inTime,outTime, 0);
 
-            Assert.Equal(money, 4);
+            Assert.Equal(money,13);
         }
     }
 }
