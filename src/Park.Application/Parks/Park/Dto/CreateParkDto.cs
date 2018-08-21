@@ -35,7 +35,6 @@ namespace Park.Parks.Park.Dto
         /// <summary>
         /// 经度
         /// </summary>
-        /// 
         [Required]
         public virtual decimal Longitude { get; set; }
 
@@ -58,5 +57,14 @@ namespace Park.Parks.Park.Dto
         /// 车场来源
         /// </summary>
         public virtual string ParkSoure { get; set; }
+
+
+
+        public virtual string PropertyParty { get; set; }
+
+        /// <summary>
+        /// 运营方
+        /// </summary>
+        public virtual string Operator { get; set; }
     }
 }

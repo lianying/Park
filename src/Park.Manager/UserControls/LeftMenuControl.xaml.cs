@@ -21,6 +21,8 @@ namespace Park.UserControls
     public partial class LeftMenuControl : UserControl
     {
         private List<Park.ViewModel.Menu> _menus;
+
+        public RoutedEventHandler ItemClickEventHandler;
         public LeftMenuControl( List<Park.ViewModel.Menu> menus)
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace Park.UserControls
         {
             var control = sender as StackPanel;
             var menu = control.DataContext as Park.ViewModel.Menu;
+            ItemClickEventHandler?.Invoke(menu, e);
             if (menu.Parent != null)
             {
                 foreach (var item in menu.Parent.Menus)

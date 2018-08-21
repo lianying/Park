@@ -13,6 +13,7 @@ namespace Park.Entitys.Parks
     {
 
         public const int MaxParkNameLength = 285;
+
         public const int MaxAreaCodeLength = 16;
         
         /// <summary>
@@ -58,5 +59,15 @@ namespace Park.Entitys.Parks
 
         
         public virtual  int? TenantId { get; set; }
+
+        /// <summary>
+        /// 产权方
+        /// </summary>
+        public virtual string PropertyParty { get; set; }
+
+        /// <summary>
+        /// 运营方
+        /// </summary>
+        public virtual  string Operator { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.ParkBox.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,28 @@ namespace Park.UserControls
     /// </summary>
     public partial class ParkInfo : UserControl
     {
+
+        static Random r;
+
+        static ParkInfo()
+        {
+            r = new Random();
+        }
+        int index = 0;
         public ParkInfo()
         {
             InitializeComponent();
+
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            var context=this.DataContext as ParkDto;
+            index = r.Next(0, ParkConsts.ParkHeadColor.Length);
+            var color = ParkConsts.ParkHeadColor[index];
+            var bc = new BrushConverter();
+            context.HeadColor = color;
+            Top.Background = (Brush)bc.ConvertFrom(color);
         }
     }
 }

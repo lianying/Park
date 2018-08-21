@@ -5,18 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Park.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="Top" HorizontalAlignment="Center">
-            <Border VerticalAlignment="Center" Height="{Binding ElementName=Top, Path=ActualHeight}">
-                <TextBlock Text="{Binding Name}" FontSize="21" VerticalAlignment="Center" Foreground="White"></TextBlock>
-            </Border>
-        </StackPanel>
-        <Grid Grid.Row="1" >
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border x:Name="WarpBorder">
+        <Border.Style>
+            <Style TargetType="Border">
+                <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+                <Setter Property="CornerRadius" Value="10"></Setter>
+                <Setter Property="BorderThickness" Value="1"></Setter>
+                <Setter Property="BorderBrush" Value="#E5E5E5"></Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                        <Setter Property="BorderBrush" Value="{Binding HeadColor}"></Setter>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+    <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <DockPanel x:Name="Top"  >
+                <StackPanel   HorizontalAlignment="Center">
+                    <Border VerticalAlignment="Center" Height="{Binding ElementName=Top, Path=ActualHeight}">
+                        <TextBlock Text="{Binding Name}" FontSize="21" VerticalAlignment="Center" Foreground="White"></TextBlock>
+                    </Border>
+                </StackPanel>
+            </DockPanel>
+            <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -25,9 +48,22 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
+            <Label HorizontalAlignment="Right">车位数:</Label>
+                <Label HorizontalAlignment="Left" Grid.Column="1" Content="{Binding CarportCount}"></Label>
+
+                <Label HorizontalAlignment="Right" Grid.Row="1">产权方:</Label>
+                <Label HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Content="{Binding PropertyParty}"></Label>
+
+                <Label HorizontalAlignment="Right" Grid.Row="2">运营方:</Label>
+                <Label HorizontalAlignment="Left" Grid.Row="2" Grid.Column="2" Content="{Binding Operator}"></Label>
+
+
+                <Label HorizontalAlignment="Right" Grid.Row="3">地址:</Label>
+                <Label HorizontalAlignment="Left" Grid.Row="3" Grid.Column="2" Content="{Binding Address}"></Label>
         </Grid>
         
     </Grid>
+    </Border>
 </UserControl>

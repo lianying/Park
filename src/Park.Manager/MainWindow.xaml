@@ -11,9 +11,6 @@
                       Width="800"
                       WindowStyle="None"
                       ShowTitleBar="False"
-                      ShowMinButton="False"
-                      ShowCloseButton="False"
-                       ShowMaxRestoreButton="False"
                         WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>

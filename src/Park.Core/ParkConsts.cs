@@ -37,6 +37,16 @@
         public const string TempCarNotInMessage = "临时车禁止进入";
 
 
+        public static string[] ParkHeadColor = { "#8CC1B7",
+            "#EC7E7F",
+            "#91D065",
+            "#F3B32B",
+            "#73ACCA",
+            "#A37FA5",
+            "#8CC1B7"
+        };
+
+
         public static string[] CarNumberList = { "浙A54265",
             "浙A54266",
             "浙A12345",

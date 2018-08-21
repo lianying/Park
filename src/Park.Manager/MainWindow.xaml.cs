@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Park.Pages;
 using Park.UserControls;
 using Park.ViewModel;
 using System;
@@ -14,20 +15,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Abp.Dependency;
 
 namespace Park.Froms
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow 
+    public partial class MainWindow:ITransientDependency
     {
         public MainWindow()
         {
             InitializeComponent();
 
             List<Menu> menus = new List<Menu>();
-            menus.Add(new Menu() { IsOpen = false, Title = "首页" });
+            menus.Add(new Menu() { IsOpen = false, Title = "首页", IsFull = true, PageType = typeof(Index) });
             menus.Add(new Menu()
             {
                 IsOpen = true,
@@ -63,8 +65,27 @@ namespace Park.Froms
                 }
             }
             LeftMenuControl control = new LeftMenuControl(menus);
+            control.ItemClickEventHandler += new RoutedEventHandler(MenuItemClick);
             Dkp_LeftMenu.Children.Add(control);
-            //lbx_Menus.ItemsSource = menus;
+        }
+
+        private void MenuItemClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            Menu menu = sender as Menu;
+            var type = menu.PageType;
+            if (type == null)
+                return;
+            var page = IocManager.Resolve(type);
+            if (menu.IsFull)
+            {
+                Fram_Content.Margin = new Thickness(0);
+            }
+            else
+            {
+                Fram_Content.Margin = new Thickness(20, 25, 20, 0);
+            }
+            Fram_Content.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            Fram_Content.Navigate(page);
         }
     }
 }

@@ -56,6 +56,9 @@ namespace Park.ViewModel
         public Menu[] Menus { get; set; }
 
 
+        public bool IsFull { get; set; }
+
+
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             if (PropertyChanged != null)
@@ -65,5 +68,19 @@ namespace Park.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public override bool Equals(object obj)
+        {
+            if(obj is Menu)
+            {
+                var menu = obj as Menu;
+                return menu.Title == Title && menu.Icon == Icon;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return Title.GetHashCode() + Icon?.GetHashCode() ?? 0;
+        }
     }
 }
