@@ -17,7 +17,7 @@ namespace Park.Parks.Area.Dto
 
         public string AreaName { get; set; }
 
-        public int parkAreaCarports { get; set; }
+        public int ParkAreaCarports { get; set; }
 
 
     }

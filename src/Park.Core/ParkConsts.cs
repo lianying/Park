@@ -10,7 +10,7 @@
         /// <summary>
         /// 默认返回条数
         /// </summary>
-        public const int DefultPageSize = 100;
+        public const int DefaultPageSize = 100;
         /// <summary>
         /// 最大返回条数
         /// </summary>

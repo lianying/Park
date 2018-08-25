@@ -205,6 +205,12 @@
     <Compile Include="Pages\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ParkArea.xaml.cs">
+      <DependentUpon>ParkArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ParkInfo.xaml.cs">
+      <DependentUpon>ParkInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ParkManagerWpfModule.cs" />
     <Compile Include="UserControls\LeftMenuControl.xaml.cs">
       <DependentUpon>LeftMenuControl.xaml</DependentUpon>
@@ -212,7 +218,9 @@
     <Compile Include="UserControls\ParkInfo.xaml.cs">
       <DependentUpon>ParkInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Menu.cs" />
+    <Compile Include="ViewModel\NotifyPropertyChangeBase.cs" />
     <Page Include="Childers\AddPark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -232,6 +240,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Index.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ParkArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ParkInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

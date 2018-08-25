@@ -8,10 +8,13 @@ using Park.Entitys.Parks;
 using Abp.Application.Services.Dto;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Park.Parks.Park.Dto;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.ParkBox.Dto
 {
-    [AutoMap(typeof(ParkSet))]
+    [AutoMap(typeof(ParkSet),typeof(CreateParkDto))]
     public  class ParkDto:EntityDto,INotifyPropertyChanged
     {
         //public int Id { get; set; }
@@ -35,6 +38,30 @@ namespace Park.ParkBox.Dto
                 NotifyPropertyChanged("CarportCount");
             }
         }
+
+
+        [Required]
+        public virtual decimal Longitude { get; set; }
+
+        /// <summary>
+        /// 纬度
+        /// </summary>
+        /// 
+        [Required]
+        public virtual decimal Latitude { get; set; }
+
+        [Required]
+        [MaxLength(ParkBase.MaxAreaCodeLength)]
+        /// <summary>
+        /// 区域编码
+        /// </summary>
+        public virtual string AreaCode { get; set; }
+        public virtual bool IsSync { get; set; }
+        [MaxLength(ParkSet.MaxParkSoureLength)]
+        /// <summary>
+        /// 车场来源
+        /// </summary>
+        public virtual string ParkSoure { get; set; }
 
         private string address;
         public string Address
@@ -80,7 +107,7 @@ namespace Park.ParkBox.Dto
 
 
         private bool isSelected;
-
+        [NotMapped]
         public bool IsSelected
         {
             get { return isSelected; }
@@ -93,6 +120,7 @@ namespace Park.ParkBox.Dto
         }
 
         private string headColor;
+        [NotMapped]
         public string HeadColor
         {
             get { return headColor; }
@@ -100,7 +128,6 @@ namespace Park.ParkBox.Dto
                 NotifyPropertyChanged("HeadColor");
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

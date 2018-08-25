@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +21,22 @@ namespace Park.UserControls
     /// </summary>
     public partial class LeftMenuControl : UserControl
     {
-        private List<Park.ViewModel.Menu> _menus;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
         public RoutedEventHandler ItemClickEventHandler;
-        public LeftMenuControl( List<Park.ViewModel.Menu> menus)
+        public LeftMenuControl(MainWindowViewModel mainWindowViewModel )
         {
             InitializeComponent();
-            _menus = menus;
-            lbx_Menus.ItemsSource = _menus;
+            _mainWindowViewModel = mainWindowViewModel;
+            lbx_Menus.ItemsSource = _mainWindowViewModel.Menus;
         }
+
+        //public void SetMenus(List<ViewModel.Menu> menus)
+        //{
+
+        //    _menus = menus;
+        //    lbx_Menus.ItemsSource = _menus;
+        //}
 
         private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -44,7 +52,7 @@ namespace Park.UserControls
             }
             else
             {
-                foreach (var item in _menus)
+                foreach (var item in _mainWindowViewModel.Menus)
                 {
                     item.IsOpen = false;
                 } 

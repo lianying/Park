@@ -21,31 +21,35 @@ using Park.Childers;
 using Park.ParkBox.Dto;
 using Park.Parks.Park;
 using Park.UserControls;
+using Park.ViewModel;
 
 namespace Park.Pages
 {
     /// <summary>
     /// Index.xaml 的交互逻辑
     /// </summary>
-    public partial class Index : Page,ITransientDependency
+    public partial class Index : Page,ISingletonDependency
     {
         private readonly IParkAppService _parkAppService;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
-        private  ParkDto selectedPark;
+        //private  ParkDto selectedPark;
         IReadOnlyList<ParkDto> parkDtos;
 
          private DelayAction delayAction;
-        public Index(IParkAppService parkAppService)
+        public Index(IParkAppService parkAppService,MainWindowViewModel mainWindowViewModel)
         {
             InitializeComponent();
             _parkAppService = parkAppService;
             delayAction = new DelayAction();
+            _mainWindowViewModel = mainWindowViewModel;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var result = await _parkAppService.GetAll(new Abp.Application.Services.Dto.PagedResultRequestDto() { MaxResultCount = 7, SkipCount = 0 });
-             AddShowPanel(result);
+            ShowPanel.Children.Clear();
+            AddShowPanel(result);
         }
 
         private  void AddShowPanel(PagedResultDto<ParkDto> result)
@@ -53,11 +57,11 @@ namespace Park.Pages
          
             parkDtos = result.Items;
 
-            ParkInfo parkInfo;
+            UserControls.ParkInfo parkInfo;
             var width = (this.ActualWidth - 5 * 80) / 4;
             foreach (var park in parkDtos)
             {
-                parkInfo = new ParkInfo();
+                parkInfo = new UserControls.ParkInfo();
                 parkInfo.Margin = new Thickness(80, 100, 0, 0);
                 parkInfo.Width = width;  //每行展示4个
                 parkInfo.Height = 250;
@@ -77,7 +81,7 @@ namespace Park.Pages
 
         private async  void ParkAdd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            AddPark addPark = new AddPark();
+            AddPark addPark = new AddPark(_parkAppService);
             var result = addPark.ShowDialog();
             if (result.HasValue && result.Value)
             {
@@ -89,15 +93,15 @@ namespace Park.Pages
 
         private void ParkInfo_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            ParkInfo parkInfo = sender as ParkInfo;
+            UserControls.ParkInfo parkInfo = sender as UserControls.ParkInfo;
             var park = parkInfo.DataContext as ParkDto;
             park.IsSelected = true;
 
-            if (selectedPark != null && selectedPark != park)
+            if (_mainWindowViewModel.SelectParkDto != null && _mainWindowViewModel.SelectParkDto != park)
             {
-                selectedPark.IsSelected = false;
+                _mainWindowViewModel.SelectParkDto.IsSelected = false;
             }
-            selectedPark = park;
+            _mainWindowViewModel.SelectParkDto = park;
 
         }
 
@@ -107,7 +111,7 @@ namespace Park.Pages
             {
                 var result = await _parkAppService.GetParkListByName(new PagedResultRequestDto() { MaxResultCount = 7, SkipCount = 0 }, Txt_ParkName.Text);
                 ShowPanel.Children.Clear();
-                selectedPark = null;
+                _mainWindowViewModel.SelectParkDto = null;
                 AddShowPanel(result);
             });
         }
@@ -119,14 +123,14 @@ namespace Park.Pages
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var main = Application.Current.MainWindow as MetroWindow;
-            if (selectedPark == null)
+            if (_mainWindowViewModel.SelectParkDto == null)
             {
                 await main.ShowMessageAsync("提示", "请选择要删除的车场");
                 return;
             }
             if (await main.ShowMessageAsync("提示", "请选择要删除的车场", MessageDialogStyle.AffirmativeAndNegative) == MessageDialogResult.Affirmative)
             {
-                await _parkAppService.Delete(selectedPark);
+                await _parkAppService.Delete(_mainWindowViewModel.SelectParkDto);
                 if (string.IsNullOrEmpty(Txt_ParkName.Text)){
                     var result = await _parkAppService.GetAll(new Abp.Application.Services.Dto.PagedResultRequestDto() { MaxResultCount = 7, SkipCount = 0 });
                     ShowPanel.Children.Clear();

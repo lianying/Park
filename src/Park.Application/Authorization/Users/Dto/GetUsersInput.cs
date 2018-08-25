@@ -1,7 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.Extensions;
 using Abp.Runtime.Validation;
-using Park.Dto;
+using Park.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

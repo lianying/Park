@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Abp.Dependency;
+using Castle.MicroKernel.Registration;
 
 namespace Park.Froms
 {
@@ -24,18 +25,25 @@ namespace Park.Froms
     /// </summary>
     public partial class MainWindow:ITransientDependency
     {
+        private MainWindowViewModel mainWindowViewModel;
+
+        LeftMenuControl control;
         public MainWindow()
         {
             InitializeComponent();
+            mainWindowViewModel = new MainWindowViewModel();
 
+            Fram_Content.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            IocManager.Instance.IocContainer.Register(Component.For<MainWindowViewModel>().Instance(mainWindowViewModel).LifestyleSingleton()); //注册mainwindowViewMOdel
             List<Menu> menus = new List<Menu>();
             menus.Add(new Menu() { IsOpen = false, Title = "首页", IsFull = true, PageType = typeof(Index) });
             menus.Add(new Menu()
             {
-                IsOpen = true,
+                IsOpen = false,
+                ParentDefultIndex=0,
                 Title = "车场基础信息",
                 Menus = new Menu[]{
-                new Menu {  Title= "车场基本信息" },
+                new Menu {  Title= "车场基本信息",IsSelectedParkIn=true,PageType=typeof(Pages.ParkInfo)  },
                 new Menu {  Title= "区域配置" },
                 new Menu {  Title= "停车位" },
                 new Menu {  Title= "岗亭设置" },
@@ -47,7 +55,7 @@ namespace Park.Froms
                 IsOpen = false,
                 Title = "车场基础信息",
                 Menus = new Menu[]{
-                new Menu {  Title= "车场基本信息" },
+                new Menu {  Title= "车场基本信息"},
                 new Menu {  Title= "区域配置" },
                 new Menu {  Title= "停车位" },
                 new Menu {  Title= "岗亭设置" },
@@ -64,7 +72,8 @@ namespace Park.Froms
                     }
                 }
             }
-            LeftMenuControl control = new LeftMenuControl(menus);
+            mainWindowViewModel.Menus = menus;
+            control = new LeftMenuControl(mainWindowViewModel);
             control.ItemClickEventHandler += new RoutedEventHandler(MenuItemClick);
             Dkp_LeftMenu.Children.Add(control);
         }
@@ -72,10 +81,18 @@ namespace Park.Froms
         private void MenuItemClick(object sender, RoutedEventArgs routedEventArgs)
         {
             Menu menu = sender as Menu;
-            var type = menu.PageType;
-            if (type == null)
+            if (menu.PageType == null&&!menu.ParentDefultIndex.HasValue)
                 return;
-            var page = IocManager.Resolve(type);
+            else
+            {
+                if (menu.Menus != null && menu.ParentDefultIndex.HasValue)
+                {
+                    menu.Menus[menu.ParentDefultIndex.Value].IsOpen = !menu.IsOpen;
+                    menu.IsFull = menu.Menus[menu.ParentDefultIndex.Value].IsFull;
+                    menu.IsSelectedParkIn = menu.Menus[menu.ParentDefultIndex.Value].IsSelectedParkIn;
+                    menu.PageType = menu.Menus[menu.ParentDefultIndex.Value].PageType;
+                }
+            }
             if (menu.IsFull)
             {
                 Fram_Content.Margin = new Thickness(0);
@@ -84,7 +101,17 @@ namespace Park.Froms
             {
                 Fram_Content.Margin = new Thickness(20, 25, 20, 0);
             }
-            Fram_Content.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            if (menu.IsSelectedParkIn && mainWindowViewModel.SelectParkDto == null)
+            {
+                Fram_Content.Navigate(IocManager.Resolve<Index>());
+                menu.IsOpen = false;
+                var first = mainWindowViewModel.Menus.First();
+                first.IsOpen = true;
+                return;
+            }
+
+            var type = menu.PageType;
+            var page = IocManager.Resolve(type);
             Fram_Content.Navigate(page);
         }
     }

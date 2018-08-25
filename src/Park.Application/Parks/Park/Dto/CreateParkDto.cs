@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using Park.Entitys.Parks;
+using Park.ParkBox.Dto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Park.Parks.Park.Dto
 {
-    [AutoMap(typeof(ParkSet))]
+    [AutoMap(typeof(ParkSet),typeof(ParkDto))]
     public class CreateParkDto:EntityDto<int>
     {
         /// <summary>

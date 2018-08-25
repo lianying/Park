@@ -59,6 +59,12 @@
     <Reference Include="Castle.Windsor, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Windsor.4.1.0\lib\net45\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
     </Reference>
@@ -208,9 +214,11 @@
     <Compile Include="Authorization\Users\Dto\UserRoleDto.cs" />
     <Compile Include="Authorization\Users\IUserAppService.cs" />
     <Compile Include="Authorization\Users\UserAppService.cs" />
-    <Compile Include="Dto\FileDto.cs" />
-    <Compile Include="Dto\PagedAndSortedInputDto.cs" />
-    <Compile Include="Dto\PagedInputDto.cs" />
+    <Compile Include="Dtos\FileDto.cs" />
+    <Compile Include="Dtos\PagedAndFilteredInputDto.cs" />
+    <Compile Include="Dtos\PagedAndSortedInputDto.cs" />
+    <Compile Include="Dtos\PagedInputDto.cs" />
+    <Compile Include="Dtos\PagedSortedAndFilteredInputDto.cs" />
     <Compile Include="EventHandlers\CarOutHandler.cs" />
     <Compile Include="Navigation\MenuExtenstion.cs" />
     <Compile Include="Navigation\NgMenu.cs" />
@@ -233,7 +241,17 @@
     <Compile Include="MultiTenancy\Dto\TenantDto.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
+    <Compile Include="ParkAreases\Authorization\ParkAreasAppPermissions.cs" />
+    <Compile Include="ParkAreases\Dtos\CreateOrUpdateParkAreasInput.cs" />
+    <Compile Include="ParkAreases\Dtos\CustomMapper\CustomParkAreasMapper.cs" />
+    <Compile Include="ParkAreases\Dtos\GetParkAreasForEditOutput.cs" />
+    <Compile Include="ParkAreases\Dtos\GetParkAreasInput.cs" />
+    <Compile Include="ParkAreases\Dtos\ParkAreasEditDto.cs" />
+    <Compile Include="ParkAreases\Dtos\ParkAreasListDto.cs" />
+    <Compile Include="ParkAreases\IParkAreasAppService.cs" />
+    <Compile Include="ParkAreases\ParkAreasAppService.cs" />
     <Compile Include="Parks\Area\Dto\ParkAreaDto.cs" />
+    <Compile Include="Parks\Area\IAreaAppService.cs" />
     <Compile Include="Parks\Devices\DeviceInfoDto.cs" />
     <Compile Include="Parks\Devices\Interfaces\ICamareable.cs" />
     <Compile Include="Parks\Devices\Interfaces\IControlable.cs" />
@@ -288,6 +306,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ParkAreases\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Park.Core\Park.Core.csproj">

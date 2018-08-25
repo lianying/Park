@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Park.Manager", "Park.Manage
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Park.DeviceSDK", "Park.DeviceSDK\Park.DeviceSDK.csproj", "{ADEFBD19-56FB-49D6-AAE4-57895C9F67F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Park.NetWork.API", "Park.NetWork.API\Park.NetWork.API.csproj", "{0F8D27D6-BD15-4554-9C09-FA8106699AF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{ADEFBD19-56FB-49D6-AAE4-57895C9F67F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADEFBD19-56FB-49D6-AAE4-57895C9F67F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADEFBD19-56FB-49D6-AAE4-57895C9F67F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F8D27D6-BD15-4554-9C09-FA8106699AF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F8D27D6-BD15-4554-9C09-FA8106699AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F8D27D6-BD15-4554-9C09-FA8106699AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F8D27D6-BD15-4554-9C09-FA8106699AF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

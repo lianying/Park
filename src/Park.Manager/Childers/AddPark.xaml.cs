@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Park.Parks.Park;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,11 @@ namespace Park.Childers
     /// </summary>
     public partial class AddPark
     {
-        public AddPark()
+        private readonly IParkAppService _parkAppService;
+        public AddPark(IParkAppService parkAppService)
         {
             InitializeComponent();
+            _parkAppService = parkAppService;
         }
         /// <summary>
         /// 取消
@@ -34,9 +37,18 @@ namespace Park.Childers
             this.Close();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            int count = 0;
+            if(!int.TryParse(Txt_CarportCount.Text.Trim(),out count))
+            {
+                MessageBox.Show("请输入正确的车位数");
+                return;
+            }
+            await _parkAppService.Create(new Parks.Park.Dto.CreateParkDto() { Address = Txt_Address.Text, AreaCode = "330103", Latitude = 30.3073200M, Longitude = 120.1758920M, IsSync = true, Name = Txt_Name.Text.Trim(), CarportCount = count, Operator = Cmb_Operator.SelectedValue == null ? string.Empty : Cmb_Operator.SelectedValue.ToString(), PropertyParty = Cmb_PropertyParty.SelectedValue == null ? string.Empty : Cmb_PropertyParty.SelectedValue.ToString() });
 
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }
