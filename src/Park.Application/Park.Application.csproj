@@ -222,6 +222,7 @@
     <Compile Include="EventHandlers\CarOutHandler.cs" />
     <Compile Include="Navigation\MenuExtenstion.cs" />
     <Compile Include="Navigation\NgMenu.cs" />
+    <Compile Include="NotifyPropertyBase.cs" />
     <Compile Include="ParkApplicationModule.cs" />
     <Compile Include="ParkAppServiceBase.cs" />
     <Compile Include="Authorization\Accounts\AccountAppService.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="ParkAreases\Dtos\CustomMapper\CustomParkAreasMapper.cs" />
     <Compile Include="ParkAreases\Dtos\GetParkAreasForEditOutput.cs" />
     <Compile Include="ParkAreases\Dtos\GetParkAreasInput.cs" />
+    <Compile Include="ParkAreases\Dtos\ParkAreaDto.cs" />
     <Compile Include="ParkAreases\Dtos\ParkAreasEditDto.cs" />
     <Compile Include="ParkAreases\Dtos\ParkAreasListDto.cs" />
     <Compile Include="ParkAreases\IParkAreasAppService.cs" />
