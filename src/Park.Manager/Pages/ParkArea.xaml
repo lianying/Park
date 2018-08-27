@@ -6,8 +6,12 @@
       xmlns:local="clr-namespace:Park.ParkAreases.Dtos;assembly=Park.Application"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ParkArea">
-
+      Title="ParkArea" Loaded="Page_Loaded">
+    <Page.Resources>
+        <ResourceDictionary Source="/ResDics/ResDic.xaml">
+            
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid Background="#FFFFFF">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"></RowDefinition>
@@ -36,24 +40,84 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Border BorderBrush="#E9E9E9" BorderThickness="0,0,1,0">
-                <DockPanel>
-                    <TreeView Name="trvFamilies">
-                        <TreeView.Resources>
-                            <HierarchicalDataTemplate DataType="{x:Type local:ParkAreaDto}"  ItemsSource="{Binding ParkAreas}">
+                <DockPanel x:Name="Dpl_LeftMenu">
+                    <StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}">
+                            <TreeView SelectedItemChanged="trvFamilies_SelectedItemChanged"  HorizontalAlignment="Center" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}" Name="trvFamilies">
+                            <TreeView.Resources>
+                                    
+                                <HierarchicalDataTemplate DataType="{x:Type local:ParkAreaDto}"  ItemsSource="{Binding ParkAreas}">
+                                    <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding AreaName}" >
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                                <Setter Property="Foreground" Value="#F38886"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                </HierarchicalDataTemplate>
+                                <!--<DataTemplate DataType="{x:Type local:ParkAreaDto}">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding AreaName}" />
                                 </StackPanel>
-                            </HierarchicalDataTemplate>
-                            <DataTemplate DataType="{x:Type local:ParkAreaDto}">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding AreaName}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </TreeView.Resources>
-                    </TreeView>
-
+                            </DataTemplate>-->
+                            </TreeView.Resources>
+                                <TreeView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type TreeViewItem}" >
+                                        <Setter Property="FontSize" Value="18"></Setter>
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="#F38886"></Setter>
+                                                <Setter Property="Background" Value="#FFFFFF"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TreeView.ItemContainerStyle>
+                        </TreeView>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
+                        <Image Source="/icon/icon_add.png" Width="30" Height="30"></Image>
+                        <Label VerticalAlignment="Center" FontSize="16" Foreground="#CBCBCB">添加</Label>
+                    </StackPanel>
+                    </StackPanel>
                 </DockPanel>
             </Border>
+            <Grid  Grid.Column="1"  Height="450" Grid.Row="1" Margin="0,0,100,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Label Style="{StaticResource ResourceKey=ParkLabel}" VerticalAlignment="Center" HorizontalAlignment="Right">父级区域</Label>
+                <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" DisplayMemberPath="AreaName"
+                    SelectedValuePath="Id" SelectedValue="{Binding SelectedParkArea.ParentAreaId}"  ItemsSource="{Binding ComboxData}" Grid.Column="1" x:Name="Cmb_ParentArea"></ComboBox>
+
+
+
+                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">车位数</Label>
+                <TextBox  Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectedParkArea.ParkAreaCarports}" Grid.Column="1" x:Name="Txt_CarportCount" Grid.Row="1"></TextBox>
+
+
+
+                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">临停车位</Label>
+                <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Grid.Column="1" Text="{Binding SelectedParkArea.ParkAreaTempCarports}" Grid.Row="2"></TextBox>
+
+
+                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">固定车位</Label>
+                <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectedParkArea.ParkAreaFixedCarports}"  Grid.Column="1" x:Name="Txt_Address" Grid.Row="3"></TextBox>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

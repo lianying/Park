@@ -44,7 +44,7 @@ namespace Park.Froms
                 Title = "车场基础信息",
                 Menus = new Menu[]{
                 new Menu {  Title= "车场基本信息",IsSelectedParkIn=true,PageType=typeof(Pages.ParkInfo)  },
-                new Menu {  Title= "区域配置" },
+                new Menu {  Title= "区域配置",IsSelectedParkIn=true,PageType=typeof(ParkArea) },
                 new Menu {  Title= "停车位" },
                 new Menu {  Title= "岗亭设置" },
                 }

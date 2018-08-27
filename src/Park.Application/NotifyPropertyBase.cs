@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Application.Services.Dto;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Park
 {
-    public class NotifyPropertyChangeBase : INotifyPropertyChanged
+    public class NotifyPropertyChangeBase <T>:EntityDto<T>, INotifyPropertyChanged
     {
         #region INotifyPropertyChanged Implementation
 

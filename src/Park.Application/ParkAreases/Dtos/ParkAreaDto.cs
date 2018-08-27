@@ -1,4 +1,7 @@
-﻿using Park.ParkBox.Dto;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using Park.Entitys.ParkAreas;
+using Park.ParkBox.Dto;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,8 +12,14 @@ using System.Threading.Tasks;
 
 namespace Park.ParkAreases.Dtos
 {
-    public class ParkAreaDto : NotifyPropertyChangeBase
+    [AutoMap(typeof(ParkAreas),typeof(ParkAreasEditDto))]
+    public class ParkAreaDto : NotifyPropertyChangeBase<long>
     {
+        public ParkAreaDto ParentArea { get; set; }
+
+        public long? ParentAreaId { get; set; }
+
+
         public ParkDto Park { get; set; }
 
 
@@ -43,19 +52,38 @@ namespace Park.ParkAreases.Dtos
             }
         }
 
-        private int parkAreaRentableCarports;
+        private int parkAreaTempCarports;
         /// <summary>
         /// ParkAreaRentableCarports
         /// </summary>
-        public int ParkAreaRentableCarports
+        public int ParkAreaTempCarports
         {
-            get { return parkAreaRentableCarports; }
+            get { return parkAreaTempCarports; }
             set
             {
-                parkAreaRentableCarports = value;
-                NotifyPropertyChange(() => ParkAreaRentableCarports);
+                parkAreaTempCarports = value;
+                NotifyPropertyChange(() => ParkAreaTempCarports);
             }
         }
+
+
+        private int parkAreaFixedCarports;
+        /// <summary>
+        /// 固定车位
+        /// </summary>
+        public int ParkAreaFixedCarports
+        {
+            get { return parkAreaFixedCarports; }
+            set
+            {
+                parkAreaFixedCarports = value;
+                NotifyPropertyChange(() => ParkAreaFixedCarports);
+            }
+        }
+
+        private bool isSelected;
+
+        public bool IsSelected { get { return isSelected; } set { isSelected = value; NotifyPropertyChange(() => IsSelected); } }
 
         public ObservableCollection<ParkAreaDto> ParkAreas { get; set; }
     }

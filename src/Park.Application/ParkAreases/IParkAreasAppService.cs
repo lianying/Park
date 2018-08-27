@@ -66,8 +66,21 @@ namespace Park.ParkAreases
         Task BatchDeleteParkAreassAsync(List<long> input);
 
 
-		//// custom codes
-		 
+        //// custom codes
+        /// <summary>
+        /// TreeMenu
+        /// </summary>
+        /// <param name="parkId"></param>
+        /// <returns></returns>
+        Task<List<ParkAreaDto>> GetParkAreaDtos(int parkId);
+
+        /// <summary>
+        /// 获取所有父级区域
+        /// </summary>
+        /// <param name="parkId"></param>
+        /// <returns></returns>
+        Task<List<ParkAreaDto>> GetParkAreaAllParents(int parkId);
         //// custom codes end
+       
     }
 }

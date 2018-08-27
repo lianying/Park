@@ -40,16 +40,17 @@ public string AreaName { get; set; }
 public int ParkAreaCarports { get; set; }
 
 
-/// <summary>
-/// ParkAreaRentableCarports
-/// </summary>
-public int ParkAreaRentableCarports { get; set; }
+        public virtual int ParkAreaTempCarports { get; set; }
 
+        /// <summary>
+        /// 固定车位
+        /// </summary>
+        public virtual int ParkAreaFixedCarports { get; set; }
 
-/// <summary>
-/// IsSuccess
-/// </summary>
-public bool IsSuccess { get; set; }
+        /// <summary>
+        /// IsSuccess
+        /// </summary>
+        public bool IsSuccess { get; set; }
 
 
 /// <summary>

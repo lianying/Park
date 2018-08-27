@@ -26,9 +26,14 @@ namespace Park.Entitys.ParkAreas
         public virtual  int ParkAreaCarports { get; set; }
 
         /// <summary>
-        /// 可租车位
+        /// 临时车车位
         /// </summary>
-        public virtual  int ParkAreaRentableCarports { get; set; }
+        public virtual  int ParkAreaTempCarports { get; set; }
+
+        /// <summary>
+        /// 固定车位
+        /// </summary>
+        public virtual  int ParkAreaFixedCarports { get; set; }
 
         public virtual bool IsSuccess { get ; set ; }
         public virtual string CloudId { get ; set ; }
@@ -37,5 +42,12 @@ namespace Park.Entitys.ParkAreas
         public virtual long? LastModifierUserId { get; set; }
         public virtual DateTime? LastModificationTime { get; set; }
         public virtual int? TenantId { get; set; }
+
+
+        public virtual ParkAreas ParentArea { get; set; }
+
+
+        [ForeignKey("ParentArea")]
+        public virtual long? ParentAreaId { get; set; }
     }
 }

@@ -314,6 +314,14 @@
     <Compile Include="Migrations\201808210548400_add parkOpertor.Designer.cs">
       <DependentUpon>201808210548400_add parkOpertor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808270140300_edit parkArea.cs" />
+    <Compile Include="Migrations\201808270140300_edit parkArea.Designer.cs">
+      <DependentUpon>201808270140300_edit parkArea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808270817558_edit parkarea for add ParentArea.cs" />
+    <Compile Include="Migrations\201808270817558_edit parkarea for add ParentArea.Designer.cs">
+      <DependentUpon>201808270817558_edit parkarea for add ParentArea.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -414,6 +422,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808210548400_add parkOpertor.resx">
       <DependentUpon>201808210548400_add parkOpertor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808270140300_edit parkArea.resx">
+      <DependentUpon>201808270140300_edit parkArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808270817558_edit parkarea for add ParentArea.resx">
+      <DependentUpon>201808270817558_edit parkarea for add ParentArea.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
