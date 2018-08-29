@@ -40,12 +40,12 @@ namespace Park.Froms
             menus.Add(new Menu()
             {
                 IsOpen = false,
-                ParentDefultIndex=0,
+                ParentDefultIndex = 0,
                 Title = "车场基础信息",
                 Menus = new Menu[]{
                 new Menu {  Title= "车场基本信息",IsSelectedParkIn=true,PageType=typeof(Pages.ParkInfo)  },
                 new Menu {  Title= "区域配置",IsSelectedParkIn=true,PageType=typeof(ParkArea) },
-                new Menu {  Title= "停车位" },
+                new Menu {  Title= "停车位",IsSelectedParkIn=true,PageType=typeof(ParkCarport) },
                 new Menu {  Title= "岗亭设置" },
                 }
             });

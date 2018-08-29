@@ -1,5 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Park.Entitys.Parks;
+using Park.Enum;
 using Park.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +14,15 @@ namespace Park.Entitys.CarUsers
         /// 车位编号
         /// </summary>
         public virtual string CarportSerial { get; set; }
+
+
+
+
+        [ForeignKey("ParkId")]
+        public virtual ParkSet Park { get; set; }
+
+        public virtual int ParkId { get; set; }
+
 
         public virtual long AreaId { get; set; }
 
@@ -56,7 +67,7 @@ namespace Park.Entitys.CarUsers
         public virtual CarUsers CarUser { get; set; }
 
         
-        public virtual long CarUserId { get; set; }
+        public virtual long? CarUserId { get; set; }
 
         public virtual DateTime CreationTime { get; set; }
         public virtual long? LastModifierUserId { get; set; }
@@ -67,10 +78,16 @@ namespace Park.Entitys.CarUsers
 
 
 
+
         public virtual bool IsSuccess { get; set; }
 
         public virtual string CloudId { get; set; }
 
+
+        public virtual CarPortType RentSellType { get; set; }
+
+
+        public virtual string Remark { get; set; }
 
     }
 }

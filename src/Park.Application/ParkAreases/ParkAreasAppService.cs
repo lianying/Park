@@ -15,6 +15,7 @@ using Park.ParkAreases.Authorization;
 using Park.ParkAreases.Dtos;
 using Park.Entitys.ParkAreas;
 using System.Data.Entity;
+using Park.Entitys.ParkLevels;
 
 namespace Park.ParkAreases
 {
@@ -27,6 +28,8 @@ namespace Park.ParkAreases
         private readonly IRepository<ParkAreas, long>
         _parkareasRepository;
 
+        private readonly IRepository<ParkLevels, long> _parkLevelRepository;
+
 
 
         /// <summary>
@@ -34,10 +37,12 @@ namespace Park.ParkAreases
         ///</summary>
         public ParkAreasAppService(
         IRepository<ParkAreas, long>
-    parkareasRepository
+    parkareasRepository,
+        IRepository<ParkLevels, long> parkLevelRepository
             )
         {
             _parkareasRepository = parkareasRepository;
+            _parkLevelRepository = parkLevelRepository;
         }
 
 
@@ -135,8 +140,10 @@ parkareasListDtos
             //TODO:新增前的逻辑判断，是否允许新增
 
             var entity = ObjectMapper.Map<ParkAreas>(input);
-
+            
             entity = await _parkareasRepository.InsertAsync(entity);
+            //创建默认层
+            await _parkLevelRepository.InsertAsync(new ParkLevels() { AreaId = entity.Id, LevelName = "1", LevelNumber = 1, ParkId = entity.ParkId });
             return entity.MapTo<ParkAreasEditDto>();
         }
 

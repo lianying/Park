@@ -58,7 +58,6 @@ namespace Park.Pages
             }
             else
             {
-
                 await window.ShowMessageAsync("提示", "请选择要删除的区域");
             }
         }
@@ -103,8 +102,6 @@ namespace Park.Pages
         private void trvFamilies_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             ParkAreaViewModel.SelectedParkArea = (sender as TreeView).SelectedValue as ParkAreaDto;
-
-
         }
     }
 }

@@ -192,6 +192,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorization\AppLtmPermissions.cs" />
+    <Compile Include="CarNumberses\Authorization\CarNumbersAppPermissions.cs" />
+    <Compile Include="CarNumberses\Authorization\CarNumbersAuthorizationProvider.cs" />
+    <Compile Include="CarNumberses\CarNumbersManager.cs" />
+    <Compile Include="CarNumberses\ICarNumbersManager.cs" />
+    <Compile Include="CarPorts\Authorization\CarPortAppPermissions.cs" />
+    <Compile Include="CarPorts\Authorization\CarPortAuthorizationProvider.cs" />
+    <Compile Include="CarPorts\CarPortManager.cs" />
+    <Compile Include="CarPorts\ICarPortManager.cs" />
+    <Compile Include="CarTypeses\Authorization\CarTypesAppPermissions.cs" />
+    <Compile Include="CarTypeses\Authorization\CarTypesAuthorizationProvider.cs" />
+    <Compile Include="CarTypeses\CarTypesManager.cs" />
+    <Compile Include="CarTypeses\ICarTypesManager.cs" />
+    <Compile Include="CarUserses\Authorization\CarUsersAppPermissions.cs" />
+    <Compile Include="CarUserses\Authorization\CarUsersAuthorizationProvider.cs" />
+    <Compile Include="CarUserses\CarUsersManager.cs" />
+    <Compile Include="CarUserses\ICarUsersManager.cs" />
     <Compile Include="Chat\ChatMessage.cs" />
     <Compile Include="Authorization\Users\IUserEmailer.cs" />
     <Compile Include="Chat\ChatMessageReadState.cs" />
@@ -224,8 +241,10 @@
     <Compile Include="Entitys\Parks\Park.cs" />
     <Compile Include="Entitys\Parks\ParkBase.cs" />
     <Compile Include="Entitys\SDKControlParametes.cs" />
+    <Compile Include="EnumHelper\EnumHelper.cs" />
     <Compile Include="Enum\CarDiscountEnum.cs" />
     <Compile Include="Enum\CarNumberPermissionEnum.cs" />
+    <Compile Include="Enum\CarPortType.cs" />
     <Compile Include="Enum\CarType.cs" />
     <Compile Include="Enum\DeviceStatus.cs" />
     <Compile Include="Enum\DeviceType.cs" />
@@ -237,6 +256,7 @@
     <Compile Include="Enum\OutEnum.cs" />
     <Compile Include="Enum\OutOfferTypeEnum.cs" />
     <Compile Include="Enum\PayTypeEnum.cs" />
+    <Compile Include="Enum\RentingSellingType.cs" />
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
     <Compile Include="Expansions\DateTimeExpansion.cs" />
@@ -247,6 +267,10 @@
     <Compile Include="IRepositories\ICarInRecordRepository.cs" />
     <Compile Include="IRepositories\ICarUserRepository.cs" />
     <Compile Include="IRepositories\IParkRepository.cs" />
+    <Compile Include="ParkAreases\Authorization\ParkAreasAppPermissions.cs" />
+    <Compile Include="ParkAreases\Authorization\ParkAreasAuthorizationProvider.cs" />
+    <Compile Include="ParkAreases\IParkAreasManager.cs" />
+    <Compile Include="ParkAreases\ParkAreasManager.cs" />
     <Compile Include="ParkConsts.cs" />
     <Compile Include="ParkCoreModule.cs" />
     <Compile Include="AppVersionHelper.cs" />
@@ -263,6 +287,11 @@
     <Compile Include="Features\FeatureValueStore.cs" />
     <Compile Include="MultiTenancy\Tenant.cs" />
     <Compile Include="MultiTenancy\TenantManager.cs" />
+    <Compile Include="ParkDomainServiceBase.cs" />
+    <Compile Include="ParkEntranceses\Authorization\ParkEntrancesAppPermissions.cs" />
+    <Compile Include="ParkEntranceses\Authorization\ParkEntrancesAuthorizationProvider.cs" />
+    <Compile Include="ParkEntranceses\IParkEntrancesManager.cs" />
+    <Compile Include="ParkEntranceses\ParkEntrancesManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authorization\Roles\Role.cs" />
     <Compile Include="Authorization\Roles\RoleManager.cs" />
@@ -272,12 +301,19 @@
     <Compile Include="Authorization\Users\UserStore.cs" />
     <Compile Include="SynchronizationContextRemove.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
+    <Compile Include="YoYoAbpefCoreConsts.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="CarNumberses\Readme.md" />
+    <None Include="CarPorts\Readme.md" />
+    <None Include="CarTypeses\Readme.md" />
+    <None Include="CarUserses\Readme.md" />
     <None Include="packages.config" />
+    <None Include="ParkAreases\Readme.md" />
+    <None Include="ParkEntranceses\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Source\Park-zh-CN.xml" />

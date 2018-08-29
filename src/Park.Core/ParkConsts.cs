@@ -14,7 +14,7 @@
         /// <summary>
         /// 最大返回条数
         /// </summary>
-        public const int MaxPageSize = 10000;
+        public const int MaxPageSize = 10000000;
 
         public const string AppName = "Park";
 

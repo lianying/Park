@@ -13,25 +13,25 @@ namespace Park.ParkAreases.Authorization
     ///</summary>
     public class ParkAreasAppAuthorizationProvider : AuthorizationProvider
     {
-    public override void SetPermissions(IPermissionDefinitionContext context)
-    {
-    //在这里配置了ParkAreas 的权限。
-    var pages = context.GetPermissionOrNull(AppLtmPermissions.Pages) ?? context.CreatePermission(AppLtmPermissions.Pages, L("Pages"));
+        public override void SetPermissions(IPermissionDefinitionContext context)
+        {
+            //在这里配置了ParkAreas 的权限。
+            var pages = context.GetPermissionOrNull(AppLtmPermissions.Pages) ?? context.CreatePermission(AppLtmPermissions.Pages, L("Pages"));
 
-    var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
+            var administration = pages.Children.FirstOrDefault(p => p.Name == AppLtmPermissions.Pages_Administration) ?? pages.CreateChildPermission(AppLtmPermissions.Pages_Administration, L("Administration"));
 
-    var parkareas = administration.CreateChildPermission(ParkAreasAppPermissions.ParkAreas , L("ParkAreases"));
-parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Create, L("Create"));
-parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Edit, L("Edit"));
-parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Delete, L("Delete"));
-parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_BatchDelete , L("BatchDelete"));
-parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_ExportToExcel, L("ExportToExcel"));
+            var parkareas = administration.CreateChildPermission(ParkAreasAppPermissions.ParkAreas, L("ParkAreases"));
+            parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Create, L("Create"));
+            parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Edit, L("Edit"));
+            parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_Delete, L("Delete"));
+            parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_BatchDelete, L("BatchDelete"));
+            parkareas.CreateChildPermission(ParkAreasAppPermissions.ParkAreas_ExportToExcel, L("ExportToExcel"));
 
 
-    //// custom codes
-    
-    //// custom codes end
-    }
+            //// custom codes
+
+            //// custom codes end
+        }
 
     private static ILocalizableString L(string name)
     {

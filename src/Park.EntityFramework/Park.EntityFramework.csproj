@@ -322,6 +322,22 @@
     <Compile Include="Migrations\201808270817558_edit parkarea for add ParentArea.Designer.cs">
       <DependentUpon>201808270817558_edit parkarea for add ParentArea.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808280550284_add CarportRentSell.cs" />
+    <Compile Include="Migrations\201808280550284_add CarportRentSell.Designer.cs">
+      <DependentUpon>201808280550284_add CarportRentSell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808281219279_add parkcarport park.cs" />
+    <Compile Include="Migrations\201808281219279_add parkcarport park.Designer.cs">
+      <DependentUpon>201808281219279_add parkcarport park.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808281220567_edit parkcarport park.cs" />
+    <Compile Include="Migrations\201808281220567_edit parkcarport park.Designer.cs">
+      <DependentUpon>201808281220567_edit parkcarport park.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808290143467_add parkCarport remark.cs" />
+    <Compile Include="Migrations\201808290143467_add parkCarport remark.Designer.cs">
+      <DependentUpon>201808290143467_add parkCarport remark.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -428,6 +444,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808270817558_edit parkarea for add ParentArea.resx">
       <DependentUpon>201808270817558_edit parkarea for add ParentArea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808280550284_add CarportRentSell.resx">
+      <DependentUpon>201808280550284_add CarportRentSell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808281219279_add parkcarport park.resx">
+      <DependentUpon>201808281219279_add parkcarport park.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808281220567_edit parkcarport park.resx">
+      <DependentUpon>201808281220567_edit parkcarport park.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808290143467_add parkCarport remark.resx">
+      <DependentUpon>201808290143467_add parkCarport remark.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

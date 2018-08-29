@@ -4,20 +4,44 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Park.Pages"
+       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:ValueConverter="clr-namespace:Park.Converter"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ParkCarport">
+      Title="ParkCarport" Loaded="Page_Loaded">
     <Page.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResDics/ResDic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <ValueConverter:CarTypeConverter x:Key="AlbumPriceIsTooMuchConverter" />
+            <ValueConverter:TrueFalseConverter x:Key="TrueFalseConverter"/>
             <Style TargetType="{x:Type WrapPanel}">
                 <Setter Property="Margin" Value="0,0,30,0"></Setter>
             </Style>
             <Style TargetType="{x:Type TextBlock}">
-                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="FontSize" Value="18"></Setter>
             </Style>
+            <Style TargetType="{x:Type DataGrid}">
+                <Setter Property="Background" Value="#FFFFFF" />
+                <Setter Property="AlternationCount" Value="2" />
+            </Style>
+
+            <Style TargetType="{x:Type DataGridRow}">
+                <Style.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="#EEEEEE"></Setter>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter Property="Background" Value="#FFFFFF"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <DataTemplate x:Key="HeadCheckBoxTemp" DataType="DataGridCheckBoxColumn">
+                <CheckBox ></CheckBox>
+            </DataTemplate>
         </ResourceDictionary>
         
     </Page.Resources>
@@ -29,11 +53,12 @@
         <DockPanel>
             <Border Margin="40,0,40,0" BorderThickness="0,0,0,1" BorderBrush="#E9E9E9">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Width="140" Height="40" Margin="0,0,30,0" ></TextBox>
-                    <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>
-                    <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>
-                    <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>
-                    <Button Height="40" Width="100" Foreground="White" Background="#E65252">查询</Button>
+                    <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding CarportNumber}" Controls:TextBoxHelper.Watermark="请输入车位编号" Width="140" Height="40" Margin="0,0,30,0" ></TextBox>
+                    <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" DisplayMemberPath="AreaName"
+                    SelectedValuePath="Id" SelectedValue="0" ItemsSource="{Binding ParkAreaDtos}" x:Name="Cmb_Area" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>
+                    <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" x:Name="Cmb_CarType" ItemsSource="{Binding CarTypesDto}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>
+                    <!--<ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>-->
+                    <Button Height="40" Click="Button_Click" Width="100" Foreground="White" Background="#E65252">查询</Button>
                 </StackPanel>
             </Border>
         </DockPanel>
@@ -45,45 +70,81 @@
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Height="120">
                 <WrapPanel>
                     <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">总计: </TextBlock>
+                        <TextBlock TextAlignment="Center"  Text="总计:  " VerticalAlignment="Center"> </TextBlock>
                     </Border>
                     <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">120</TextBlock>
-                    </Border>
-                </WrapPanel>
-
-                <WrapPanel>
-                    <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">总计: </TextBlock>
-                    </Border>
-                    <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">120</TextBlock>
-                    </Border>
-                </WrapPanel>
-
-
-                <WrapPanel>
-                    <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">总计: </TextBlock>
-                    </Border>
-                    <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">120</TextBlock>
+                        <TextBlock TextAlignment="Center" Foreground="#EE8E94" Text="{Binding TotleCount}" VerticalAlignment="Center"></TextBlock>
                     </Border>
                 </WrapPanel>
 
                 <WrapPanel>
                     <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">总计: </TextBlock>
+                        <TextBlock TextAlignment="Center" Text="已租:  " VerticalAlignment="Center"></TextBlock>
                     </Border>
                     <Border Height="120">
-                        <TextBlock TextAlignment="Center"  VerticalAlignment="Center">120</TextBlock>
+                        <TextBlock TextAlignment="Center" Foreground="#EE8E94" Text="{Binding RentCount}" VerticalAlignment="Center"></TextBlock>
+                    </Border>
+                </WrapPanel>
+
+
+                <WrapPanel>
+                    <Border Height="120">
+                        <TextBlock TextAlignment="Center" Text="已售:  "  VerticalAlignment="Center"></TextBlock>
+                    </Border>
+                    <Border Height="120">
+                        <TextBlock TextAlignment="Center" Foreground="#EE8E94" Text="{Binding SellCount}" VerticalAlignment="Center"></TextBlock>
+                    </Border>
+                </WrapPanel>
+
+                <WrapPanel>
+                    <Border Height="120">
+                        <TextBlock TextAlignment="Center" Text="未租售:  "  VerticalAlignment="Center"></TextBlock>
+                    </Border>
+                    <Border Height="120">
+                        <TextBlock TextAlignment="Center"  Foreground="#EE8E94" Text="{Binding RemainingCount}" VerticalAlignment="Center"></TextBlock>
                     </Border>
                 </WrapPanel>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right">
-                <Button Width="140"  Height="50" Content="保存" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#73ACCA"></Button>
-                <Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Height="50" Content="删除" FontSize="18" Foreground="#EA8285" Background="White"></Button>
+                <Button Width="140"  Height="50" Content="新增车位" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#91D065"></Button>
+                <Button Width="140" BorderBrush="#EA8285" BorderThickness="1"  Margin="0,0,40,0" Height="50" Content="批量新增" FontSize="18" Foreground="White" Background="#F3B32B"></Button>
+                <!--<Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Margin="0,0,40,0"  Height="50" Content="导入" FontSize="18" Foreground="White" Background="#73ACCA"></Button>
+                <Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Height="50" Content="导出" FontSize="18" Foreground="White" Background="#A37FA5"></Button>-->
             </StackPanel>
+            <DockPanel Grid.Row="1">
+                <ScrollViewer >
+                <DataGrid  CanUserAddRows="False"  HeadersVisibility="All" SelectionUnit="FullRow" AutoGenerateColumns="False"  AlternationCount="2"  Style="{DynamicResource AzureDataGrid}" ItemsSource="{Binding CarPortListDtos}">
+                    <DataGrid.Columns>
+                        
+                        <DataGridTemplateColumn   >
+                            <DataGridTemplateColumn.Header>
+                                <CheckBox x:Name="headerCheckBox" />
+                            </DataGridTemplateColumn.Header>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsChecked, ElementName=headerCheckBox,  Mode=OneWay}" ></CheckBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTextColumn Width="120" Binding="{Binding CarportSerial}" Header="车位编号" />
+
+                        <DataGridTextColumn Width="120" Binding="{Binding ParkArea.AreaName}" Header="区域" />
+
+                        <DataGridTextColumn Binding="{Binding RentSellType}" Header="车位类型" />
+
+                        <DataGridTextColumn Binding="{Binding RentSellTypeStaticString}" Header="性质" />
+
+
+                        <DataGridTextColumn Binding="{Binding HasChargingPile, Converter={StaticResource ResourceKey=TrueFalseConverter}}" Header="充电桩车位" />
+
+                        <DataGridTextColumn Width="240" Binding="{Binding Remark}" Header="备注" />
+
+                    </DataGrid.Columns>
+                    
+                </DataGrid>
+                </ScrollViewer>
+            </DockPanel>
         </Grid>
     </Grid>
 </Page>

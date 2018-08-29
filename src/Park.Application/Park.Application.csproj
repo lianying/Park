@@ -198,6 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppLtmConsts.cs" />
     <Compile Include="Authorization\AbpLoginResultTypeHelper.cs" />
     <Compile Include="Authorization\Permissions\Dto\FlatPermissionDto.cs" />
     <Compile Include="Authorization\Permissions\Dto\FlatPermissionWithLevelDto.cs" />
@@ -214,6 +215,39 @@
     <Compile Include="Authorization\Users\Dto\UserRoleDto.cs" />
     <Compile Include="Authorization\Users\IUserAppService.cs" />
     <Compile Include="Authorization\Users\UserAppService.cs" />
+    <Compile Include="CarNumberses\CarNumbersAppService.cs" />
+    <Compile Include="CarNumberses\Dtos\CarNumbersEditDto.cs" />
+    <Compile Include="CarNumberses\Dtos\CarNumbersListDto.cs" />
+    <Compile Include="CarNumberses\Dtos\CreateOrUpdateCarNumbersInput.cs" />
+    <Compile Include="CarNumberses\Dtos\CustomMapper\CustomCarNumbersMapper.cs" />
+    <Compile Include="CarNumberses\Dtos\GetCarNumbersForEditOutput.cs" />
+    <Compile Include="CarNumberses\Dtos\GetCarNumbersInput.cs" />
+    <Compile Include="CarNumberses\ICarNumbersAppService.cs" />
+    <Compile Include="CarPorts\CarPortAppService.cs" />
+    <Compile Include="CarPorts\Dtos\CarPortEditDto.cs" />
+    <Compile Include="CarPorts\Dtos\CarPortListDto.cs" />
+    <Compile Include="CarPorts\Dtos\CreateOrUpdateCarPortInput.cs" />
+    <Compile Include="CarPorts\Dtos\CustomMapper\CustomCarPortMapper.cs" />
+    <Compile Include="CarPorts\Dtos\GetCarPortForEditOutput.cs" />
+    <Compile Include="CarPorts\Dtos\GetCarPortInput.cs" />
+    <Compile Include="CarPorts\Dtos\ParkCarportParkingSpaceCountDto.cs" />
+    <Compile Include="CarPorts\ICarPortAppService.cs" />
+    <Compile Include="CarTypeses\CarTypesAppService.cs" />
+    <Compile Include="CarTypeses\Dtos\CarTypesEditDto.cs" />
+    <Compile Include="CarTypeses\Dtos\CarTypesListDto.cs" />
+    <Compile Include="CarTypeses\Dtos\CreateOrUpdateCarTypesInput.cs" />
+    <Compile Include="CarTypeses\Dtos\CustomMapper\CustomCarTypesMapper.cs" />
+    <Compile Include="CarTypeses\Dtos\GetCarTypesForEditOutput.cs" />
+    <Compile Include="CarTypeses\Dtos\GetCarTypesInput.cs" />
+    <Compile Include="CarTypeses\ICarTypesAppService.cs" />
+    <Compile Include="CarUserses\CarUsersAppService.cs" />
+    <Compile Include="CarUserses\Dtos\CarUsersEditDto.cs" />
+    <Compile Include="CarUserses\Dtos\CarUsersListDto.cs" />
+    <Compile Include="CarUserses\Dtos\CreateOrUpdateCarUsersInput.cs" />
+    <Compile Include="CarUserses\Dtos\CustomMapper\CustomCarUsersMapper.cs" />
+    <Compile Include="CarUserses\Dtos\GetCarUsersForEditOutput.cs" />
+    <Compile Include="CarUserses\Dtos\GetCarUsersInput.cs" />
+    <Compile Include="CarUserses\ICarUsersAppService.cs" />
     <Compile Include="Dtos\FileDto.cs" />
     <Compile Include="Dtos\PagedAndFilteredInputDto.cs" />
     <Compile Include="Dtos\PagedAndSortedInputDto.cs" />
@@ -242,7 +276,6 @@
     <Compile Include="MultiTenancy\Dto\TenantDto.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\TenantAppService.cs" />
-    <Compile Include="ParkAreases\Authorization\ParkAreasAppPermissions.cs" />
     <Compile Include="ParkAreases\Dtos\CreateOrUpdateParkAreasInput.cs" />
     <Compile Include="ParkAreases\Dtos\CustomMapper\CustomParkAreasMapper.cs" />
     <Compile Include="ParkAreases\Dtos\GetParkAreasForEditOutput.cs" />
@@ -252,6 +285,14 @@
     <Compile Include="ParkAreases\Dtos\ParkAreasListDto.cs" />
     <Compile Include="ParkAreases\IParkAreasAppService.cs" />
     <Compile Include="ParkAreases\ParkAreasAppService.cs" />
+    <Compile Include="ParkEntranceses\Dtos\CreateOrUpdateParkEntrancesInput.cs" />
+    <Compile Include="ParkEntranceses\Dtos\CustomMapper\CustomParkEntrancesMapper.cs" />
+    <Compile Include="ParkEntranceses\Dtos\GetParkEntrancesForEditOutput.cs" />
+    <Compile Include="ParkEntranceses\Dtos\GetParkEntrancesInput.cs" />
+    <Compile Include="ParkEntranceses\Dtos\ParkEntrancesEditDto.cs" />
+    <Compile Include="ParkEntranceses\Dtos\ParkEntrancesListDto.cs" />
+    <Compile Include="ParkEntranceses\IParkEntrancesAppService.cs" />
+    <Compile Include="ParkEntranceses\ParkEntrancesAppService.cs" />
     <Compile Include="Parks\Area\Dto\ParkAreaDto.cs" />
     <Compile Include="Parks\Area\IAreaAppService.cs" />
     <Compile Include="Parks\Devices\DeviceInfoDto.cs" />
@@ -305,10 +346,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CarNumberses\Readme.md" />
+    <None Include="CarPorts\Readme.md" />
+    <None Include="CarTypeses\Readme.md" />
+    <None Include="CarUserses\Readme.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="ParkAreases\Readme.md" />
+    <None Include="ParkEntranceses\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Park.Core\Park.Core.csproj">

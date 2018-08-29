@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
+using Park.Entitys.ParkAreas;
 using Park.Enum;
 using Park.Interfaces;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Park.Entitys.ParkEntrances
 {
-    public class ParkEntrances:Entity<long>, ISynchronize, IAudited,IMayHaveTenant
+    public class ParkEntrances : Entity<long>, ISynchronize, IAudited, IMayHaveTenant
     {
         public virtual string EntranceName { get; set; }
 
@@ -25,12 +26,17 @@ namespace Park.Entitys.ParkEntrances
         public virtual long PermissionId { get; set; }
         [ForeignKey("PermissionId")]
         public virtual ParkEntrancePermission ParkEntrancePermission { get; set; }
-        public virtual bool IsSuccess { get ; set ; }
-        public virtual string CloudId { get ; set ; }
-        public virtual long? CreatorUserId { get ; set; }
-        public virtual DateTime CreationTime { get ; set ; }
-        public virtual long? LastModifierUserId { get ; set ; }
-        public virtual DateTime? LastModificationTime { get ; set; }
+        public virtual bool IsSuccess { get; set; }
+        public virtual string CloudId { get; set; }
+        public virtual long? CreatorUserId { get; set; }
+        public virtual DateTime CreationTime { get; set; }
+        public virtual long? LastModifierUserId { get; set; }
+        public virtual DateTime? LastModificationTime { get; set; }
         public virtual int? TenantId { get; set; }
+
+        [ForeignKey("AreaId")]
+        public virtual Entitys.ParkAreas.ParkAreas ParkAreas { get; set; }
+
+        public virtual long AreaId { get; set; }
     }
 }

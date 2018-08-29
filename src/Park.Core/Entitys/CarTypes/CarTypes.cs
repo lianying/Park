@@ -24,6 +24,8 @@ namespace Park.Entitys.CarTypes
 
         public virtual CarType Category { get; set; }
 
+        public virtual RentingSellingType RentingSellingType { get; set; }
+
         public virtual int? TenantId { get; set; }
 
     }
