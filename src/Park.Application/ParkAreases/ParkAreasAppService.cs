@@ -204,7 +204,7 @@ parkareasListDtos
 
 
         //// custom codes
-        public async Task<List<ParkAreaDto>> GetParkAreaDtos(int parkId)
+        public async Task<List<ParkAreaDto>> GetParkAreaDtosGroupByParent(int parkId)
         {
             var parent = await _parkareasRepository.GetAll().Where(x => !x.ParentAreaId.HasValue&&x.ParkId== parkId).ToListAsync();
             var result = parent.Select(x => x.MapTo<ParkAreaDto>()).ToList();
@@ -224,6 +224,13 @@ parkareasListDtos
 
             var parent = await _parkareasRepository.GetAll().Where(x => !x.ParentAreaId.HasValue && x.ParkId == parkId).ToListAsync();
             return parent.Select(x => x.MapTo<ParkAreaDto>()).ToList();
+        }
+
+        public async Task<List<ParkAreaDto>> GetParkAreaDtos(int parkId)
+        {
+            var parent = await _parkareasRepository.GetAll().Where(x => x.ParkId == parkId).ToListAsync();
+            var result = parent.Select(x => x.MapTo<ParkAreaDto>()).ToList();
+            return result;
         }
 
         //// custom codes end

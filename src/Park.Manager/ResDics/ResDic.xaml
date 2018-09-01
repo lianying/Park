@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Park.ResDics">
     <!--全局样式-->
     <Style x:Key="ParkTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
-        <Setter Property="Height" Value="60"></Setter>
+        <Setter Property="MaxHeight" Value="60"></Setter>
         <Setter Property="Background" Value="#EEEEEE"></Setter>
         <Setter Property="Foreground" Value="#8E8E8E"></Setter>
         <Setter Property="TextAlignment" Value="Left"></Setter>
@@ -20,7 +20,7 @@
         </Style.Triggers>
     </Style>
     <Style x:Key="ParkCombox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox}}">
-        <Setter Property="Height" Value="60"></Setter>
+        <Setter Property="MaxHeight" Value="60"></Setter>
         <!--<Setter Property="Width" Value="400"></Setter>-->
     </Style>
 
@@ -28,9 +28,11 @@
         <Setter Property="FontSize" Value="18"></Setter>
         <Setter Property="Margin" Value="0,0,8,0"></Setter>
         <Setter Property="Foreground" Value="#747474"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
     </Style>
 
-    
+   
+
     <!--左侧菜单模板-->
     <ControlTemplate x:Key="MyScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
         <Grid x:Name="Grid" Background="{TemplateBinding Background}">

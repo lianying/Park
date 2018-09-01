@@ -220,6 +220,9 @@
     <Compile Include="Pages\ParkArea.xaml.cs">
       <DependentUpon>ParkArea.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ParkBox.xaml.cs">
+      <DependentUpon>ParkBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ParkCarport.xaml.cs">
       <DependentUpon>ParkCarport.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,7 @@
     <Compile Include="ViewModel\NotifyPropertyChangeBase.cs" />
     <Compile Include="ViewModel\ParkAreaViewModel.cs" />
     <Compile Include="ViewModel\ParkCarportViewModel.cs" />
+    <Compile Include="ViewModel\ParkEntranceViewModel.cs" />
     <Page Include="Childers\AddCarports.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -273,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ParkArea.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ParkBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

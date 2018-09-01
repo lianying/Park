@@ -66,8 +66,13 @@ namespace Park.ParkEntranceses
         Task BatchDeleteParkEntrancessAsync(List<long> input);
 
 
-		//// custom codes
-		 
+        //// custom codes
+        Task<List<ParkEntrancesListDto>> GetParkEntrancesListDtos(int parkId);
+
+
+
+        Task<List<ParkEntrancesListDto>> GetParkEntrancesListDtosByAreaId(long areaId);
+
         //// custom codes end
     }
 }

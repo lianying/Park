@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Park.ParkAreases.Dtos
 {
-    [AutoMap(typeof(ParkAreas),typeof(ParkAreasEditDto))]
+    [AutoMap(typeof(ParkAreas), typeof(ParkAreasEditDto))]
     public class ParkAreaDto : NotifyPropertyChangeBase<long>
     {
         public ParkAreaDto ParentArea { get; set; }
@@ -82,9 +82,20 @@ namespace Park.ParkAreases.Dtos
         }
 
         private bool isSelected;
+        private ObservableCollection<ParkEntranceses.Dtos.ParkEntrancesListDto> _entrancesListDtos;
 
         public bool IsSelected { get { return isSelected; } set { isSelected = value; NotifyPropertyChange(() => IsSelected); } }
 
         public ObservableCollection<ParkAreaDto> ParkAreas { get; set; }
+
+
+        public ObservableCollection<ParkEntranceses.Dtos.ParkEntrancesListDto> EntrancesListDtos
+        {
+            get => _entrancesListDtos; set
+            {
+                _entrancesListDtos = value;
+                NotifyPropertyChange(() => EntrancesListDtos);
+            }
+        }
     }
 }

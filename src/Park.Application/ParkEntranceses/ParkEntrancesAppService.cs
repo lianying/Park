@@ -22,7 +22,7 @@ namespace Park.ParkEntranceses
     /// <summary>
     /// ParkEntrances应用层服务的接口实现方法  
     ///</summary>
-[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances)] 
+//[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances)] 
     public class ParkEntrancesAppService : ParkAppServiceBase, IParkEntrancesAppService
     {
     private readonly IRepository<ParkEntrances, long>
@@ -31,46 +31,46 @@ namespace Park.ParkEntranceses
        
        private readonly IParkEntrancesManager _parkentrancesManager;
 
-    /// <summary>
+        /// <summary>
         /// 构造函数 
         ///</summary>
-    public ParkEntrancesAppService(
-    IRepository<ParkEntrances, long>
-parkentrancesRepository
-        ,IParkEntrancesManager parkentrancesManager
-        )
+        public ParkEntrancesAppService(
+        IRepository<ParkEntrances, long>
+    parkentrancesRepository
+            , IParkEntrancesManager parkentrancesManager
+            )
         {
-        _parkentrancesRepository = parkentrancesRepository;
-  _parkentrancesManager=parkentrancesManager;
+            _parkentrancesRepository = parkentrancesRepository;
+            _parkentrancesManager = parkentrancesManager;
         }
 
 
         /// <summary>
-            /// 获取ParkEntrances的分页列表信息
-            ///</summary>
+        /// 获取ParkEntrances的分页列表信息
+        ///</summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public  async  Task<PagedResultDto<ParkEntrancesListDto>> GetPagedParkEntrancess(GetParkEntrancessInput input)
-		{
+        public async Task<PagedResultDto<ParkEntrancesListDto>> GetPagedParkEntrancess(GetParkEntrancessInput input)
+        {
 
-		    var query = _parkentrancesRepository.GetAll();
-			// TODO:根据传入的参数添加过滤条件
+            var query = _parkentrancesRepository.GetAll();
+            // TODO:根据传入的参数添加过滤条件
 
-			var parkentrancesCount = await query.CountAsync();
+            var parkentrancesCount = await query.CountAsync();
 
-			var parkentrancess = await query
-					.OrderBy((x)=>input.Sorting).AsNoTracking()
-					.PageBy(input)
-					.ToListAsync();
+            var parkentrancess = await query
+                    .OrderBy((x) => input.Sorting).AsNoTracking()
+                    .PageBy(input)
+                    .ToListAsync();
 
-				// var parkentrancesListDtos = ObjectMapper.Map<List <ParkEntrancesListDto>>(parkentrancess);
-				var parkentrancesListDtos =parkentrancess.MapTo<List<ParkEntrancesListDto>>();
+            // var parkentrancesListDtos = ObjectMapper.Map<List <ParkEntrancesListDto>>(parkentrancess);
+            var parkentrancesListDtos = parkentrancess.MapTo<List<ParkEntrancesListDto>>();
 
-				return new PagedResultDto<ParkEntrancesListDto>(
+            return new PagedResultDto<ParkEntrancesListDto>(
 parkentrancesCount,
 parkentrancesListDtos
-					);
-		}
+                );
+        }
 
 
 		/// <summary>
@@ -83,32 +83,32 @@ parkentrancesListDtos
 		    return entity.MapTo<ParkEntrancesListDto>();
 		}
 
-		/// <summary>
-		/// MPA版本才会用到的方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public async  Task<GetParkEntrancesForEditOutput> GetParkEntrancesForEdit(NullableIdDto<long> input)
-		{
-			var output = new GetParkEntrancesForEditOutput();
-ParkEntrancesEditDto parkentrancesEditDto;
+        /// <summary>
+        /// MPA版本才会用到的方法
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task<GetParkEntrancesForEditOutput> GetParkEntrancesForEdit(NullableIdDto<long> input)
+        {
+            var output = new GetParkEntrancesForEditOutput();
+            ParkEntrancesEditDto parkentrancesEditDto;
 
-			if (input.Id.HasValue)
-			{
-				var entity = await _parkentrancesRepository.GetAsync(input.Id.Value);
+            if (input.Id.HasValue)
+            {
+                var entity = await _parkentrancesRepository.GetAsync(input.Id.Value);
 
-parkentrancesEditDto = entity.MapTo<ParkEntrancesEditDto>();
+                parkentrancesEditDto = entity.MapTo<ParkEntrancesEditDto>();
 
-				//parkentrancesEditDto = ObjectMapper.Map<List <parkentrancesEditDto>>(entity);
-			}
-			else
-			{
-parkentrancesEditDto = new ParkEntrancesEditDto();
-			}
+                //parkentrancesEditDto = ObjectMapper.Map<List <parkentrancesEditDto>>(entity);
+            }
+            else
+            {
+                parkentrancesEditDto = new ParkEntrancesEditDto();
+            }
 
-			output.ParkEntrances = parkentrancesEditDto;
-			return output;
-		}
+            output.ParkEntrances = parkentrancesEditDto;
+            return output;
+        }
 
 
 		/// <summary>
@@ -186,22 +186,37 @@ parkentrancesEditDto = new ParkEntrancesEditDto();
 		}
 
 
-		/// <summary>
-		/// 导出ParkEntrances为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetParkEntrancessToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
+        public async Task<List<ParkEntrancesListDto>> GetParkEntrancesListDtos(int parkId)
+        {
+            var list = await _parkentrancesRepository.GetAll().Include(x => x.ParkAreas)
+                   .Where(x => x.ParkAreas.ParkId == parkId)
+                   .ToListAsync();
+            return list.MapTo<List<ParkEntrancesListDto>>();
+        }
+
+
+        /// <summary>
+        /// 导出ParkEntrances为excel表,等待开发。
+        /// </summary>
+        /// <returns></returns>
+        //public async Task<FileDto> GetParkEntrancessToExcel()
+        //{
+        //	var users = await UserManager.Users.ToListAsync();
+        //	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
+        //	await FillRoleNames(userListDtos);
+        //	return _userListExcelExporter.ExportToFile(userListDtos);
+        //}
 
 
 
-		//// custom codes
-		 
+        //// custom codes
+        public async Task<List<ParkEntrancesListDto>> GetParkEntrancesListDtosByAreaId(long areaId)
+        {
+            var list = await _parkentrancesRepository.GetAll()
+                .Where(x => x.AreaId == areaId)
+                .ToListAsync();
+            return list.MapTo<List<ParkEntrancesListDto>>();
+        }
         //// custom codes end
 
     }

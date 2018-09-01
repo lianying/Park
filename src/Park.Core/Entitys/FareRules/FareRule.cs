@@ -197,6 +197,13 @@ namespace Park.Entitys.FareRules
                 inTime = inTime.AddMinutes(FreeTime); //不包含免费时长   算费时-去免费时长
             }
             var whileInTime = inTime;
+            var newOutTime = outTime;
+            if (inTime.AddMinutes(parkDetail.InTimeRange.Item1.MinSpanTime) > inTimeRange.Item2.Item2) { //入场时间+最小跨度单位 跨区间  则这段时间移到结束时间
+                whileInTime = inTimeRange.Item2.Item2.AddMinutes(1);
+                newOutTime= newOutTime.AddMinutes((inTimeRange.Item2.Item2 - inTime).TotalMinutes);
+                parkDetail = new ParkingDetails(whileInTime, newOutTime, TimeRangeList);
+                inTimeRange = parkDetail.InTimeRange;
+            }
             decimal payMoney = 0, rangeMoney = 0;
             while (true)
             {
@@ -228,6 +235,7 @@ namespace Park.Entitys.FareRules
                     //    //距离区间结束最近的跳费时间 是否大于当前区间的最小跨度时间  如果大于则跳一次费 
                     //    rangeMoney += inTimeRange.Item1.FeeMoney;
                     //}
+
                     rangeMoney += inTimeRange.Item1.FeeMoney;
                     whileInTime = inTimeRange.Item2.Item2.AddMinutes(1); //区间算费结束 将算费时间置于下个区间的开始时间
 
@@ -243,7 +251,7 @@ namespace Park.Entitys.FareRules
                     }
                     //payMoney -= inTimeRange.Item1.FeeMoney;   //此时循环金额已经加了  但是已经进入下个区间 应以下个区间段算费  减去之前加的金额  
 
-                    parkDetail = new ParkingDetails(inTimeRange.Item2.Item2.AddMinutes(1), outTime, TimeRangeList);
+                    parkDetail = new ParkingDetails(inTimeRange.Item2.Item2.AddMinutes(1), newOutTime, TimeRangeList);
                     inTimeRange = parkDetail.InTimeRange;
                     IsInculdTwo = true;
                     continue;
@@ -252,7 +260,7 @@ namespace Park.Entitys.FareRules
 
                 rangeMoney += inTimeRange.Item1.FeeMoney;  //跳费   区间收费
 
-                if (whileInTime >= outTime)
+                if (whileInTime >= newOutTime)
                 { //超出出场时间
                     if (rangeMoney != 0)
                     {  //结算当前区间的收费金额
@@ -270,7 +278,7 @@ namespace Park.Entitys.FareRules
                     //    payMoney -= inTimeRange.Item1.FeeMoney;
                     //}
 
-                    if (IsInculdTwo && (outTime-inTimeRange.Item2.Item1).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
+                    if (IsInculdTwo && (newOutTime - inTimeRange.Item2.Item1).TotalMinutes <= inTimeRange.Item1.MinSpanTime)
                     { //出场时间不超出最小跨度时间
                         payMoney -= inTimeRange.Item1.FeeMoney;
                     }

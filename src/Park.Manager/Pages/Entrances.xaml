@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Park.ParkEntranceses.Dtos;assembly=Park.Application"
+      xmlns:local1="clr-namespace:Park.ParkAreases.Dtos;assembly=Park.Application"
        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
@@ -14,11 +15,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResDics/ResDic.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}"></Style>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Background="#FFFFFF">
+    <Grid Background="#FFFFFF" >
         <Grid.RowDefinitions>
             <RowDefinition Height="150"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -53,12 +54,12 @@
                 <DockPanel x:Name="Dpl_LeftMenu">
                     <StackPanel>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}">
-                            <TreeView SelectedItemChanged="trvFamilies_SelectedItemChanged"  HorizontalAlignment="Center" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}" Name="trvFamilies">
+                            <TreeView SelectedItemChanged="trvFamilies_SelectedItemChanged"  HorizontalAlignment="Center" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}" ItemsSource="{Binding ParkAreaDtos}" Name="trvFamilies">
                                 <TreeView.Resources>
 
-                                    <HierarchicalDataTemplate  DataType="{x:Type local:ParkEntrancesListDto}" ItemsSource="{Binding ParkAreas}">
+                                    <HierarchicalDataTemplate  DataType="{x:Type local1:ParkAreaDto}" ItemsSource="{Binding EntrancesListDtos}">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding EntranceName}" >
+                                            <TextBlock Text="{Binding AreaName }" >
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Style.Triggers>
@@ -72,10 +73,10 @@
                                         </StackPanel>
                                     </HierarchicalDataTemplate>
                                     <DataTemplate DataType="{x:Type local:ParkEntrancesListDto}">
-                                <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding ParkAreas.AreaName}" />
-                                </StackPanel>
-                            </DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding EntranceName}" />
+                                        </StackPanel>   
+                                    </DataTemplate>
                                 </TreeView.Resources>
                                 <TreeView.ItemContainerStyle>
                                     <Style TargetType="{x:Type TreeViewItem}" >
@@ -98,35 +99,64 @@
                     </StackPanel>
                 </DockPanel>
             </Border>
-            <Grid  Grid.Column="1"  Height="450" Grid.Row="1" Margin="0,0,100,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <Grid  Grid.Column="1" Height="450"  Grid.Row="1" Margin="0,60,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="1.5*"></RowDefinition>
+                    <RowDefinition Height=" 2*"></RowDefinition>
+                    <RowDefinition Height=" 1*"></RowDefinition>
                 </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Style="{StaticResource ResourceKey=ParkLabel}"  Content="出入口名称" Margin="0,0,10,0"></Label>
+                        <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" MaxWidth="240"></TextBox>
+                    </StackPanel>
+                    <DockPanel x:Name="dockWidth"  Grid.Column="1">
+                        <StackPanel Orientation="Horizontal" Width="{Binding ElementName=dockWidth, Path=ActualWidth}">
+                            <Label Style="{StaticResource ResourceKey=ParkLabel}" Content="类   型" Margin="0,0,10,0"></Label>
+                            <ComboBox Style="{StaticResource ResourceKey=ParkCombox}"  SelectedItem="{Binding SelectedMyEnumType}" ItemsSource="{Binding MyEnumTypeValues}" Width="160">
+                                
+                            </ComboBox>
+                        </StackPanel>
+                    </DockPanel>
+                </Grid>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Label  Style="{StaticResource ResourceKey=ParkLabel}" Content="区          域" Margin="0,0,10,0"></Label>
+                    <ComboBox  Style="{StaticResource ResourceKey=ParkCombox}" ItemsSource="{Binding ParkAreaDtos}" SelectedValuePath="Id" SelectedValue="{Binding SelectDto.AreaId}" DisplayMemberPath="AreaName"  Width="160"></ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                    <Label Style="{StaticResource ResourceKey=ParkLabel}" Margin="0,0,10,0">允许通行车辆类型</Label>
+                    <ScrollViewer Template="{StaticResource MyScrollViewerControlTemplate}" Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel x:Name="ShowPanel"></WrapPanel>
+                    </ScrollViewer>
+                    
+                </StackPanel>
 
-                <Label Style="{StaticResource ResourceKey=ParkLabel}" VerticalAlignment="Center" HorizontalAlignment="Right">父级区域</Label>
-                <ComboBox Style="{StaticResource ResourceKey=ParkCombox}" DisplayMemberPath="AreaName"
-                    SelectedValuePath="Id" SelectedValue="{Binding SelectedParkArea.ParentAreaId}"  ItemsSource="{Binding ComboxData}" Grid.Column="1" x:Name="Cmb_ParentArea"></ComboBox>
-
-
-
-                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">车位数</Label>
-                <TextBox  Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectedParkArea.ParkAreaCarports}" Grid.Column="1" x:Name="Txt_CarportCount" Grid.Row="1"></TextBox>
-
-
-
-                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right">临停车位</Label>
-                <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Grid.Column="1" Text="{Binding SelectedParkArea.ParkAreaTempCarports}" Grid.Row="2"></TextBox>
-
-
-                <Label Style="{StaticResource ResourceKey=ParkLabel}" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right">固定车位</Label>
-                <TextBox Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectedParkArea.ParkAreaFixedCarports}"  Grid.Column="1" x:Name="Txt_Address" Grid.Row="3"></TextBox>
+                <StackPanel Grid.Row="3" Orientation="Horizontal">
+                    
+                    <Label Style="{StaticResource ParkLabel}" VerticalContentAlignment="Top" Margin="0,0,10,0">其他事项</Label>
+                    
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Margin="0,10,0,20" Orientation="Horizontal">
+                            <CheckBox Content="允许临时车辆通行" IsChecked="True"  Margin="0,0,20,0"></CheckBox>
+                            <CheckBox Content="临时车进入需确认放行"></CheckBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <CheckBox Content="允许非机动车辆通行"   Margin="0,0,20,0"></CheckBox>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="4">
+                    <Label Style="{StaticResource ParkLabel}" Content="无牌车通行规则" Margin="0,0,10,0"></Label>
+                    <RadioButton IsChecked="True" Content="无牌车允许进入"></RadioButton>
+                    <RadioButton  Content="无牌车禁止通行"></RadioButton>
+                    <RadioButton Content="无牌车确认通行"></RadioButton>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>

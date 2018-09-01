@@ -72,7 +72,7 @@ namespace Park.ParkAreases
         /// </summary>
         /// <param name="parkId"></param>
         /// <returns></returns>
-        Task<List<ParkAreaDto>> GetParkAreaDtos(int parkId);
+        Task<List<ParkAreaDto>> GetParkAreaDtosGroupByParent(int parkId);
 
         /// <summary>
         /// 获取所有父级区域
@@ -80,6 +80,9 @@ namespace Park.ParkAreases
         /// <param name="parkId"></param>
         /// <returns></returns>
         Task<List<ParkAreaDto>> GetParkAreaAllParents(int parkId);
+
+
+        Task<List<ParkAreaDto>> GetParkAreaDtos(int parkId);
         //// custom codes end
        
     }

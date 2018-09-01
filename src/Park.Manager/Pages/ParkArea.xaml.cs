@@ -82,7 +82,7 @@ namespace Park.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ParkAreaViewModel.TreeViewMenu = await _parkAreasAppService.GetParkAreaDtos(_mainWindowViewModel.SelectParkDto.Id);
+            ParkAreaViewModel.TreeViewMenu = await _parkAreasAppService.GetParkAreaDtosGroupByParent(_mainWindowViewModel.SelectParkDto.Id);
 
             ParkAreaViewModel.ComboxData = await _parkAreasAppService.GetParkAreaAllParents(_mainWindowViewModel.SelectParkDto.Id);
             ParkAreaViewModel.ComboxData.Insert(0, new ParkAreaDto() { Id = 0, AreaName = "请选择" });
