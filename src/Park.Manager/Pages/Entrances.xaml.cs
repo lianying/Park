@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Abp.Dependency;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using Park.CarTypeses;
 using Park.ParkAreases;
 using Park.ParkEntranceses;
@@ -41,16 +43,32 @@ namespace Park.Pages
             _carTypesAppService = carTypesAppService;
             _entranceViewModel = new ParkEntranceViewModel();
             _parkAreasAppService = parkAreasAppService;
+            this.DataContext = _entranceViewModel;
         }
-
+        /// <summary>
+        /// add
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            StackPanel_MouseLeftButtonDown(sender, null);
         }
-
+        /// <summary>
+        /// delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            var window = Application.Current.MainWindow as MetroWindow;
+            if (_entranceViewModel.SelectDto == null)
+            {
+                window.ShowMessageAsync("提示", "请选择要删除的出入口");
+                return;
+            }
+            _parkEntrancesAppService.DeleteParkEntrances(_entranceViewModel.SelectDto);
+            LoadParkArea();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -70,12 +88,33 @@ namespace Park.Pages
             {
                 _entranceViewModel.SelectDto = treeView.SelectedValue as ParkEntrancesListDto;
             }
+            else
+            {
+                
+            }
         }
 
         private async  void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var carTypes = await _carTypesAppService.GetTypesListDtos();
+            LoadParkArea();
+            _entranceViewModel.CarTypesLists = new System.Collections.ObjectModel.ObservableCollection<CarTypeses.Dtos.CarTypesListDto>(carTypes);
+            //_entranceViewModel.EntrancesListDtos = new System.Collections.ObjectModel.ObservableCollection<ParkEntranceses.Dtos.ParkEntrancesListDto>(parkEntrance);
+
+
             var parkAea = await _parkAreasAppService.GetParkAreaDtos(_mainWindowViewModel.SelectParkDto.Id);
+
+            _entranceViewModel.ParkAreaDtos = new System.Collections.ObjectModel.ObservableCollection<ParkAreases.Dtos.ParkAreaDto>(parkAea);
+
+            //Cmb_Area.DataContext = _entranceViewModel.ParkAreaDtos;
+        }
+
+        private async void LoadParkArea()
+        {
+
+            var parkAea = await _parkAreasAppService.GetParkAreaDtos(_mainWindowViewModel.SelectParkDto.Id);
+
+            trvFamilies.ItemsSource = parkAea;
             List<ParkEntrancesListDto> list;
             foreach (var item in parkAea)
             {
@@ -83,14 +122,14 @@ namespace Park.Pages
                 item.EntrancesListDtos = new System.Collections.ObjectModel.ObservableCollection<ParkEntrancesListDto>(list);
             }
 
+        }
 
-            trvFamilies.ItemsSource = parkAea;
-            _entranceViewModel.CarTypesLists = new System.Collections.ObjectModel.ObservableCollection<CarTypeses.Dtos.CarTypesListDto>(carTypes);
-            //_entranceViewModel.EntrancesListDtos = new System.Collections.ObjectModel.ObservableCollection<ParkEntranceses.Dtos.ParkEntrancesListDto>(parkEntrance);
-            _entranceViewModel.ParkAreaDtos = new System.Collections.ObjectModel.ObservableCollection<ParkAreases.Dtos.ParkAreaDto>(parkAea);
+      
 
-            
-            
+        private void Cmb_Types_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            Cmb_Types.SelectedItem = null;
         }
     }
 }

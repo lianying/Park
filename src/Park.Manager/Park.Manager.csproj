@@ -210,6 +210,7 @@
     </Compile>
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
+    <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
     <Compile Include="Converter\TrueFalseConverter.cs" />
     <Compile Include="Pages\Entrances.xaml.cs">
       <DependentUpon>Entrances.xaml</DependentUpon>

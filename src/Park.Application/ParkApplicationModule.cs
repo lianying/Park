@@ -39,6 +39,8 @@ namespace Park
 
                 cfg.CreateMap<CreateUserDto, User>();
                 cfg.CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
+
+                CarTypeses.Dtos.CustomMapper.CustomerCarTypesMapper.CreateMappings(cfg);
             });
         }
     }

@@ -4,6 +4,7 @@ using Park.ParkEntranceses.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Text;
@@ -56,10 +57,10 @@ namespace Park.ViewModel
             }
         }
 
-        private EntranceType _selectedMyEnumType;
+        private KeyValuePair<EntranceType, string> _selectedMyEnumType;
         private string _entranceName;
 
-        public Enum.EntranceType SelectedMyEnumType
+        public KeyValuePair<EntranceType, string> SelectedMyEnumType
         {
             get { return _selectedMyEnumType; }
             set
@@ -69,12 +70,15 @@ namespace Park.ViewModel
             }
         }
 
-        public IEnumerable<EntranceType> MyEnumTypeValues
+        public IEnumerable<KeyValuePair<EntranceType,string>> MyEnumTypeValues
         {
             get
             {
                 return System.Enum.GetValues(typeof(EntranceType))
-                    .Cast<EntranceType>();
+                    .Cast<EntranceType>()
+                      .Select(value => new KeyValuePair<EntranceType, string>(value, (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) as DescriptionAttribute).Description)
+                       )
+    .ToList();
             }
         }
 
