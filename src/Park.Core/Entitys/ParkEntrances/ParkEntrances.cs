@@ -17,7 +17,7 @@ namespace Park.Entitys.ParkEntrances
         public virtual string EntranceName { get; set; }
 
         public virtual EntranceType EntranceType { get; set; }
-
+        [NotMapped]
         [ForeignKey("ParkLevelId")]
         public virtual ParkLevels.ParkLevels ParkLevel { get; set; }
 
@@ -33,7 +33,7 @@ namespace Park.Entitys.ParkEntrances
         public virtual long? LastModifierUserId { get; set; }
         public virtual DateTime? LastModificationTime { get; set; }
         public virtual int? TenantId { get; set; }
-
+        [NotMapped]
         [ForeignKey("AreaId")]
         public virtual Entitys.ParkAreas.ParkAreas ParkAreas { get; set; }
 

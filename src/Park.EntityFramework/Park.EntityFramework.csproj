@@ -342,6 +342,18 @@
     <Compile Include="Migrations\201808300843003_edit ParkEntrance.Designer.cs">
       <DependentUpon>201808300843003_edit ParkEntrance.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809030715584_edit entracePermission.cs" />
+    <Compile Include="Migrations\201809030715584_edit entracePermission.Designer.cs">
+      <DependentUpon>201809030715584_edit entracePermission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809030722594_edit entraces.cs" />
+    <Compile Include="Migrations\201809030722594_edit entraces.Designer.cs">
+      <DependentUpon>201809030722594_edit entraces.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809030811377_editPro.cs" />
+    <Compile Include="Migrations\201809030811377_editPro.Designer.cs">
+      <DependentUpon>201809030811377_editPro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -463,6 +475,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808300843003_edit ParkEntrance.resx">
       <DependentUpon>201808300843003_edit ParkEntrance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809030715584_edit entracePermission.resx">
+      <DependentUpon>201809030715584_edit entracePermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809030722594_edit entraces.resx">
+      <DependentUpon>201809030722594_edit entraces.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809030811377_editPro.resx">
+      <DependentUpon>201809030811377_editPro.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -59,6 +59,7 @@ namespace Park.ViewModel
 
         private KeyValuePair<EntranceType, string> _selectedMyEnumType;
         private string _entranceName;
+        private string _filter;
 
         public KeyValuePair<EntranceType, string> SelectedMyEnumType
         {
@@ -70,7 +71,7 @@ namespace Park.ViewModel
             }
         }
 
-        public IEnumerable<KeyValuePair<EntranceType,string>> MyEnumTypeValues
+        public IEnumerable<KeyValuePair<EntranceType, string>> MyEnumTypeValues
         {
             get
             {
@@ -92,6 +93,15 @@ namespace Park.ViewModel
             }
         }
 
+
+        public string Filter
+        {
+            get => _filter; set
+            {
+                _filter = value;
+                NotifyPropertyChange(() => Filter);
+            }
+        }
 
 
 

@@ -35,8 +35,6 @@ namespace Park.CarTypeses.Dtos
         /// <summary>
         /// Warring
         /// </summary>
-        [MaxLength(999999, ErrorMessage = "Warring超出最大长度")]
-        [MinLength(1, ErrorMessage = "Warring小于最小长度")]
         public decimal Warring { get; set; }
 
 
@@ -65,6 +63,23 @@ namespace Park.CarTypeses.Dtos
                 _isSelected = value;
                 NotifyPropertyChange(() => IsSelected);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            
+            if(obj is CarTypesListDto)
+            {
+                var temp = obj as CarTypesListDto;
+                return temp.Id == this.Id;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+
+            return this.Id.GetHashCode();
         }
         //// custom codes end
     }

@@ -12,126 +12,152 @@ using Park.Interfaces;
 
 namespace Park.CarUserses.Dtos
 {
-    public class CarUsersListDto : EntityDto<long>,IHasCreationTime,IModificationAudited,IHasModificationTime,IDeletionAudited,IHasDeletionTime,ISoftDelete,ISynchronize
+    public class CarUsersListDto : NotifyPropertyChangeBase<long>, IHasCreationTime, IModificationAudited, IHasModificationTime, IDeletionAudited, IHasDeletionTime, ISoftDelete, ISynchronize
     {
+        private string _name;
+        private string _phone;
+        private string _remark;
 
-/// <summary>
-/// Name
-/// </summary>
-[MaxLength(285, ErrorMessage="Name超出最大长度")]
-[MinLength(0, ErrorMessage="Name小于最小长度")]
-public string Name { get; set; }
-
-
-/// <summary>
-/// Sex
-/// </summary>
-public Sex Sex { get; set; }
-
-
-/// <summary>
-/// Phone
-/// </summary>
-public string Phone { get; set; }
+        /// <summary>
+        /// Name
+        /// </summary>
+        [MaxLength(285, ErrorMessage = "Name超出最大长度")]
+        [MinLength(0, ErrorMessage = "Name小于最小长度")]
+        public string Name
+        {
+            get => _name; set
+            {
+                _name = value;
+                NotifyPropertyChange(() => Name);
+            }
+        }
 
 
-/// <summary>
-/// ParkArea
-/// </summary>
-public Park.Entitys.ParkAreas.ParkAreas ParkArea { get; set; }
+        /// <summary>
+        /// Sex
+        /// </summary>
+        public Sex Sex { get; set; }
 
 
-/// <summary>
-/// AreaId
-/// </summary>
-public long AreaId { get; set; }
+        /// <summary>
+        /// Phone
+        /// </summary>
+        public string Phone
+        {
+            get => _phone; set
+            {
+                _phone = value;
+                NotifyPropertyChange(() => Phone);
+            }
+        }
 
 
-/// <summary>
-/// ParkId
-/// </summary>
-public int ParkId { get; set; }
+        /// <summary>
+        /// ParkArea
+        /// </summary>
+        public CarUserGroups.Dtos.CarUserGroupListDto UserArea { get; set; }
+
+        public UserType UserType { get; set; }
 
 
-/// <summary>
-/// Park
-/// </summary>
-public Park.Entitys.Parks.ParkSet Park { get; set; }
+        /// <summary>
+        /// AreaId
+        /// </summary>
+        public long AreaId { get; set; }
 
 
-/// <summary>
-/// CarPorts
-/// </summary>
-public ICollection<CarPort> CarPorts { get; set; }
+        /// <summary>
+        /// ParkId
+        /// </summary>
+        public int ParkId { get; set; }
 
 
-/// <summary>
-/// CarNumbers
-/// </summary>
-[MinLength(0, ErrorMessage="CarNumbers小于最小长度")]
-public ICollection<CarNumbers> CarNumbers { get; set; }
+        /// <summary>
+        /// Park
+        /// </summary>
+        public Park.Parks.Park.Dto.CreateParkDto Park { get; set; }
 
 
-/// <summary>
-/// FullInType
-/// </summary>
-public FullInType FullInType { get; set; }
+        /// <summary>
+        /// CarPorts
+        /// </summary>
+        public ICollection<CarPort> CarPorts { get; set; }
 
 
-/// <summary>
-/// CreationTime
-/// </summary>
-public DateTime CreationTime { get; set; }
+        /// <summary>
+        /// CarNumbers
+        /// </summary>
+        [MinLength(0, ErrorMessage = "CarNumbers小于最小长度")]
+        public ICollection<CarNumberses.Dtos.CarNumbersListDto> CarNumbers { get; set; }
 
 
-/// <summary>
-/// LastModifierUserId
-/// </summary>
-public long? LastModifierUserId { get; set; }
+        /// <summary>
+        /// FullInType
+        /// </summary>
+        public FullInType FullInType { get; set; }
 
 
-/// <summary>
-/// LastModificationTime
-/// </summary>
-public DateTime? LastModificationTime { get; set; }
+        /// <summary>
+        /// CreationTime
+        /// </summary>
+        public DateTime CreationTime { get; set; }
 
 
-/// <summary>
-/// DeleterUserId
-/// </summary>
-public long? DeleterUserId { get; set; }
+        /// <summary>
+        /// LastModifierUserId
+        /// </summary>
+        public long? LastModifierUserId { get; set; }
 
 
-/// <summary>
-/// DeletionTime
-/// </summary>
-public DateTime? DeletionTime { get; set; }
+        /// <summary>
+        /// LastModificationTime
+        /// </summary>
+        public DateTime? LastModificationTime { get; set; }
 
 
-/// <summary>
-/// IsDeleted
-/// </summary>
-public bool IsDeleted { get; set; }
+        /// <summary>
+        /// DeleterUserId
+        /// </summary>
+        public long? DeleterUserId { get; set; }
 
 
-/// <summary>
-/// IsSuccess
-/// </summary>
-public bool IsSuccess { get; set; }
+        /// <summary>
+        /// DeletionTime
+        /// </summary>
+        public DateTime? DeletionTime { get; set; }
 
 
-/// <summary>
-/// CloudId
-/// </summary>
-public string CloudId { get; set; }
+        /// <summary>
+        /// IsDeleted
+        /// </summary>
+        public bool IsDeleted { get; set; }
+
+
+        /// <summary>
+        /// IsSuccess
+        /// </summary>
+        public bool IsSuccess { get; set; }
+
+
+        /// <summary>
+        /// CloudId
+        /// </summary>
+        public string CloudId { get; set; }
+
+
+        public string Remark
+        {
+            get => _remark; set
+            {
+                _remark = value;
+                NotifyPropertyChange(() => Remark);
+            }
+        }
 
 
 
+        //// custom codes
 
-
-
-		//// custom codes
- 
         //// custom codes end
     }
 }

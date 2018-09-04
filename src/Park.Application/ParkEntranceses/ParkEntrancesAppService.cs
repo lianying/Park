@@ -11,11 +11,13 @@ using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using  System.Data.Entity;
-using System.Linq.Dynamic;
 
 using Park.ParkEntranceses.Authorization;
 using Park.ParkEntranceses.Dtos;
 using Park.Entitys.ParkEntrances;
+using Park.ParkEntrancePermissions;
+using Park.ParkEntrancePermissions.Dtos;
+using Park.Entitys.ParkLevels;
 
 namespace Park.ParkEntranceses
 {
@@ -27,8 +29,10 @@ namespace Park.ParkEntranceses
     {
     private readonly IRepository<ParkEntrances, long>
     _parkentrancesRepository;
-    
-       
+        private readonly IRepository<ParkEntrancePermission,long> _parkEntrancePermissionAppService;
+        private readonly IRepository<ParkLevels, long> _parkLevelRepositoryl;
+
+
        private readonly IParkEntrancesManager _parkentrancesManager;
 
         /// <summary>
@@ -37,11 +41,15 @@ namespace Park.ParkEntranceses
         public ParkEntrancesAppService(
         IRepository<ParkEntrances, long>
     parkentrancesRepository
-            , IParkEntrancesManager parkentrancesManager
+            , IParkEntrancesManager parkentrancesManager,
+        IRepository<ParkEntrancePermission, long> parkEntrancePermissionAppService,
+        IRepository<ParkLevels, long> parkLevelRepositoryl
             )
         {
             _parkentrancesRepository = parkentrancesRepository;
             _parkentrancesManager = parkentrancesManager;
+            _parkEntrancePermissionAppService = parkEntrancePermissionAppService;
+            _parkLevelRepositoryl = parkLevelRepositoryl;
         }
 
 
@@ -111,43 +119,52 @@ parkentrancesListDtos
         }
 
 
-		/// <summary>
-		/// 添加或者修改ParkEntrances的公共方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public async Task CreateOrUpdateParkEntrances(CreateOrUpdateParkEntrancesInput input)
-		{
+        /// <summary>
+        /// 添加或者修改ParkEntrances的公共方法
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task CreateOrUpdateParkEntrances(CreateOrUpdateParkEntrancesInput input)
+        {
 
-			if (input.ParkEntrances.Id.HasValue)
-			{
-				await UpdateParkEntrancesAsync(input.ParkEntrances);
-			}
-			else
-			{
-				await CreateParkEntrancesAsync(input.ParkEntrances);
-			}
-		}
+            if (input.ParkEntrances.Id.HasValue && input.ParkEntrances.Id.Value > 0)
+            {
+                await UpdateParkEntrancesAsync(input.ParkEntrances);
+            }
+            else
+            {
+                await CreateParkEntrancesAsync(input.ParkEntrances);
+            }
+        }
 
 
 		/// <summary>
 		/// 新增ParkEntrances
 		/// </summary>
-		[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Create)]
+		//[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Create)]
 		protected virtual async Task<ParkEntrancesEditDto> CreateParkEntrancesAsync(ParkEntrancesEditDto input)
 		{
-			//TODO:新增前的逻辑判断，是否允许新增
+            //TODO:新增前的逻辑判断，是否允许新增
+            var level = await _parkLevelRepositoryl.GetAll().Where(x => x.AreaId == input.AreaId).FirstOrDefaultAsync();
 
 			var entity = ObjectMapper.Map <ParkEntrances>(input);
+            entity.ParkLevelId = level.Id;
+            var permission = input.ParkEntrancePermission.MapTo<ParkEntrancePermission>();
+            entity.PermissionId = await _parkEntrancePermissionAppService.InsertAndGetIdAsync(permission);
 
-			entity = await _parkentrancesRepository.InsertAsync(entity);
+
+
+
+            entity = await _parkentrancesRepository.InsertAsync(entity);
+
+           
 			return entity.MapTo<ParkEntrancesEditDto>();
 		}
 
 		/// <summary>
 		/// 编辑ParkEntrances
 		/// </summary>
-		[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Edit)]
+		//[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Edit)]
 		protected virtual async Task UpdateParkEntrancesAsync(ParkEntrancesEditDto input)
 		{
 			//TODO:更新前的逻辑判断，是否允许更新
@@ -155,9 +172,16 @@ parkentrancesListDtos
 			var entity = await _parkentrancesRepository.GetAsync(input.Id.Value);
 			input.MapTo(entity);
 
-			// ObjectMapper.Map(input, entity);
-		    await _parkentrancesRepository.UpdateAsync(entity);
-		}
+            
+            //var entrancePermission = await _parkEntrancePermissionAppService.GetAll().Where(x => x.Id == input.ParkEntrancePermission.Id).FirstOrDefaultAsync();
+            //entrancePermission.MapTo(input.ParkEntrancePermission);
+            //await _parkEntrancePermissionAppService.UpdateAsync(entrancePermission);
+
+            // ObjectMapper.Map(input, entity);
+            await _parkentrancesRepository.UpdateAsync(entity);
+
+            //await _parkEntrancePermissionAppService.DeleteAsync(entity.PermissionId);
+        }
 
 
 
@@ -166,7 +190,7 @@ parkentrancesListDtos
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
-		[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Delete)]
+		//[AbpAuthorize(ParkEntrancesAppPermissions.ParkEntrances_Delete)]
 		public async Task DeleteParkEntrances(EntityDto<long> input)
 		{
 			//TODO:删除前的逻辑判断，是否允许删除

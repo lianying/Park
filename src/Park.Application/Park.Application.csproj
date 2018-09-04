@@ -240,6 +240,14 @@
     <Compile Include="CarTypeses\Dtos\GetCarTypesForEditOutput.cs" />
     <Compile Include="CarTypeses\Dtos\GetCarTypesInput.cs" />
     <Compile Include="CarTypeses\ICarTypesAppService.cs" />
+    <Compile Include="CarUserGroups\CarUserGroupAppService.cs" />
+    <Compile Include="CarUserGroups\Dtos\CarUserGroupEditDto.cs" />
+    <Compile Include="CarUserGroups\Dtos\CarUserGroupListDto.cs" />
+    <Compile Include="CarUserGroups\Dtos\CreateOrUpdateCarUserGroupInput.cs" />
+    <Compile Include="CarUserGroups\Dtos\CustomMapper\CustomCarUserGroupMapper.cs" />
+    <Compile Include="CarUserGroups\Dtos\GetCarUserGroupForEditOutput.cs" />
+    <Compile Include="CarUserGroups\Dtos\GetCarUserGroupInput.cs" />
+    <Compile Include="CarUserGroups\ICarUserGroupAppService.cs" />
     <Compile Include="CarUserses\CarUsersAppService.cs" />
     <Compile Include="CarUserses\Dtos\CarUsersEditDto.cs" />
     <Compile Include="CarUserses\Dtos\CarUsersListDto.cs" />
@@ -285,6 +293,14 @@
     <Compile Include="ParkAreases\Dtos\ParkAreasListDto.cs" />
     <Compile Include="ParkAreases\IParkAreasAppService.cs" />
     <Compile Include="ParkAreases\ParkAreasAppService.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\CreateOrUpdateParkEntrancePermissionInput.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\CustomMapper\CustomParkEntrancePermissionMapper.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\GetParkEntrancePermissionForEditOutput.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\GetParkEntrancePermissionInput.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\ParkEntrancePermissionEditDto.cs" />
+    <Compile Include="ParkEntrancePermissions\Dtos\ParkEntrancePermissionListDto.cs" />
+    <Compile Include="ParkEntrancePermissions\IParkEntrancePermissionAppService.cs" />
+    <Compile Include="ParkEntrancePermissions\ParkEntrancePermissionAppService.cs" />
     <Compile Include="ParkEntranceses\Dtos\CreateOrUpdateParkEntrancesInput.cs" />
     <Compile Include="ParkEntranceses\Dtos\CustomMapper\CustomParkEntrancesMapper.cs" />
     <Compile Include="ParkEntranceses\Dtos\GetParkEntrancesForEditOutput.cs" />
@@ -349,11 +365,13 @@
     <None Include="CarNumberses\Readme.md" />
     <None Include="CarPorts\Readme.md" />
     <None Include="CarTypeses\Readme.md" />
+    <None Include="CarUserGroups\Readme.md" />
     <None Include="CarUserses\Readme.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="ParkAreases\Readme.md" />
+    <None Include="ParkEntrancePermissions\Readme.md" />
     <None Include="ParkEntranceses\Readme.md" />
   </ItemGroup>
   <ItemGroup>

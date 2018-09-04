@@ -52,12 +52,12 @@ namespace Park.Parks.ParkBox.Interfaces
 
 
 
-            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.CarPorts, x => x.Park, x => x.ParkArea)
+            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.CarPorts, x => x.Park)
                 .Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number)))
                 .InculdeIn(x => x.CarPorts.Select(z => z.CarPortType))
                 .InculdeIn(x => x.CarPorts.Select(z => z.ParkLevel))
                 .InculdeIn(x => x.CarPorts.Select(z => z.ParkArea))
-                .InculdeIn(x => x.ParkArea.Park)
+               // .InculdeIn(x => x.ParkArea.Park)
                 .FirstOrDefault();
             if (user == null) //临时车
             {
@@ -80,9 +80,10 @@ namespace Park.Parks.ParkBox.Interfaces
                 var inCount = _carInRecordRepository.GetAll().Where(x => x.CarId == user.Id && x.CarNumber != number).Select(x => x.CarNumber).ToList();
                 //判断出入口权限
                 bool hasPermission = false;
+                var carTypeArray = Array.ConvertAll<string, long>(entrance.ParkEntrancePermission.CarTypes.TrimEnd(',').Split(','), x => Convert.ToInt64(x));
                 foreach (var item in user.CarPorts)
                 {
-                    if (entrance.ParkEntrancePermission.CarTypes.Any(x => x.Id == item.CarPortTypeId))
+                    if (carTypeArray.Any(x => x == item.CarPortTypeId))
                     {
                         hasPermission = true;
                         break;
@@ -107,7 +108,7 @@ namespace Park.Parks.ParkBox.Interfaces
 
         public CarUsers GetUser(int parkId, string number)
         {
-            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.Park, x => x.ParkArea, x => x.CarPorts)
+            var user = _carUserRepository.GetAllIncluding(x => x.CarNumbers, x => x.Park/*, x => x.ParkArea*/, x => x.CarPorts)
                 .Where(x => x.CarNumbers.Any(i => i.CarNumber.Equals(number)))
                 .Where(x => x.CarPorts.Any(i => i.StartTime <= DateTime.Now && i.EndTime >= DateTime.Now))
                 .InculdeIn(x=>x.CarPorts.Select(i=>i.CarPortType))

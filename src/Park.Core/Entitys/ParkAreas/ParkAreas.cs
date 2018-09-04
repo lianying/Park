@@ -42,8 +42,7 @@ namespace Park.Entitys.ParkAreas
         public virtual long? LastModifierUserId { get; set; }
         public virtual DateTime? LastModificationTime { get; set; }
         public virtual int? TenantId { get; set; }
-
-
+        
         public virtual ParkAreas ParentArea { get; set; }
 
 

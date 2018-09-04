@@ -27,7 +27,7 @@
                 </Style.Triggers>
             </Style>
         </Border.Style>
-    <Grid >
+    <Grid Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"></RowDefinition>
                 <RowDefinition Height="3*"></RowDefinition>

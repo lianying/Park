@@ -7,6 +7,8 @@ using Abp.Domain.Repositories;
 using Abp.Modules;
 using Park.Authorization.Roles;
 using Park.Authorization.Users;
+using Park.ParkEntrancePermissions.Dtos.CustomMapper;
+using Park.ParkEntranceses.Dtos.CustomMapper;
 using Park.Roles.Dto;
 using Park.Users.Dto;
 
@@ -41,6 +43,10 @@ namespace Park
                 cfg.CreateMap<CreateUserDto, User>().ForMember(x => x.Roles, opt => opt.Ignore());
 
                 CarTypeses.Dtos.CustomMapper.CustomerCarTypesMapper.CreateMappings(cfg);
+
+                CustomerParkEntrancesMapper.CreateMappings(cfg);
+                CustomerParkEntrancePermissionMapper.CreateMappings(cfg);
+
             });
         }
     }

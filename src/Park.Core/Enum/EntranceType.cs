@@ -10,8 +10,8 @@ namespace Park.Enum
     public enum EntranceType
     {
         [Description("入口")]
-        In,
+        In=1,
         [Description("出口")]
-        Out
+        Out=2
     }
 }

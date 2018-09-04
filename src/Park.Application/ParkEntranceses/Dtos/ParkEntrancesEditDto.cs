@@ -2,10 +2,12 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Park.Entitys.ParkEntrances;
 using Park.Entitys.ParkLevels;
 using Park.Enum;
+using Park.ParkEntrancePermissions.Dtos;
 
 namespace  Park.ParkEntranceses.Dtos
 {
@@ -31,10 +33,11 @@ public string EntranceName { get; set; }
 public EntranceType EntranceType { get; set; }
 
 
-/// <summary>
-/// ParkLevel
-/// </summary>
-public ParkLevels ParkLevel { get; set; }
+        [NotMapped]
+        /// <summary>
+        /// ParkLevel
+        /// </summary>
+        public ParkLevels ParkLevel { get; set; }
 
 
 /// <summary>
@@ -52,7 +55,7 @@ public long PermissionId { get; set; }
 /// <summary>
 /// ParkEntrancePermission
 /// </summary>
-public ParkEntrancePermission ParkEntrancePermission { get; set; }
+public ParkEntrancePermissionListDto ParkEntrancePermission { get; set; }
 
 
 /// <summary>

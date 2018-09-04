@@ -20,10 +20,10 @@ namespace Park.Entitys.CarUsers
 
         public virtual string Phone { get; set; }
         [DisableAuditing]
-        [ForeignKey("AreaId")]
-        public virtual Park.Entitys.ParkAreas.ParkAreas ParkArea { get; set; }
+        [ForeignKey("GroupId")]
+        public virtual CarUserGroup UserArea { get; set; }
 
-        public virtual long AreaId { get; set; }
+        public virtual int GroupId { get; set; }
 
         public virtual int ParkId { get; set; }
 
@@ -48,5 +48,10 @@ namespace Park.Entitys.CarUsers
         public virtual bool IsDeleted { get; set; }
         public virtual bool IsSuccess { get; set; }
         public virtual string CloudId { get; set; }
+
+        public virtual UserType UserType { get; set; }
+
+
+        public virtual String Remark { get; set; }
     }
 }

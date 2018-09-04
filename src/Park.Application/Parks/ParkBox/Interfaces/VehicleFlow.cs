@@ -417,7 +417,7 @@ namespace Park.Parks.ParkBox.Interfaces
                 .InculdeIn(x => x.CarPort.ParkLevel)
                 .InculdeIn(x => x.CarPort.ParkArea)
                 .InculdeIn(x => x.CarPort.CarPortType)
-                .InculdeIn(x => x.CarUser.ParkArea)
+                //.InculdeIn(x => x.CarUser.ParkArea)
                 .InculdeIn(x => x.CarUser.Park)
                 .InculdeIn(x => x.CarUser.CarNumbers)
                 .InculdeIn(x => x.CarUser.CarPorts);

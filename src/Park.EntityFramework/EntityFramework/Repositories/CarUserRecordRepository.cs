@@ -26,7 +26,7 @@ namespace Park.EntityFramework.Repositories
 
             return carUser.Where(x => x.CarNumbers.Any(z => z.CarNumber == CarNumber))
                 .Include(x => x.Park)
-                .Include(x => x.ParkArea)
+                .Include(x => x.UserArea)
                 .Include(x => x.CarPorts)
                 .Include(x => x.CarNumbers)
                 .FirstOrDefault();

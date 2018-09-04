@@ -128,12 +128,15 @@ public bool IsSuccess { get; set; }
 public string CloudId { get; set; }
 
 
+        public string Remark
+        {
+            get; set;
+        }
 
 
 
+        //// custom codes
 
-		//// custom codes
- 
         //// custom codes end
     }
 }

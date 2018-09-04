@@ -18,7 +18,7 @@ namespace Park.Entitys.ParkEntrances
         /// <summary>
         /// 允许 通行车辆
         /// </summary>
-        public virtual ICollection<CarTypes.CarTypes>  CarTypes { get; set; }
+        public virtual string  CarTypes { get; set; }
 
         /// <summary>
         /// 临时通行方式(设置是否允许临时车通行)

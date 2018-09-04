@@ -10,12 +10,16 @@ using Park.Entitys.ParkLevels;
 using Park.Enum;
 using Park.Interfaces;
 using Abp.Domain.Entities;
+using Park.ParkEntrancePermissions.Dtos;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Park.ParkEntranceses.Dtos
 {
     public class ParkEntrancesListDto : NotifyPropertyChangeBase<long>, ISynchronize, IAudited, IMayHaveTenant
     {
         private string _entranceName;
+        private ParkEntrancePermissionListDto _parkEntrancePermission;
+        private long _areaId;
 
         /// <summary>
         /// EntranceName
@@ -38,7 +42,7 @@ namespace Park.ParkEntranceses.Dtos
         /// </summary>
         public EntranceType EntranceType { get; set; }
 
-
+        [NotMapped]
         /// <summary>
         /// ParkLevel
         /// </summary>
@@ -60,7 +64,14 @@ namespace Park.ParkEntranceses.Dtos
         /// <summary>
         /// ParkEntrancePermission
         /// </summary>
-        public ParkEntrancePermission ParkEntrancePermission { get; set; }
+        public ParkEntrancePermissionListDto ParkEntrancePermission
+        {
+            get => _parkEntrancePermission; set
+            {
+                _parkEntrancePermission = value;
+                NotifyPropertyChange(() => ParkEntrancePermission);
+            }
+        }
 
 
         /// <summary>
@@ -114,7 +125,14 @@ namespace Park.ParkEntranceses.Dtos
         /// <summary>
         /// AreaId
         /// </summary>
-        public long AreaId { get; set; }
+        public long AreaId
+        {
+            get => _areaId; set
+            {
+                _areaId = value;
+                NotifyPropertyChange(() => AreaId);
+            }
+        }
 
 
 

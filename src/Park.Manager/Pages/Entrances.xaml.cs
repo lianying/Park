@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,13 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Abp.AutoMapper;
 using Abp.Dependency;
+using Abp.Extensions;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Park.CarTypeses;
+using Park.EnumHelper;
 using Park.ParkAreases;
 using Park.ParkEntranceses;
 using Park.ParkEntranceses.Dtos;
@@ -69,16 +73,34 @@ namespace Park.Pages
             }
             _parkEntrancesAppService.DeleteParkEntrances(_entranceViewModel.SelectDto);
             LoadParkArea();
+            _entranceViewModel.SelectDto = new ParkEntrancesListDto();
+            _entranceViewModel.SelectDto.ParkEntrancePermission = new ParkEntrancePermissions.Dtos.ParkEntrancePermissionListDto();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            
+            _entranceViewModel.SelectDto.EntranceType = _entranceViewModel.SelectedMyEnumType.Key;
+            var entranceDto = _entranceViewModel.SelectDto.MapTo<ParkEntrancesEditDto>();
+            entranceDto.ParkEntrancePermission.CarTypes = string.Join(",", Array.ConvertAll<CarTypeses.Dtos.CarTypesListDto, long>(_entranceViewModel.CarTypesLists.Where(x => x.IsSelected).ToArray(), x => x.Id));
+            await _parkEntrancesAppService.CreateOrUpdateParkEntrances(new CreateOrUpdateParkEntrancesInput() { ParkEntrances = entranceDto });
+
+            var window = Application.Current.MainWindow as MetroWindow;
+
+            await window.ShowMessageAsync("提示", "操作成功");
+            LoadParkArea();
         }
 
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _entranceViewModel.SelectDto = new ParkEntrancesListDto();
+
+            _entranceViewModel.SelectDto.ParkEntrancePermission = new ParkEntrancePermissions.Dtos.ParkEntrancePermissionListDto();
+
+            foreach (var item in _entranceViewModel.CarTypesLists)
+            {
+
+                item.IsSelected = false;
+            }
         }
 
         private void trvFamilies_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -87,6 +109,23 @@ namespace Park.Pages
             if (treeView.SelectedValue is ParkEntranceses.Dtos.ParkEntrancesListDto) //选中的为出入口
             {
                 _entranceViewModel.SelectDto = treeView.SelectedValue as ParkEntrancesListDto;
+
+                _entranceViewModel.SelectedMyEnumType = new KeyValuePair<Enum.EntranceType, string>(_entranceViewModel.SelectDto.EntranceType, _entranceViewModel.SelectDto.EntranceType.GetAttributeOfType<DescriptionAttribute>().Description);
+                if (!_entranceViewModel.SelectDto.ParkEntrancePermission.CarTypes.IsNullOrEmpty())
+                {
+                    var carTypeArray = Array.ConvertAll<string, long>(_entranceViewModel.SelectDto.ParkEntrancePermission.CarTypes.TrimEnd(',').Split(','), x => Convert.ToInt64(x));
+                    foreach (var item in _entranceViewModel.CarTypesLists)
+                    {
+                        if (carTypeArray.Contains(item.Id))
+                        {
+                            item.IsSelected = true;
+                        }
+                        else
+                        {
+                            item.IsSelected = false;
+                        }
+                    }
+                }
             }
             else
             {
@@ -106,21 +145,24 @@ namespace Park.Pages
 
             _entranceViewModel.ParkAreaDtos = new System.Collections.ObjectModel.ObservableCollection<ParkAreases.Dtos.ParkAreaDto>(parkAea);
 
-            //Cmb_Area.DataContext = _entranceViewModel.ParkAreaDtos;
+            _entranceViewModel.SelectDto = new ParkEntrancesListDto();
+            _entranceViewModel.SelectDto.ParkEntrancePermission = new ParkEntrancePermissions.Dtos.ParkEntrancePermissionListDto();
+
         }
 
         private async void LoadParkArea()
         {
 
             var parkAea = await _parkAreasAppService.GetParkAreaDtos(_mainWindowViewModel.SelectParkDto.Id);
-
-            trvFamilies.ItemsSource = parkAea;
+            //trvFamilies.ItemsSource = parkAea;
             List<ParkEntrancesListDto> list;
             foreach (var item in parkAea)
             {
                 list = await _parkEntrancesAppService.GetParkEntrancesListDtosByAreaId(item.Id);
                 item.EntrancesListDtos = new System.Collections.ObjectModel.ObservableCollection<ParkEntrancesListDto>(list);
             }
+
+            _entranceViewModel.ParkAreaDtos = new System.Collections.ObjectModel.ObservableCollection<ParkAreases.Dtos.ParkAreaDto>(parkAea);
 
         }
 
@@ -130,6 +172,39 @@ namespace Park.Pages
         {
 
             Cmb_Types.SelectedItem = null;
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (_entranceViewModel.Filter.IsNullOrEmpty())
+            {
+                LoadParkArea();
+                return;
+            }
+
+            //foreach (var item in _entranceViewModel.ParkAreaDtos)
+            //{
+            //    foreach (var entrice in item.EntrancesListDtos)
+            //    {
+            //        if (!entrice.EntranceName.Contains(_entranceViewModel.Filter))
+            //        {
+            //            item.EntrancesListDtos.Remove(entrice);
+            //        }
+            //    } 
+            //}
+            for (int i = 0; i < _entranceViewModel.ParkAreaDtos.Count; i++)
+            {
+                for (int j = 0; j < _entranceViewModel.ParkAreaDtos[i].EntrancesListDtos.Count; )
+                {
+                    if (!_entranceViewModel.ParkAreaDtos[i].EntrancesListDtos[j].EntranceName.Contains(_entranceViewModel.Filter))
+                    {
+                        _entranceViewModel.ParkAreaDtos[i].EntrancesListDtos.Remove(_entranceViewModel.ParkAreaDtos[i].EntrancesListDtos[j]);
+                        j = 0;
+                        continue;
+                    }
+                    j++;
+                }
+            }
         }
     }
 }

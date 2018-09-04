@@ -211,6 +211,7 @@
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
     <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
+    <Compile Include="Converter\EnumBooleanConverter.cs" />
     <Compile Include="Converter\TrueFalseConverter.cs" />
     <Compile Include="Pages\Entrances.xaml.cs">
       <DependentUpon>Entrances.xaml</DependentUpon>
@@ -230,7 +231,16 @@
     <Compile Include="Pages\ParkInfo.xaml.cs">
       <DependentUpon>ParkInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\UserManager.xaml.cs">
+      <DependentUpon>UserManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ParkManagerWpfModule.cs" />
+    <Compile Include="UserControls\CarNumberInfo.xaml.cs">
+      <DependentUpon>CarNumberInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CarportInfo.xaml.cs">
+      <DependentUpon>CarportInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\LeftMenuControl.xaml.cs">
       <DependentUpon>LeftMenuControl.xaml</DependentUpon>
     </Compile>
@@ -243,6 +253,7 @@
     <Compile Include="ViewModel\ParkAreaViewModel.cs" />
     <Compile Include="ViewModel\ParkCarportViewModel.cs" />
     <Compile Include="ViewModel\ParkEntranceViewModel.cs" />
+    <Compile Include="ViewModel\UserManagerViewModel.cs" />
     <Page Include="Childers\AddCarports.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -293,11 +304,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\UserManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResDics\ResDic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="TitleNotSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CarNumberInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CarportInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -379,6 +402,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon\icon_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon\icon_sc.png" />
+    <Resource Include="icon\icon_yq.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

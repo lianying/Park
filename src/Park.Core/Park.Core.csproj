@@ -205,6 +205,10 @@
     <Compile Include="CarTypeses\Authorization\CarTypesAuthorizationProvider.cs" />
     <Compile Include="CarTypeses\CarTypesManager.cs" />
     <Compile Include="CarTypeses\ICarTypesManager.cs" />
+    <Compile Include="CarUserGroups\Authorization\CarUserGroupAppPermissions.cs" />
+    <Compile Include="CarUserGroups\Authorization\CarUserGroupAuthorizationProvider.cs" />
+    <Compile Include="CarUserGroups\CarUserGroupManager.cs" />
+    <Compile Include="CarUserGroups\ICarUserGroupManager.cs" />
     <Compile Include="CarUserses\Authorization\CarUsersAppPermissions.cs" />
     <Compile Include="CarUserses\Authorization\CarUsersAuthorizationProvider.cs" />
     <Compile Include="CarUserses\CarUsersManager.cs" />
@@ -225,6 +229,7 @@
     <Compile Include="Entitys\CarUsers\CarDiscount.cs" />
     <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
     <Compile Include="Entitys\CarUsers\CarPort.cs" />
+    <Compile Include="Entitys\CarUsers\CarUserGroup.cs" />
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />
     <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
@@ -259,6 +264,7 @@
     <Compile Include="Enum\RentingSellingType.cs" />
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
+    <Compile Include="Enum\UserType.cs" />
     <Compile Include="Expansions\DateTimeExpansion.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
     <Compile Include="Expansions\StringExpansion.cs" />
@@ -288,6 +294,10 @@
     <Compile Include="MultiTenancy\Tenant.cs" />
     <Compile Include="MultiTenancy\TenantManager.cs" />
     <Compile Include="ParkDomainServiceBase.cs" />
+    <Compile Include="ParkEntrancePermissions\Authorization\ParkEntrancePermissionAppPermissions.cs" />
+    <Compile Include="ParkEntrancePermissions\Authorization\ParkEntrancePermissionAuthorizationProvider.cs" />
+    <Compile Include="ParkEntrancePermissions\IParkEntrancePermissionManager.cs" />
+    <Compile Include="ParkEntrancePermissions\ParkEntrancePermissionManager.cs" />
     <Compile Include="ParkEntranceses\Authorization\ParkEntrancesAppPermissions.cs" />
     <Compile Include="ParkEntranceses\Authorization\ParkEntrancesAuthorizationProvider.cs" />
     <Compile Include="ParkEntranceses\IParkEntrancesManager.cs" />
@@ -310,9 +320,11 @@
     <None Include="CarNumberses\Readme.md" />
     <None Include="CarPorts\Readme.md" />
     <None Include="CarTypeses\Readme.md" />
+    <None Include="CarUserGroups\Readme.md" />
     <None Include="CarUserses\Readme.md" />
     <None Include="packages.config" />
     <None Include="ParkAreases\Readme.md" />
+    <None Include="ParkEntrancePermissions\Readme.md" />
     <None Include="ParkEntranceses\Readme.md" />
   </ItemGroup>
   <ItemGroup>

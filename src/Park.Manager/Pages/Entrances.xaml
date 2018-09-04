@@ -25,6 +25,7 @@
                 <Setter Property="FontSize" Value="14"></Setter>
             </Style>
             <ValueConverter:CarTypeConverter x:Key="AlbumPriceIsTooMuchConverter" />
+            <ValueConverter:EnumBooleanConverter x:Key="EnumBoolConverter"/>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -41,9 +42,9 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                        <TextBox FontSize="18" Style="{StaticResource ResourceKey=ParkTextBox}"  Margin="0,0,40,0" Controls:TextBoxHelper.Watermark="请输入要查询的出入口名称" Width="340" Height="40"></TextBox>
+                        <TextBox FontSize="18" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding Filter}"  Margin="0,0,40,0" Controls:TextBoxHelper.Watermark="请输入要查询的出入口名称" Width="340" Height="40"></TextBox>
 
-                        <Button Width="140"  Height="50" Click="Button_Click" Content="添加进出口" FontSize="18" Foreground="White" Background="#E65252"></Button>
+                        <Button Width="140"  Height="50" Click="Button_Click_3" Content="查询" FontSize="18" Foreground="White" Background="#E65252"></Button>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right">
                         <Button Width="140"  Height="50" Click="Button_Click" Content="添加进出口" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#90CD5F"></Button>
@@ -218,19 +219,23 @@
                     
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="0,10,0,20" Orientation="Horizontal">
-                            <CheckBox Content="允许临时车辆通行" IsChecked="True"  Margin="0,0,20,0"></CheckBox>
-                            <CheckBox Content="临时车进入需确认放行"></CheckBox>
+                            <CheckBox Content="允许临时车辆通行" IsChecked="{Binding SelectDto.ParkEntrancePermission.IsTempCarIn,Mode=TwoWay}"  Margin="0,0,20,0"></CheckBox>
+                            <CheckBox Content="临时车进入需确认放行" IsChecked="{Binding  SelectDto.ParkEntrancePermission.IsTempCarConfirm,Mode=TwoWay }"></CheckBox>
                         </StackPanel>
+                        <StackPanel Margin="0,10,0,20">
+                            <CheckBox Content="允许非机动车辆通行" IsChecked="{Binding SelectDto.ParkEntrancePermission.IsNonVehicleIn,Mode=TwoWay}"  Margin="0,0,20,0"></CheckBox>
+                        </StackPanel>
+
                         <StackPanel>
-                            <CheckBox Content="允许非机动车辆通行"   Margin="0,0,20,0"></CheckBox>
+                            <CheckBox Content="收费为0直接放行" IsChecked="{Binding  SelectDto.ParkEntrancePermission.IsTempCarZeoPayOut,Mode=TwoWay}"   Margin="0,0,20,0"></CheckBox>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="4">
                     <Label Style="{StaticResource ParkLabel}" Content="无牌车通行规则" Margin="0,0,10,0"></Label>
-                    <RadioButton Margin="0,0,10,0" IsChecked="True" Content="无牌车允许进入"></RadioButton>
-                    <RadioButton  Margin="0,0,10,0" Content="无牌车禁止通行"></RadioButton>
-                    <RadioButton Margin="0,0,10,0" Content="无牌车确认通行"></RadioButton>
+                    <RadioButton   Margin="0,0,10,0" IsChecked="{Binding SelectDto.ParkEntrancePermission.NoNumberOptions,Mode=TwoWay, Converter={StaticResource EnumBoolConverter}, ConverterParameter=CarIn }" Content="无牌车允许进入"></RadioButton>
+                    <RadioButton  Margin="0,0,10,0" IsChecked="{Binding SelectDto.ParkEntrancePermission.NoNumberOptions,Mode=TwoWay, Converter={StaticResource EnumBoolConverter}, ConverterParameter=CanNotIn }" Content="无牌车禁止通行"></RadioButton>
+                    <RadioButton Margin="0,0,10,0" IsChecked="{Binding SelectDto.ParkEntrancePermission.NoNumberOptions,Mode=TwoWay, Converter={StaticResource EnumBoolConverter}, ConverterParameter=Confirm }" Content="无牌车确认通行"></RadioButton>
                 </StackPanel>
             </Grid>
         </Grid>

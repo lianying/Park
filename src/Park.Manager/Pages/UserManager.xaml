@@ -1,0 +1,234 @@
+﻿<Page x:Class="Park.Pages.UserManager"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Park.Pages"
+      xmlns:local1="clr-namespace:Park.ParkAreases.Dtos;assembly=Park.Application" 
+      xmlns:local2="clr-namespace:Park.CarUserGroups.Dtos;assembly=Park.Application"
+      xmlns:local3="clr-namespace:Park.CarUserses.Dtos;assembly=Park.Application"
+     
+       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800"
+      Loaded="Page_Loaded"
+      Title="UserManager">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResDics/ResDic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource {x:Type CheckBox}}">
+                <Setter Property="FontSize" Value="14"></Setter>
+            </Style>
+
+            <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource {x:Type RadioButton}}">
+                <Setter Property="FontSize" Value="14"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#FFFFFF" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Border Margin="40,0,40,0" BorderThickness="0,0,0,1" BorderBrush="#E9E9E9">
+                <Grid  VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
+                        <TextBox FontSize="18" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding Filter}"  Margin="0,0,40,0" Controls:TextBoxHelper.Watermark="请输入你想查询的用户名称" Width="340" Height="40"></TextBox>
+
+                        <Button Width="140"  Height="50"  Content="查询" FontSize="18" Foreground="White" Background="#E65252"></Button>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right">
+                        <Button Width="140"  Height="50"  Content="添加用户" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#91D065"></Button>
+                        <Button Width="140"  Height="50"  Content="添加用户组" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#F3B32B"></Button>
+                        <Button Width="140"  Height="50"  Content="导入" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#73ACCA"></Button>
+                        <Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Height="50"  Content="删除" FontSize="18" Foreground="#EA8285" Background="White"></Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="#E9E9E9" BorderThickness="0,0,1,0">
+                <DockPanel x:Name="Dpl_LeftMenu">
+                    <StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}">
+                            <TreeView SelectedItemChanged="trvFamilies_SelectedItemChanged"  HorizontalAlignment="Center" Width="{Binding ElementName=Dpl_LeftMenu, Path=ActualWidth}" ItemsSource="{Binding ParkAreaDtos}" Name="trvFamilies">
+                                <TreeView.Resources>
+
+                                    <HierarchicalDataTemplate  DataType="{x:Type local1:ParkAreaDto}" ItemsSource="{Binding EntrancesListDtos}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding AreaName }" >
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                                <Setter Property="Foreground" Value="#F38886"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate  DataType="{x:Type local2:CarUserGroupListDto}" ItemsSource="{Binding EntrancesListDtos}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding GroupName }" >
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                                                                <Setter Property="Foreground" Value="#F38886"></Setter>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <DataTemplate DataType="{x:Type local3:CarUsersListDto}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </TreeView.Resources>
+                                <TreeView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type TreeViewItem}" >
+                                        <Setter Property="FontSize" Value="18"></Setter>
+                                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="#F38886"></Setter>
+                                                <Setter Property="Background" Value="#FFFFFF"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TreeView.ItemContainerStyle>
+                            </TreeView>
+                        </StackPanel>
+                        <!--<StackPanel HorizontalAlignment="Center" Orientation="Horizontal" >
+                            <Image Source="/icon/icon_add.png" Width="30" Height="30"></Image>
+                            <Label VerticalAlignment="Center" FontSize="16" Foreground="#CBCBCB">添加</Label>
+                        </StackPanel>-->
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            <Grid Grid.Column="1" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <DockPanel>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label  Style="{StaticResource ResourceKey=ParkLabel}"  Content="用户名称" Margin="0,0,10,0"></Label>
+                            <TextBox Grid.Column="1" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectDto.EntranceName}"></TextBox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label  Style="{StaticResource ResourceKey=ParkLabel}"  Content="所属用户组" Margin="0,0,10,0"></Label>
+                            <ComboBox Grid.Column="1" Style="{StaticResource ResourceKey=ParkCombox}" SelectedValuePath="Key"
+          DisplayMemberPath="Value"  SelectedItem="{Binding SelectedMyEnumType}" ItemsSource="{Binding MyEnumTypeValues}">
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label  Style="{StaticResource ResourceKey=ParkLabel}"  Content="联系人" Margin="0,0,10,0"></Label>
+                            <TextBox Grid.Column="1" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectDto.EntranceName}"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="1" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label  Style="{StaticResource ResourceKey=ParkLabel}"  Content="联系电话" Margin="0,0,10,0"></Label>
+                            <TextBox Grid.Column="1" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding SelectDto.EntranceName}"></TextBox>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Label  Style="{StaticResource ResourceKey=ParkLabel}"  Content="用户类型" Margin="0,0,10,0"></Label>
+                            <ComboBox Grid.Column="1" Style="{StaticResource ResourceKey=ParkCombox}" SelectedValuePath="Key"
+          DisplayMemberPath="Value"  SelectedItem="{Binding SelectedMyEnumType}" ItemsSource="{Binding MyEnumTypeValues}">
+                            </ComboBox>
+                         </Grid>
+                        <DockPanel Grid.Row="2" Grid.Column="1">
+                            <StackPanel HorizontalAlignment="Right">
+                                <Button Width="120" FontSize="16" Background="#71ABCB" Foreground="White" Content="保存" Height="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type DockPanel}},Path=ActualHeight}"></Button>
+                            </StackPanel>
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+                <DockPanel Grid.Row="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Text="车辆列表"></TextBlock>
+                        <DockPanel Grid.Row="1">
+                            
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+
+                <DockPanel Grid.Row="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Text="车位列表"></TextBlock>
+                            <StackPanel Grid.Column="1">
+                                <Button HorizontalAlignment="Right" Width="120" FontSize="16" Background="#91D065" Foreground="White" Content="批量延期" Height="{Binding RelativeSource={ RelativeSource Mode=FindAncestor, AncestorType={x:Type StackPanel}},Path=ActualHeight}"></Button>
+                            </StackPanel>
+                        </Grid>
+                        <DockPanel Grid.Row="1">
+                            
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
+
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

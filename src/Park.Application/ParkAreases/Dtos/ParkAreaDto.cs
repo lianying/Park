@@ -83,6 +83,7 @@ namespace Park.ParkAreases.Dtos
 
         private bool isSelected;
         private ObservableCollection<ParkEntranceses.Dtos.ParkEntrancesListDto> _entrancesListDtos;
+        private ObservableCollection<CarUserGroups.Dtos.CarUserGroupListDto> _groupListDtos;
 
         public bool IsSelected { get { return isSelected; } set { isSelected = value; NotifyPropertyChange(() => IsSelected); } }
 
@@ -95,6 +96,16 @@ namespace Park.ParkAreases.Dtos
             {
                 _entrancesListDtos = value;
                 NotifyPropertyChange(() => EntrancesListDtos);
+            }
+        }
+
+
+        public ObservableCollection<CarUserGroups.Dtos.CarUserGroupListDto> GroupListDtos
+        {
+            get => _groupListDtos; set
+            {
+                _groupListDtos = value;
+                NotifyPropertyChange(() => GroupListDtos);
             }
         }
     }
