@@ -199,6 +199,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Childers\AddCarNumber.xaml.cs">
+      <DependentUpon>AddCarNumber.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\AddCarports.xaml.cs">
       <DependentUpon>AddCarports.xaml</DependentUpon>
     </Compile>
@@ -208,13 +211,20 @@
     <Compile Include="Childers\AddPark.xaml.cs">
       <DependentUpon>AddPark.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\CarPortTimeExtension.xaml.cs">
+      <DependentUpon>CarPortTimeExtension.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
+    <Compile Include="Childers\ViewModels\CarPortTimeExTenstionViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
     <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
     <Compile Include="Converter\EnumBooleanConverter.cs" />
     <Compile Include="Converter\TrueFalseConverter.cs" />
     <Compile Include="Pages\Entrances.xaml.cs">
       <DependentUpon>Entrances.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FreeUser.xaml.cs">
+      <DependentUpon>FreeUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
@@ -254,6 +264,10 @@
     <Compile Include="ViewModel\ParkCarportViewModel.cs" />
     <Compile Include="ViewModel\ParkEntranceViewModel.cs" />
     <Compile Include="ViewModel\UserManagerViewModel.cs" />
+    <Page Include="Childers\AddCarNumber.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Childers\AddCarports.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -263,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Childers\AddPark.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Childers\CarPortTimeExtension.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -281,6 +299,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Entrances.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\FreeUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

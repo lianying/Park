@@ -38,7 +38,7 @@
                         <StackPanel VerticalAlignment="Center">
                             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
 
-                                <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                                <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown" Orientation="Horizontal" Margin="0,0,10,0">
                                     <Image  Source="/icon/icon_yq.png" Stretch="None"></Image>
                                     <TextBlock Text="编辑"></TextBlock>
                                 </StackPanel>

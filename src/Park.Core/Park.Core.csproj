@@ -231,9 +231,11 @@
     <Compile Include="Entitys\CarUsers\CarPort.cs" />
     <Compile Include="Entitys\CarUsers\CarUserGroup.cs" />
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />
+    <Compile Include="Entitys\CarUsers\RechargeRecord.cs" />
     <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
     <Compile Include="Entitys\FareRules\FareRule.cs" />
+    <Compile Include="Entitys\FareRules\MonthFee.cs" />
     <Compile Include="Entitys\FareRules\ParkingDetails.cs" />
     <Compile Include="Entitys\FareRules\RangeTime.cs" />
     <Compile Include="Entitys\FareRules\TimeSpanExtensions.cs" />
@@ -273,6 +275,10 @@
     <Compile Include="IRepositories\ICarInRecordRepository.cs" />
     <Compile Include="IRepositories\ICarUserRepository.cs" />
     <Compile Include="IRepositories\IParkRepository.cs" />
+    <Compile Include="MonthFees\Authorization\MonthFeeAppPermissions.cs" />
+    <Compile Include="MonthFees\Authorization\MonthFeeAuthorizationProvider.cs" />
+    <Compile Include="MonthFees\IMonthFeeManager.cs" />
+    <Compile Include="MonthFees\MonthFeeManager.cs" />
     <Compile Include="ParkAreases\Authorization\ParkAreasAppPermissions.cs" />
     <Compile Include="ParkAreases\Authorization\ParkAreasAuthorizationProvider.cs" />
     <Compile Include="ParkAreases\IParkAreasManager.cs" />
@@ -309,6 +315,10 @@
     <Compile Include="Authorization\Users\User.cs" />
     <Compile Include="Authorization\Users\UserManager.cs" />
     <Compile Include="Authorization\Users\UserStore.cs" />
+    <Compile Include="RechargeRecords\Authorization\RechargeRecordAppPermissions.cs" />
+    <Compile Include="RechargeRecords\Authorization\RechargeRecordAuthorizationProvider.cs" />
+    <Compile Include="RechargeRecords\IRechargeRecordManager.cs" />
+    <Compile Include="RechargeRecords\RechargeRecordManager.cs" />
     <Compile Include="SynchronizationContextRemove.cs" />
     <Compile Include="Validation\ValidationHelper.cs" />
     <Compile Include="YoYoAbpefCoreConsts.cs" />
@@ -322,10 +332,12 @@
     <None Include="CarTypeses\Readme.md" />
     <None Include="CarUserGroups\Readme.md" />
     <None Include="CarUserses\Readme.md" />
+    <None Include="MonthFees\Readme.md" />
     <None Include="packages.config" />
     <None Include="ParkAreases\Readme.md" />
     <None Include="ParkEntrancePermissions\Readme.md" />
     <None Include="ParkEntranceses\Readme.md" />
+    <None Include="RechargeRecords\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Localization\Source\Park-zh-CN.xml" />

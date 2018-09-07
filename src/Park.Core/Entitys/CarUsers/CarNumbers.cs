@@ -19,6 +19,12 @@ namespace Park.Entitys.CarUsers
 
         public virtual long CarUserId { get; set; }
 
+        public virtual string Contact { get; set; }
+
+        public virtual string Phone { get; set; }
+
+        public virtual string Remark { get; set; }
+
         public virtual bool IsSuccess { get; set; }
 
         public virtual string CloudId { get; set; }

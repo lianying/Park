@@ -38,6 +38,8 @@ namespace Park.CarUserGroups.Dtos
         public ParkAreaDto ParkArea { get; set; }
 
 
+
+
         /// <summary>
         /// CreationTime
         /// </summary>

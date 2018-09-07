@@ -28,10 +28,17 @@ public string CarNumber { get; set; }
 public CarUsers CarUser { get; set; }
 
 
-/// <summary>
-/// CarUserId
-/// </summary>
-public long CarUserId { get; set; }
+        public virtual string Contact { get; set; }
+
+        public virtual string Phone { get; set; }
+
+        public virtual string Remark { get; set; }
+
+
+        /// <summary>
+        /// CarUserId
+        /// </summary>
+        public long CarUserId { get; set; }
 
 
 /// <summary>

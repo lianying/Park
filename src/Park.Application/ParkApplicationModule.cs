@@ -7,6 +7,11 @@ using Abp.Domain.Repositories;
 using Abp.Modules;
 using Park.Authorization.Roles;
 using Park.Authorization.Users;
+using Park.CarNumberses.Dtos.CustomMapper;
+using Park.CarPorts.Dtos.CustomMapper;
+using Park.CarUserGroups.Dtos.CustomMapper;
+using Park.CarUserses.Dtos.CustomMapper;
+using Park.MonthFees.Dtos.CustomMapper;
 using Park.ParkEntrancePermissions.Dtos.CustomMapper;
 using Park.ParkEntranceses.Dtos.CustomMapper;
 using Park.Roles.Dto;
@@ -46,6 +51,11 @@ namespace Park
 
                 CustomerParkEntrancesMapper.CreateMappings(cfg);
                 CustomerParkEntrancePermissionMapper.CreateMappings(cfg);
+                CustomerCarUserGroupMapper.CreateMappings(cfg);
+                CustomerCarUsersMapper.CreateMappings(cfg);
+                CustomerCarNumbersMapper.CreateMappings(cfg);
+                CustomerCarPortMapper.CreateMappings(cfg);
+                CustomerMonthFeeMapper.CreateMappings(cfg);
 
             });
         }

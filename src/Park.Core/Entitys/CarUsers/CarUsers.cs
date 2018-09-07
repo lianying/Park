@@ -53,5 +53,8 @@ namespace Park.Entitys.CarUsers
 
 
         public virtual String Remark { get; set; }
+
+
+        public virtual string Contact { get; set; }
     }
 }

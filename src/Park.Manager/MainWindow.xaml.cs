@@ -36,12 +36,13 @@ namespace Park.Froms
             Fram_Content.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             IocManager.Instance.IocContainer.Register(Component.For<MainWindowViewModel>().Instance(mainWindowViewModel).LifestyleSingleton()); //注册mainwindowViewMOdel
             List<Menu> menus = new List<Menu>();
-            menus.Add(new Menu() { IsOpen = false, Title = "首页", IsFull = true, PageType = typeof(Index) });
+            menus.Add(new Menu() { IsOpen = false, Title = "首页", IsFull = true, PageType = typeof(Index),Icon= "/icon/icon001.png" });
             menus.Add(new Menu()
             {
                 IsOpen = false,
                 ParentDefultIndex = 0,
                 Title = "车场基础信息",
+                Icon = "/icon/icon002.png",
                 Menus = new Menu[]{
                 new Menu {  Title= "车场基本信息",IsSelectedParkIn=true,PageType=typeof(Pages.ParkInfo)  },
                 new Menu {  Title= "区域配置",IsSelectedParkIn=true,PageType=typeof(ParkArea) },
@@ -54,9 +55,9 @@ namespace Park.Froms
             menus.Add(new Menu()
             {
                 IsOpen = false,
-                Title = "车场基础信息",
+                Title = "车主账户设置",
                 Menus = new Menu[]{
-                new Menu {  Title= "车场基本信息"},
+                new Menu {  Title= "用户管理",IsSelectedParkIn=true,PageType=typeof(Pages.UserManager)},
                 new Menu {  Title= "区域配置" },
                 new Menu {  Title= "停车位" },
                 new Menu {  Title= "岗亭设置" },

@@ -72,9 +72,9 @@
                             </Style.Triggers>
                         </Style>
                     </StackPanel.Style>
-                    <Border Height="45">
-                        <TextBlock Style="{StaticResource parkentText}" x:Name="tbl_Title"  FontSize="18" Text="{Binding Title}" ></TextBlock>
-                    </Border>
+                    <StackPanel Orientation="Horizontal" Height="45">
+                        <Image Width="18" Height="18" Margin="40,0,20,0" Source="{Binding Icon}"></Image> <TextBlock Style="{StaticResource parkentText}" x:Name="tbl_Title" Foreground="White"  FontSize="18" Text="{Binding Title}" ></TextBlock>
+                    </StackPanel>
                 </StackPanel>
                 <WrapPanel>
                     <WrapPanel.Style>

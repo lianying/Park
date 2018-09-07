@@ -11,18 +11,19 @@ using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using  System.Data.Entity;
-using System.Linq.Dynamic;
 
 using Park.CarUserses.Authorization;
 using Park.CarUserses.Dtos;
 using Park.Entitys.CarUsers;
+using Park.CarPorts;
+using Park.CarPorts.Dtos;
 
 namespace Park.CarUserses
 {
     /// <summary>
     /// CarUsers应用层服务的接口实现方法  
     ///</summary>
-[AbpAuthorize(CarUsersAppPermissions.CarUsers)] 
+//[AbpAuthorize(CarUsersAppPermissions.CarUsers)] 
     public class CarUsersAppService : ParkAppServiceBase, ICarUsersAppService
     {
     private readonly IRepository<CarUsers, long>
@@ -30,6 +31,7 @@ namespace Park.CarUserses
     
        
        private readonly ICarUsersManager _carusersManager;
+        private readonly ICarPortAppService _carPortAppService;
 
     /// <summary>
         /// 构造函数 
@@ -37,11 +39,13 @@ namespace Park.CarUserses
     public CarUsersAppService(
     IRepository<CarUsers, long>
 carusersRepository
-        ,ICarUsersManager carusersManager
+        ,ICarUsersManager carusersManager,
+    ICarPortAppService carPortAppService
         )
         {
         _carusersRepository = carusersRepository;
   _carusersManager=carusersManager;
+            _carPortAppService = carPortAppService;
         }
 
 
@@ -111,23 +115,23 @@ carusersEditDto = new CarUsersEditDto();
 		}
 
 
-		/// <summary>
-		/// 添加或者修改CarUsers的公共方法
-		/// </summary>
-		/// <param name="input"></param>
-		/// <returns></returns>
-		public async Task CreateOrUpdateCarUsers(CreateOrUpdateCarUsersInput input)
-		{
+        /// <summary>
+        /// 添加或者修改CarUsers的公共方法
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public async Task CreateOrUpdateCarUsers(CreateOrUpdateCarUsersInput input)
+        {
 
-			if (input.CarUsers.Id.HasValue)
-			{
-				await UpdateCarUsersAsync(input.CarUsers);
-			}
-			else
-			{
-				await CreateCarUsersAsync(input.CarUsers);
-			}
-		}
+            if (input.CarUsers.Id.HasValue && input.CarUsers.Id > 0)
+            {
+                await UpdateCarUsersAsync(input.CarUsers);
+            }
+            else
+            {
+                await CreateCarUsersAsync(input.CarUsers);
+            }
+        }
 
 
 		/// <summary>
@@ -166,10 +170,19 @@ carusersEditDto = new CarUsersEditDto();
 		/// </summary>
 		/// <param name="input"></param>
 		/// <returns></returns>
-		[AbpAuthorize(CarUsersAppPermissions.CarUsers_Delete)]
+		//[AbpAuthorize(CarUsersAppPermissions.CarUsers_Delete)]
 		public async Task DeleteCarUsers(EntityDto<long> input)
 		{
-			//TODO:删除前的逻辑判断，是否允许删除
+            //TODO:删除前的逻辑判断，是否允许删除
+            var list = await _carPortAppService.GetCarPortListDtosByUserId(input.Id);
+            list.ForEach(async x =>
+            {
+                x.CarUserId = null;
+                x.CarUser = null;
+                await _carPortAppService.CreateOrUpdateCarPort(new CarPorts.Dtos.CreateOrUpdateCarPortInput() { CarPort = x.MapTo<CarPortEditDto>() });
+
+            });
+
 			await _carusersRepository.DeleteAsync(input.Id);
 		}
 
@@ -185,23 +198,31 @@ carusersEditDto = new CarUsersEditDto();
 			await _carusersRepository.DeleteAsync(s => input.Contains(s.Id));
 		}
 
+        public async Task<List<CarUsersListDto>> GetCarUsersListDtosByGroupId(int id)
+        {
+            var list = await _carusersRepository.GetAll().Where(X => X.GroupId == id).ToListAsync();
+            return list.MapTo<List<CarUsersListDto>>();
+        }
 
-		/// <summary>
-		/// 导出CarUsers为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetCarUserssToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
+        /// <summary>
+        /// 导出CarUsers为excel表,等待开发。
+        /// </summary>
+        /// <returns></returns>
+        //public async Task<FileDto> GetCarUserssToExcel()
+        //{
+        //	var users = await UserManager.Users.ToListAsync();
+        //	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
+        //	await FillRoleNames(userListDtos);
+        //	return _userListExcelExporter.ExportToFile(userListDtos);
+        //}
 
 
 
-		//// custom codes
-		 
+        //// custom codes
+        ///
+
+
+
         //// custom codes end
 
     }

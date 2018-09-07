@@ -66,7 +66,8 @@ namespace Park.CarUserses
         Task BatchDeleteCarUserssAsync(List<long> input);
 
 
-		//// custom codes
+        //// custom codes
+        Task<List<CarUsersListDto>> GetCarUsersListDtosByGroupId(int id);
 		 
         //// custom codes end
     }

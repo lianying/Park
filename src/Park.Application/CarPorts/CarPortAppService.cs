@@ -242,6 +242,12 @@ carportEditDto = new CarPortEditDto();
             return new ParkCarportParkingSpaceCountDto() {  RemainingCount=remaingCount, RentCount=rentCount, SellCount=sellCount};
         }
 
+        public async Task<List<CarPortListDto>> GetCarPortListDtosByUserId(long userId)
+        {
+            var list = await _carportRepository.GetAll().Where(x => x.CarUserId == userId).ToListAsync();
+            return list.Select(x => x.MapTo<CarPortListDto>()).ToList();
+        }
+
         /// <summary>
         /// 导出CarPort为excel表,等待开发。
         /// </summary>

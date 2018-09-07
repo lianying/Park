@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Park.CarPorts;
+using Park.CarPorts.Dtos;
+using Park.Childers;
+using Park.Childers.ViewModels;
+using Park.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +25,31 @@ namespace Park.UserControls
     /// </summary>
     public partial class CarportInfo : UserControl
     {
-        public CarportInfo()
+
+        private MainWindowViewModel _mainWindowViewModel;
+        private CarPortTimeExTenstionViewModel _carPortTimeExTenstionViewModel;
+        private readonly ICarPortAppService _carPortAppService;
+        private UserManagerViewModel _userManagerViewModel;
+        private CarPortListDto _carPortListDto;
+        public RoutedEventHandler RoutedEventHandler;
+        public CarportInfo(ICarPortAppService carPortAppService, MainWindowViewModel mainWindowViewModel, UserManagerViewModel userManagerViewModel, CarPortListDto carPortListDto)
         {
             InitializeComponent();
+            _carPortListDto = carPortListDto;
+            _carPortAppService = carPortAppService;
+            _mainWindowViewModel = mainWindowViewModel;
+            _userManagerViewModel = userManagerViewModel;
+        }
+
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CarPortTimeExtension carPortTimeExtension = new CarPortTimeExtension(_carPortAppService, _mainWindowViewModel, _userManagerViewModel, _carPortListDto);
+            var result = carPortTimeExtension.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                RoutedEventHandler?.Invoke(sender, e);
+            }
+            
         }
     }
 }

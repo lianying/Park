@@ -66,7 +66,8 @@ namespace Park.CarNumberses
         Task BatchDeleteCarNumberssAsync(List<long> input);
 
 
-		//// custom codes
+        //// custom codes
+        Task<List<CarNumbersListDto>> GetCarNumbersListDtosByUserId(long userId);
 		 
         //// custom codes end
     }

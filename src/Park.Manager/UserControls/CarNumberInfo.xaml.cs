@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Park.CarNumberses.Dtos;
+using Park.ViewModel;
 
 namespace Park.UserControls
 {
@@ -20,9 +22,20 @@ namespace Park.UserControls
     /// </summary>
     public partial class CarNumberInfo : UserControl
     {
-        public CarNumberInfo()
+        private CarNumbersListDto _carNumber;
+        
+        public RoutedEventHandler DeleteClickEventHandler;
+        public CarNumberInfo(CarNumbersListDto carNumber )
         {
             InitializeComponent();
+            _carNumber = carNumber;
+            this.DataContext = _carNumber;
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            DeleteClickEventHandler?.Invoke(_carNumber, e);
         }
     }
 }

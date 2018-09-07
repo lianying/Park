@@ -11,7 +11,6 @@ using Abp.AutoMapper;
 using Abp.Domain.Repositories;
 using Abp.Linq.Extensions;
 using  System.Data.Entity;
-using System.Linq.Dynamic;
 
 using Park.CarUserGroups.Authorization;
 using Park.CarUserGroups.Dtos;
@@ -22,14 +21,14 @@ namespace Park.CarUserGroups
     /// <summary>
     /// CarUserGroup应用层服务的接口实现方法  
     ///</summary>
-[AbpAuthorize(CarUserGroupAppPermissions.CarUserGroup)] 
+//[AbpAuthorize(CarUserGroupAppPermissions.CarUserGroup)] 
     public class CarUserGroupAppService : ParkAppServiceBase, ICarUserGroupAppService
     {
     private readonly IRepository<CarUserGroup, int>
     _carusergroupRepository;
     
        
-       private readonly ICarUserGroupManager _carusergroupManager;
+      // private readonly ICarUserGroupManager _carusergroupManager;
 
     /// <summary>
         /// 构造函数 
@@ -37,11 +36,11 @@ namespace Park.CarUserGroups
     public CarUserGroupAppService(
     IRepository<CarUserGroup, int>
 carusergroupRepository
-        ,ICarUserGroupManager carusergroupManager
+       // ,ICarUserGroupManager carusergroupManager
         )
         {
         _carusergroupRepository = carusergroupRepository;
-  _carusergroupManager=carusergroupManager;
+ // _carusergroupManager=carusergroupManager;
         }
 
 
@@ -185,23 +184,34 @@ carusergroupEditDto = new CarUserGroupEditDto();
 			await _carusergroupRepository.DeleteAsync(s => input.Contains(s.Id));
 		}
 
+        public async Task<List<CarUserGroupListDto>> GetCarUserGroupListDtosByAreaId(long AreaId)
+        {
+            var list = await _carusergroupRepository.GetAll().Where(x => x.AreaId == AreaId).ToListAsync();
+            return list.MapTo<List<CarUserGroupListDto>>();
+        }
 
-		/// <summary>
-		/// 导出CarUserGroup为excel表,等待开发。
-		/// </summary>
-		/// <returns></returns>
-		//public async Task<FileDto> GetCarUserGroupsToExcel()
-		//{
-		//	var users = await UserManager.Users.ToListAsync();
-		//	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
-		//	await FillRoleNames(userListDtos);
-		//	return _userListExcelExporter.ExportToFile(userListDtos);
-		//}
+        public async Task<List<CarUserGroupListDto>> GetCarUserGroupListDtos(int parkId)
+        {
+            var list = await _carusergroupRepository.GetAll().Where(x => x.ParkArea.ParkId == parkId).ToListAsync();
+            return list.MapTo<List<CarUserGroupListDto>>();
+        }
+
+        /// <summary>
+        /// 导出CarUserGroup为excel表,等待开发。
+        /// </summary>
+        /// <returns></returns>
+        //public async Task<FileDto> GetCarUserGroupsToExcel()
+        //{
+        //	var users = await UserManager.Users.ToListAsync();
+        //	var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
+        //	await FillRoleNames(userListDtos);
+        //	return _userListExcelExporter.ExportToFile(userListDtos);
+        //}
 
 
 
-		//// custom codes
-		 
+        //// custom codes
+
         //// custom codes end
 
     }

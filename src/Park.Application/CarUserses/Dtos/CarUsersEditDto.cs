@@ -134,6 +134,8 @@ public string CloudId { get; set; }
         }
 
 
+        public string Contact { get; set; }
+
 
         //// custom codes
 

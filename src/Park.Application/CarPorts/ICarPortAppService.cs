@@ -80,6 +80,9 @@ namespace Park.CarPorts
 
 
         Task<ParkCarportParkingSpaceCountDto> GetParkCarportParkingSpaceCountDto(int parkId);
+
+
+        Task<List<CarPortListDto>> GetCarPortListDtosByUserId(long userId);
 		 
         //// custom codes end
     }

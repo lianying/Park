@@ -2,10 +2,12 @@
 using Park.CarPorts.Dtos;
 using Park.CarUserGroups.Dtos;
 using Park.CarUserses.Dtos;
+using Park.Enum;
 using Park.ParkAreases.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,12 +60,12 @@ namespace Park.ViewModel
         }
 
 
-        public CarUsersListDto SelectedUser
+        public CarUsersListDto SelectDto
         {
             get => _selectedUser; set
             {
                 _selectedUser = value;
-                NotifyPropertyChange(() => SelectedUser);
+                NotifyPropertyChange(() => SelectDto);
             }
         }
 
@@ -77,6 +79,29 @@ namespace Park.ViewModel
             }
         }
 
+
+        private KeyValuePair<UserType, string> _selectedMyEnumType;
+        public KeyValuePair<UserType, string> SelectedMyEnumType
+        {
+            get { return _selectedMyEnumType; }
+            set
+            {
+                _selectedMyEnumType = value;
+                NotifyPropertyChange("SelectedMyEnumType");
+            }
+        }
+
+        public IEnumerable<KeyValuePair<UserType, string>> MyEnumTypeValues
+        {
+            get
+            {
+                return System.Enum.GetValues(typeof(UserType))
+                    .Cast<UserType>()
+                      .Select(value => new KeyValuePair<UserType, string>(value, (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute)) as DescriptionAttribute).Description)
+                       )
+    .ToList();
+            }
+        }
 
 
 

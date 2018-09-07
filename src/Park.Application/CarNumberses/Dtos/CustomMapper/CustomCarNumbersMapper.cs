@@ -19,6 +19,8 @@ namespace Park.CarNumberses.Dtos.CustomMapper
     configuration.CreateMap <CarNumbersEditDto, CarNumbers>
         ();
 
+            configuration.CreateMap<CarNumbersListDto, CarNumbersEditDto>();
+
 
 
         //// custom codes

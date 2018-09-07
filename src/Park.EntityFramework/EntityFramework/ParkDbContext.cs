@@ -61,6 +61,12 @@ namespace Park.EntityFramework
 
         public virtual IDbSet<CarErrorRecord> CarErrorRecords { get; set; }
 
+        public virtual IDbSet<CarUserGroup> CarUserGroups { get; set; }
+
+        public virtual IDbSet<MonthFee> MonthFees { get; set; }
+
+        public virtual IDbSet<RechargeRecord> RechargeRecords { get; set; }
+
 
         
 

@@ -262,6 +262,14 @@
     <Compile Include="Dtos\PagedInputDto.cs" />
     <Compile Include="Dtos\PagedSortedAndFilteredInputDto.cs" />
     <Compile Include="EventHandlers\CarOutHandler.cs" />
+    <Compile Include="MonthFees\Dtos\CreateOrUpdateMonthFeeInput.cs" />
+    <Compile Include="MonthFees\Dtos\CustomMapper\CustomMonthFeeMapper.cs" />
+    <Compile Include="MonthFees\Dtos\GetMonthFeeForEditOutput.cs" />
+    <Compile Include="MonthFees\Dtos\GetMonthFeeInput.cs" />
+    <Compile Include="MonthFees\Dtos\MonthFeeEditDto.cs" />
+    <Compile Include="MonthFees\Dtos\MonthFeeListDto.cs" />
+    <Compile Include="MonthFees\IMonthFeeAppService.cs" />
+    <Compile Include="MonthFees\MonthFeeAppService.cs" />
     <Compile Include="Navigation\MenuExtenstion.cs" />
     <Compile Include="Navigation\NgMenu.cs" />
     <Compile Include="NotifyPropertyBase.cs" />
@@ -342,6 +350,14 @@
     <Compile Include="Parks\Park\IParkAppService.cs" />
     <Compile Include="Parks\Park\ParkAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RechargeRecords\Dtos\CreateOrUpdateRechargeRecordInput.cs" />
+    <Compile Include="RechargeRecords\Dtos\CustomMapper\CustomRechargeRecordMapper.cs" />
+    <Compile Include="RechargeRecords\Dtos\GetRechargeRecordForEditOutput.cs" />
+    <Compile Include="RechargeRecords\Dtos\GetRechargeRecordInput.cs" />
+    <Compile Include="RechargeRecords\Dtos\RechargeRecordEditDto.cs" />
+    <Compile Include="RechargeRecords\Dtos\RechargeRecordListDto.cs" />
+    <Compile Include="RechargeRecords\IRechargeRecordAppService.cs" />
+    <Compile Include="RechargeRecords\RechargeRecordAppService.cs" />
     <Compile Include="Roles\Dto\CreateRoleDto.cs" />
     <Compile Include="Roles\Dto\PermissionDto.cs" />
     <Compile Include="Roles\Dto\RoleDto.cs" />
@@ -367,12 +383,14 @@
     <None Include="CarTypeses\Readme.md" />
     <None Include="CarUserGroups\Readme.md" />
     <None Include="CarUserses\Readme.md" />
+    <None Include="MonthFees\Readme.md" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="ParkAreases\Readme.md" />
     <None Include="ParkEntrancePermissions\Readme.md" />
     <None Include="ParkEntranceses\Readme.md" />
+    <None Include="RechargeRecords\Readme.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Park.Core\Park.Core.csproj">

@@ -354,6 +354,26 @@
     <Compile Include="Migrations\201809030811377_editPro.Designer.cs">
       <DependentUpon>201809030811377_editPro.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809050542217_edit carUserGroup.cs" />
+    <Compile Include="Migrations\201809050542217_edit carUserGroup.Designer.cs">
+      <DependentUpon>201809050542217_edit carUserGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809050717345_add CarUser Contact.cs" />
+    <Compile Include="Migrations\201809050717345_add CarUser Contact.Designer.cs">
+      <DependentUpon>201809050717345_add CarUser Contact.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051134529_add carNumber UserInfo.cs" />
+    <Compile Include="Migrations\201809051134529_add carNumber UserInfo.Designer.cs">
+      <DependentUpon>201809051134529_add carNumber UserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809060607041_add MonthFeeAndRechargeRecords.cs" />
+    <Compile Include="Migrations\201809060607041_add MonthFeeAndRechargeRecords.Designer.cs">
+      <DependentUpon>201809060607041_add MonthFeeAndRechargeRecords.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809061035350_editCarPort.cs" />
+    <Compile Include="Migrations\201809061035350_editCarPort.Designer.cs">
+      <DependentUpon>201809061035350_editCarPort.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -484,6 +504,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809030811377_editPro.resx">
       <DependentUpon>201809030811377_editPro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809050542217_edit carUserGroup.resx">
+      <DependentUpon>201809050542217_edit carUserGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809050717345_add CarUser Contact.resx">
+      <DependentUpon>201809050717345_add CarUser Contact.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051134529_add carNumber UserInfo.resx">
+      <DependentUpon>201809051134529_add carNumber UserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809060607041_add MonthFeeAndRechargeRecords.resx">
+      <DependentUpon>201809060607041_add MonthFeeAndRechargeRecords.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809061035350_editCarPort.resx">
+      <DependentUpon>201809061035350_editCarPort.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

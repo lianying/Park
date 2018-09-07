@@ -9,6 +9,7 @@ using Park.Entitys.CarUsers;
 using Park.Enum;
 using Abp.Domain.Entities;
 using Park.Interfaces;
+using Park.CarPorts.Dtos;
 
 namespace Park.CarUserses.Dtos
 {
@@ -17,6 +18,7 @@ namespace Park.CarUserses.Dtos
         private string _name;
         private string _phone;
         private string _remark;
+        private string _contact;
 
         /// <summary>
         /// Name
@@ -81,7 +83,7 @@ namespace Park.CarUserses.Dtos
         /// <summary>
         /// CarPorts
         /// </summary>
-        public ICollection<CarPort> CarPorts { get; set; }
+        public ICollection<CarPortListDto> CarPorts { get; set; }
 
 
         /// <summary>
@@ -153,6 +155,16 @@ namespace Park.CarUserses.Dtos
                 NotifyPropertyChange(() => Remark);
             }
         }
+
+        public string Contact
+        {
+            get => _contact; set
+            {
+                _contact = value;
+                NotifyPropertyChange(() => Contact);
+            }
+        }
+
 
 
 
