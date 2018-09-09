@@ -193,6 +193,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authorization\AppLtmPermissions.cs" />
+    <Compile Include="CameraInfoBases\Authorization\CameraInfoBaseAppPermissions.cs" />
+    <Compile Include="CameraInfoBases\Authorization\CameraInfoBaseAuthorizationProvider.cs" />
+    <Compile Include="CameraInfoBases\CameraInfoBaseManager.cs" />
+    <Compile Include="CameraInfoBases\ICameraInfoBaseManager.cs" />
     <Compile Include="CarNumberses\Authorization\CarNumbersAppPermissions.cs" />
     <Compile Include="CarNumberses\Authorization\CarNumbersAuthorizationProvider.cs" />
     <Compile Include="CarNumberses\CarNumbersManager.cs" />
@@ -232,8 +236,9 @@
     <Compile Include="Entitys\CarUsers\CarUserGroup.cs" />
     <Compile Include="Entitys\CarUsers\CarUsers.cs" />
     <Compile Include="Entitys\CarUsers\RechargeRecord.cs" />
-    <Compile Include="Entitys\Devices\Devices.cs" />
     <Compile Include="Entitys\CarTypes\CarTypes.cs" />
+    <Compile Include="Entitys\Devices\Camera.cs" />
+    <Compile Include="Entitys\Devices\Led.cs" />
     <Compile Include="Entitys\FareRules\FareRule.cs" />
     <Compile Include="Entitys\FareRules\MonthFee.cs" />
     <Compile Include="Entitys\FareRules\ParkingDetails.cs" />
@@ -267,6 +272,7 @@
     <Compile Include="Enum\SDKEnum.cs" />
     <Compile Include="Enum\Sex.cs" />
     <Compile Include="Enum\UserType.cs" />
+    <Compile Include="Enum\ValidityPeriod.cs" />
     <Compile Include="Expansions\DateTimeExpansion.cs" />
     <Compile Include="Expansions\ImageExpansion.cs" />
     <Compile Include="Expansions\StringExpansion.cs" />
@@ -327,6 +333,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="CameraInfoBases\Readme.md" />
     <None Include="CarNumberses\Readme.md" />
     <None Include="CarPorts\Readme.md" />
     <None Include="CarTypeses\Readme.md" />

@@ -30,14 +30,14 @@ namespace Park.Pages
     /// <summary>
     /// Entrances.xaml 的交互逻辑
     /// </summary>
-    public partial class Entrances : Page,ISingletonDependency
+    public partial class BackList : Page,ISingletonDependency
     {
         private readonly MainWindowViewModel _mainWindowViewModel;
         private readonly IParkEntrancesAppService _parkEntrancesAppService;
         private readonly ICarTypesAppService _carTypesAppService;
         private readonly IParkAreasAppService _parkAreasAppService;
         private ParkEntranceViewModel _entranceViewModel;
-        public Entrances(MainWindowViewModel mainWindowViewModel, IParkEntrancesAppService parkEntrancesAppService,
+        public BackList(MainWindowViewModel mainWindowViewModel, IParkEntrancesAppService parkEntrancesAppService,
             ICarTypesAppService carTypesAppService,
             IParkAreasAppService parkAreasAppService)
         {

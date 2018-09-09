@@ -47,7 +47,7 @@ namespace Park.Froms
                 new Menu {  Title= "车场基本信息",IsSelectedParkIn=true,PageType=typeof(Pages.ParkInfo)  },
                 new Menu {  Title= "区域配置",IsSelectedParkIn=true,PageType=typeof(ParkArea) },
                 new Menu {  Title= "停车位",IsSelectedParkIn=true,PageType=typeof(ParkCarport) },
-                new Menu {  Title= "出入口",IsSelectedParkIn=true,PageType=typeof(Entrances) },
+                new Menu {  Title= "出入口",IsSelectedParkIn=true,PageType=typeof(BackList) },
                 new Menu {  Title= "岗亭设置" },
                 }
             });

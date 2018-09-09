@@ -208,18 +208,49 @@
     <Compile Include="Childers\AddCarport.xaml.cs">
       <DependentUpon>AddCarport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\AddFreeUser.xaml.cs">
+      <DependentUpon>AddFreeUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\AddPark.xaml.cs">
       <DependentUpon>AddPark.xaml</DependentUpon>
     </Compile>
     <Compile Include="Childers\CarPortTimeExtension.xaml.cs">
       <DependentUpon>CarPortTimeExtension.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\ViewModels\AddFreeUserViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
     <Compile Include="Childers\ViewModels\CarPortTimeExTenstionViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
     <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
     <Compile Include="Converter\EnumBooleanConverter.cs" />
     <Compile Include="Converter\TrueFalseConverter.cs" />
+    <Compile Include="Pages\BackListReport.xaml.cs">
+      <DependentUpon>BackListReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ErrorInOutReport.xaml.cs">
+      <DependentUpon>ErrorInOutReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\RechargeReport.xaml.cs">
+      <DependentUpon>RechargeReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EditCarNumberReport.xaml.cs">
+      <DependentUpon>EditCarNumberReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ChargeDetails.xaml.cs">
+      <DependentUpon>ChargeDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\FareRuleManager.xaml.cs">
+      <DependentUpon>FareRuleManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CarInReport.xaml.cs">
+      <DependentUpon>CarInReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LedManager.xaml.cs">
+      <DependentUpon>LedManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CameraManager.xaml.cs">
+      <DependentUpon>CameraManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Entrances.xaml.cs">
       <DependentUpon>Entrances.xaml</DependentUpon>
     </Compile>
@@ -228,6 +259,12 @@
     </Compile>
     <Compile Include="Pages\Index.xaml.cs">
       <DependentUpon>Index.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\InOutReport.xaml.cs">
+      <DependentUpon>InOutReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\OperationDetails.xaml.cs">
+      <DependentUpon>OperationDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ParkArea.xaml.cs">
       <DependentUpon>ParkArea.xaml</DependentUpon>
@@ -240,6 +277,9 @@
     </Compile>
     <Compile Include="Pages\ParkInfo.xaml.cs">
       <DependentUpon>ParkInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ParkingFeeCollection.xaml.cs">
+      <DependentUpon>ParkingFeeCollection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserManager.xaml.cs">
       <DependentUpon>UserManager.xaml</DependentUpon>
@@ -257,12 +297,15 @@
     <Compile Include="UserControls\ParkInfo.xaml.cs">
       <DependentUpon>ParkInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CameraManagerViewModel.cs" />
+    <Compile Include="ViewModel\FreeUserViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Menu.cs" />
     <Compile Include="ViewModel\NotifyPropertyChangeBase.cs" />
     <Compile Include="ViewModel\ParkAreaViewModel.cs" />
     <Compile Include="ViewModel\ParkCarportViewModel.cs" />
     <Compile Include="ViewModel\ParkEntranceViewModel.cs" />
+    <Compile Include="ViewModel\ParkingFeeCollectionViewModel.cs" />
     <Compile Include="ViewModel\UserManagerViewModel.cs" />
     <Page Include="Childers\AddCarNumber.xaml">
       <SubType>Designer</SubType>
@@ -273,6 +316,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Childers\AddCarport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Childers\AddFreeUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -298,6 +345,42 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\BackListReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ErrorInOutReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\RechargeReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\EditCarNumberReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ChargeDetails.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\FareRuleManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\CarInReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\LedManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CameraManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Entrances.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -307,6 +390,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Index.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\InOutReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\OperationDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -323,6 +414,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ParkInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ParkingFeeCollection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -374,6 +374,18 @@
     <Compile Include="Migrations\201809061035350_editCarPort.Designer.cs">
       <DependentUpon>201809061035350_editCarPort.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809090832433_drop device.cs" />
+    <Compile Include="Migrations\201809090832433_drop device.Designer.cs">
+      <DependentUpon>201809090832433_drop device.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809090833276_add ledAndCarmers.cs" />
+    <Compile Include="Migrations\201809090833276_add ledAndCarmers.Designer.cs">
+      <DependentUpon>201809090833276_add ledAndCarmers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809090837195_edit ledAndCarmers.cs" />
+    <Compile Include="Migrations\201809090837195_edit ledAndCarmers.Designer.cs">
+      <DependentUpon>201809090837195_edit ledAndCarmers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -519,6 +531,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809061035350_editCarPort.resx">
       <DependentUpon>201809061035350_editCarPort.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809090832433_drop device.resx">
+      <DependentUpon>201809090832433_drop device.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809090833276_add ledAndCarmers.resx">
+      <DependentUpon>201809090833276_add ledAndCarmers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809090837195_edit ledAndCarmers.resx">
+      <DependentUpon>201809090837195_edit ledAndCarmers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

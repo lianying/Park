@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Abp, Version=3.4.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="AxInterop.BLC_IPNCLib">
       <HintPath>..\lib\AxInterop.BLC_IPNCLib.dll</HintPath>
     </Reference>

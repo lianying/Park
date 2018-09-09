@@ -1,5 +1,4 @@
 ﻿using Abp.AutoMapper;
-using Park.Entitys.Cameras;
 using Park.Enum;
 using Park.Parks.Entrance;
 using System;
@@ -18,7 +17,6 @@ using Park.DeviceSDK.LanKa;
 
 namespace Park.Devices.Models
 {
-    [AutoMap(typeof(Device))]
     public  class DeviceInfoDto: CameraInfoBase,IDeviceable
     {
 

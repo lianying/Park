@@ -1,0 +1,150 @@
+﻿<src:AbpWindow
+    xmlns:src="clr-namespace:Park.Froms"
+    xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow" x:Class="Park.Childers.AddFreeUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Park.Childers"
+        mc:Ignorable="d"
+        Title="新增免费用户" Height="550" Width="900"
+      WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+    ShowMinButton="False"
+    ShowCloseButton="False"
+    ShowMaxRestoreButton="False"
+     ShowTitleBar="False">
+    <Window.Resources>
+        
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="Foreground" Value="#666666"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="Margin" Value="0,0,5,0"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="0,2,0,2"></Setter>
+            <Setter Property="FontSize" Value="16"></Setter>
+
+        </Style>
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource {x:Type ComboBox} }">
+            <Setter Property="Margin" Value="0,2,0,2"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center">
+            <Border HorizontalAlignment="Center">
+                <TextBlock FontSize="21" Foreground="#ED6469">新增免费用户</TextBlock>
+            </Border>
+        </StackPanel>
+        <Grid Grid.Row="1" Width="800" >
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>免费车牌</Label>
+                <WrapPanel Grid.Column="1">
+                    
+                </WrapPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>用户组</Label>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding GetCarUserGroupLists}" SelectedValue="{Binding SelectedUserGroup}" SelectedValuePath="Id" DisplayMemberPath="GroupName"></ComboBox>
+            </Grid>
+
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>用户名</Label>
+                <TextBox Grid.Column="1" Text="{ Binding CarUsersListDto.Name}"></TextBox>
+            </Grid>
+
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>联系电话</Label>
+                <TextBox Grid.Column="1" Text="{Binding CarUsersListDto.Phone}"></TextBox>
+            </Grid>
+
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>联系人</Label>
+                <TextBox Grid.Column="1" Text="{Binding CarUsersListDto.Contact}"></TextBox>
+            </Grid>
+
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>免费日期至</Label>
+                <DatePicker Grid.Column="1" VerticalContentAlignment="Center" SelectedDate="{Binding CarPortListDto.EndTime}"></DatePicker>
+            </Grid>
+
+
+            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>备注</Label>
+                <TextBox Grid.Column="1" Text="{Binding CarUsersListDto.Remark}"></TextBox>
+            </Grid>
+
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>区域</Label>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding ParkAreaDtos}" SelectedValuePath="Id" DisplayMemberPath="AreaName" SelectedValue="{Binding SelectedParkArea}"></ComboBox>
+            </Grid>
+
+
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition  Width="120" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label>车位编号</Label>
+                <ComboBox Grid.Column="1" Text="{Binding PortListDtos}" SelectedValuePath="Id" DisplayMemberPath="CarportSerial" SelectedValue="{Binding CarPortListDto}"></ComboBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</src:AbpWindow>

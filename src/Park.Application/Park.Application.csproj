@@ -215,6 +215,14 @@
     <Compile Include="Authorization\Users\Dto\UserRoleDto.cs" />
     <Compile Include="Authorization\Users\IUserAppService.cs" />
     <Compile Include="Authorization\Users\UserAppService.cs" />
+    <Compile Include="CameraInfoBases\CameraInfoBaseAppService.cs" />
+    <Compile Include="CameraInfoBases\Dtos\CameraInfoBaseEditDto.cs" />
+    <Compile Include="CameraInfoBases\Dtos\CameraInfoBaseListDto.cs" />
+    <Compile Include="CameraInfoBases\Dtos\CreateOrUpdateCameraInfoBaseInput.cs" />
+    <Compile Include="CameraInfoBases\Dtos\CustomMapper\CustomCameraInfoBaseMapper.cs" />
+    <Compile Include="CameraInfoBases\Dtos\GetCameraInfoBaseForEditOutput.cs" />
+    <Compile Include="CameraInfoBases\Dtos\GetCameraInfoBaseInput.cs" />
+    <Compile Include="CameraInfoBases\ICameraInfoBaseAppService.cs" />
     <Compile Include="CarNumberses\CarNumbersAppService.cs" />
     <Compile Include="CarNumberses\Dtos\CarNumbersEditDto.cs" />
     <Compile Include="CarNumberses\Dtos\CarNumbersListDto.cs" />
@@ -378,6 +386,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CameraInfoBases\Readme.md" />
     <None Include="CarNumberses\Readme.md" />
     <None Include="CarPorts\Readme.md" />
     <None Include="CarTypeses\Readme.md" />
