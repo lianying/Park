@@ -225,11 +225,15 @@
     <Compile Include="Childers\CarPortTimeExtension.xaml.cs">
       <DependentUpon>CarPortTimeExtension.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\EditUserPwd.xaml.cs">
+      <DependentUpon>EditUserPwd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\ViewModels\AddCarUserGroupViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddFreeUserViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddSysUserViewModel.cs" />
     <Compile Include="Childers\ViewModels\CarPortTimeExTenstionViewModel.cs" />
+    <Compile Include="Childers\ViewModels\EditPwdViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
     <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
     <Compile Include="Converter\EnumBooleanConverter.cs" />
@@ -364,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Childers\CarPortTimeExtension.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Childers\EditUserPwd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
