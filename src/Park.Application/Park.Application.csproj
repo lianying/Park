@@ -243,6 +243,7 @@
     <Compile Include="CarTypeses\CarTypesAppService.cs" />
     <Compile Include="CarTypeses\Dtos\CarTypesEditDto.cs" />
     <Compile Include="CarTypeses\Dtos\CarTypesListDto.cs" />
+    <Compile Include="CarTypeses\Dtos\CarTypeTreeModel.cs" />
     <Compile Include="CarTypeses\Dtos\CreateOrUpdateCarTypesInput.cs" />
     <Compile Include="CarTypeses\Dtos\CustomMapper\CustomCarTypesMapper.cs" />
     <Compile Include="CarTypeses\Dtos\GetCarTypesForEditOutput.cs" />

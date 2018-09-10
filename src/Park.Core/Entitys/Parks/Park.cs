@@ -25,7 +25,7 @@ namespace Park.Entitys.Parks
         public virtual bool IsSuccess { get; set; }
         [MaxLength(ParkConsts.MaxCloudIdLength)]
         public virtual string CloudId { get; set; }
-
+        
         [ForeignKey("ParentId")]
         public virtual ParkSet ParentPark { get; set; }
 

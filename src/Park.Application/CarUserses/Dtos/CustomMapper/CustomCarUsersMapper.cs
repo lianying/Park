@@ -19,7 +19,7 @@ namespace Park.CarUserses.Dtos.CustomMapper
     configuration.CreateMap <CarUsersEditDto, CarUsers>
         ();
 
-            configuration.CreateMap<CarUsersListDto, CarUsersEditDto>();
+            configuration.CreateMap<CarUsersListDto, CarUsers>();
 
 
         //// custom codes

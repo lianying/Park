@@ -198,14 +198,14 @@ namespace Park.Pages
         /// <param name="e"></param>
         private async void CarPortControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (_managerViewModel.SelectDto != null && _managerViewModel.SelectDto.Id > 0)
+            if (_managerViewModel.SelectDto != null && _managerViewModel.SelectDto.Id.Value > 0)
             {
                 AddCarport addCarport = new AddCarport(_mainWindowViewModel, _carPortAppService, _managerViewModel.SelectDto);
                 var result = addCarport.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
 
-                    _managerViewModel.SelectDto.CarPorts = await _carPortAppService.GetCarPortListDtosByUserId(_managerViewModel.SelectDto.Id);
+                    _managerViewModel.SelectDto.CarPorts = await _carPortAppService.GetCarPortListDtosByUserId(_managerViewModel.SelectDto.Id.Value);
                     double carPortWidth = ShowPanel_CarPorts.ActualHeight;
                     double width = (ShowPanel_CarNumbers.ActualWidth - 3 * 20) / 4;
 
@@ -236,7 +236,7 @@ namespace Park.Pages
 
                 if (result.HasValue && result.Value)
                 {
-                    _managerViewModel.SelectDto.CarNumbers = await _carNumbersAppService.GetCarNumbersListDtosByUserId(_managerViewModel.SelectDto.Id);
+                    _managerViewModel.SelectDto.CarNumbers = await _carNumbersAppService.GetCarNumbersListDtosByUserId(_managerViewModel.SelectDto.Id.Value);
                     double carPortWidth = ShowPanel_CarNumbers.ActualHeight;
                     double width = (ShowPanel_CarNumbers.ActualWidth - 3 * 20) / 4;
                     LoadParkCarport(width, carPortWidth);
@@ -282,7 +282,8 @@ namespace Park.Pages
 
             var window = Application.Current.MainWindow as MetroWindow;
             var selectDto = _managerViewModel.SelectDto;
-            await _carUsersAppService.CreateOrUpdateCarUsers(new CreateOrUpdateCarUsersInput() { CarUsers = selectDto.MapTo<CarUsersEditDto>() });
+            
+            await _carUsersAppService.CreateOrUpdateCarUsers(new CreateOrUpdateCarUsersInput() { CarUsers = selectDto});
 
             await window.ShowMessageAsync("提示", "操作成功！");
         }
@@ -299,6 +300,35 @@ namespace Park.Pages
 
                 await window.ShowMessageAsync("提示", "请选择要删除的用户");
             }
+        }
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _managerViewModel.SelectDto = new CarUsersListDto();
+            ShowPanel_CarNumbers.Children.Clear();
+            ShowPanel_CarPorts.Children.Clear();
+            LoadAddControl();
+        }
+        /// <summary>
+        /// 添加用户组
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            AddCarUserGroup addCarUserGroup = new AddCarUserGroup(_carUserGroupAppService);
+            var result = addCarUserGroup.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                _managerViewModel.GroupListDtos = new System.Collections.ObjectModel.ObservableCollection<CarUserGroupListDto>(await _carUserGroupAppService.GetCarUserGroupListDtos(_mainWindowViewModel.SelectParkDto.Id));
+            }
+
         }
     }
 }

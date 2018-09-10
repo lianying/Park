@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Dependency;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Park.Pages
     /// <summary>
     /// FreeUser.xaml 的交互逻辑
     /// </summary>
-    public partial class FreeUser : Page
+    public partial class FreeUser : Page, ISingletonDependency
     {
         public FreeUser()
         {

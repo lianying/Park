@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Dependency;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,21 @@ namespace Park.Pages
     /// <summary>
     /// CameraManager.xaml 的交互逻辑
     /// </summary>
-    public partial class CameraManager : Page
+    public partial class CameraManager : Page, ISingletonDependency
     {
         public CameraManager()
         {
             InitializeComponent();
+        }
+
+        private void trvFamilies_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+
+        }
+
+        private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

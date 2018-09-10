@@ -96,7 +96,7 @@
                       
                         </Grid>
                         <!--<ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>-->
-                        <Button Grid.Column="4" Height="40" Click="Button_Click" Foreground="White" Background="#E65252">查询</Button>
+                        <Button Grid.Column="4" Height="40"  Foreground="White" Background="#E65252">查询</Button>
 
                     </Grid>
                     <StackPanel VerticalAlignment="Center" Grid.Column="1">

@@ -33,8 +33,6 @@ namespace Park.CarUserGroups.Dtos
         /// <summary>
         /// ParkArea
         /// </summary>
-        [MaxLength(100, ErrorMessage = "ParkArea超出最大长度")]
-        [MinLength(2, ErrorMessage = "ParkArea小于最小长度")]
         public ParkAreaDto ParkArea { get; set; }
 
 

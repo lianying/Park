@@ -12,6 +12,7 @@ namespace Park.Entitys.ParkAreas
 {
     public class ParkAreas : Entity<long>, ISynchronize, IAudited,IMayHaveTenant
     {
+       
         public virtual Parks.ParkSet Park { get; set; }
 
 

@@ -42,7 +42,7 @@
                                     <Image  Source="/icon/icon_yq.png" Stretch="None"></Image>
                                     <TextBlock Text="编辑"></TextBlock>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1" Orientation="Horizontal">
 
                                     <Image  Source="/icon/icon_sc.png" Stretch="None"></Image>
                                     <TextBlock Text="删除"></TextBlock>

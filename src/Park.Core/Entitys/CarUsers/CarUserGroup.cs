@@ -14,7 +14,7 @@ namespace Park.Entitys.CarUsers
     {
 
         public virtual string GroupName { get; set; }
-
+        //[NotMapped]
         [ForeignKey("AreaId")]
         public virtual ParkAreas.ParkAreas ParkArea { get; set; }
 

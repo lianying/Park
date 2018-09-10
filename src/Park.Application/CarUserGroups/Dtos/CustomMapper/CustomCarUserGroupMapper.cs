@@ -20,10 +20,14 @@ namespace Park.CarUserGroups.Dtos.CustomMapper
         ();
 
 
+            configuration.CreateMap<CarUserGroupListDto, CarUserGroup>
+                ();
 
-        //// custom codes
-         
-        //// custom codes end
+
+
+            //// custom codes
+
+            //// custom codes end
 
         }
         }

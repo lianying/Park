@@ -83,6 +83,8 @@ namespace Park.CarPorts
 
 
         Task<List<CarPortListDto>> GetCarPortListDtosByUserId(long userId);
+
+        Task RemoveCarUserId(CreateOrUpdateCarPortInput input);
 		 
         //// custom codes end
     }

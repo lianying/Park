@@ -30,9 +30,9 @@ namespace Park.Pages
     /// <summary>
     /// Entrances.xaml 的交互逻辑
     /// </summary>
-    public partial class BackList : Page,ISingletonDependency
+    public partial class BackLisReportt : Page,ISingletonDependency
     {
-        public BackList()
+        public BackLisReportt()
         {
             InitializeComponent();
         }

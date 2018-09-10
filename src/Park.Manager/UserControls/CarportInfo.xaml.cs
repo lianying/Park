@@ -1,4 +1,5 @@
-﻿using Park.CarPorts;
+﻿using Abp.AutoMapper;
+using Park.CarPorts;
 using Park.CarPorts.Dtos;
 using Park.Childers;
 using Park.Childers.ViewModels;
@@ -39,8 +40,13 @@ namespace Park.UserControls
             _carPortAppService = carPortAppService;
             _mainWindowViewModel = mainWindowViewModel;
             _userManagerViewModel = userManagerViewModel;
+            _carPortTimeExTenstionViewModel = new CarPortTimeExTenstionViewModel();
         }
-
+        /// <summary>
+        /// 编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StackPanel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             CarPortTimeExtension carPortTimeExtension = new CarPortTimeExtension(_carPortAppService, _mainWindowViewModel, _userManagerViewModel, _carPortListDto);
@@ -50,6 +56,18 @@ namespace Park.UserControls
                 RoutedEventHandler?.Invoke(sender, e);
             }
             
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            await _carPortAppService.RemoveCarUserId(new CreateOrUpdateCarPortInput() { CarPort = _carPortListDto.MapTo<CarPortEditDto>() });
+            _userManagerViewModel.SelectDto.CarPorts.Remove(_carPortListDto);
+            RoutedEventHandler?.Invoke(sender, e);
         }
     }
 }

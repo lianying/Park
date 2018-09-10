@@ -19,6 +19,11 @@ namespace Park.CarUserses.Dtos
         private string _phone;
         private string _remark;
         private string _contact;
+        private int _areaId;
+        private CarUserGroups.Dtos.CarUserGroupListDto _userArea;
+
+
+        public new long? Id { get; set; }
 
         /// <summary>
         /// Name
@@ -57,7 +62,14 @@ namespace Park.CarUserses.Dtos
         /// <summary>
         /// ParkArea
         /// </summary>
-        public CarUserGroups.Dtos.CarUserGroupListDto UserArea { get; set; }
+        public CarUserGroups.Dtos.CarUserGroupListDto UserArea
+        {
+            get => _userArea; set
+            {
+                _userArea = value;
+                NotifyPropertyChange(() => UserArea);
+            }
+        }
 
         public UserType UserType { get; set; }
 
@@ -65,7 +77,19 @@ namespace Park.CarUserses.Dtos
         /// <summary>
         /// AreaId
         /// </summary>
-        public long AreaId { get; set; }
+        public int GroupId
+        {
+            get {
+                return UserArea?.Id ?? _areaId;
+            }  set
+            {
+                if (UserArea != null) {
+                    UserArea.Id = value;
+                }
+                _areaId = value;
+                NotifyPropertyChange(() => GroupId);
+            }
+        }
 
 
         /// <summary>
@@ -89,7 +113,6 @@ namespace Park.CarUserses.Dtos
         /// <summary>
         /// CarNumbers
         /// </summary>
-        [MinLength(0, ErrorMessage = "CarNumbers小于最小长度")]
         public ICollection<CarNumberses.Dtos.CarNumbersListDto> CarNumbers { get; set; }
 
 

@@ -39,9 +39,30 @@
                 </Grid>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Right">
-                    <Grid>
-                        
+                <StackPanel Grid.Column="1" HorizontalAlignment="Right" Margin="0,30,80,0">
+                    <Grid Width="230">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="24"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Source="/icon/icon_tx.png" Stretch="None" Grid.RowSpan="2"></Image>
+                        <Label Grid.Column="1" Content="{Binding User.UserName}" FontSize="18" ></Label>
+                        <Grid Grid.Column="1" Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <DockPanel>
+                                <Label VerticalContentAlignment="Center" Foreground="#E56E70">注销登录</Label>
+                            </DockPanel>
+                            <Border BorderBrush="#CCCCCC" BorderThickness="1,0,0,0" Grid.Column="1">
+                                <Label VerticalContentAlignment="Center" Foreground="#E56E70">修改密码</Label>
+                            </Border>
+                        </Grid>
                     </Grid>
                 </StackPanel>
             </Grid>

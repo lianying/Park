@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using Park.Entitys.Box;
 using Park.Enum;
 using Park.Interfaces;
 using System;
@@ -29,6 +30,12 @@ namespace Park.Entitys
 
         [ForeignKey("EntranceId")]
         public virtual ParkEntrances.ParkEntrances ParkEntrance { get; set; }
+
+        [ForeignKey("BoxId")]
+        public virtual ParkBox ParkBox { get; set; }
+
+        public virtual int? BoxId { get; set; }
+        
 
 
         public virtual long EntranceId { get; set; }

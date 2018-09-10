@@ -38,12 +38,12 @@
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
                         <TextBox FontSize="18" Style="{StaticResource ResourceKey=ParkTextBox}" Text="{Binding Filter}"  Margin="0,0,40,0" Controls:TextBoxHelper.Watermark="请输入想要查询的摄像机" Width="340" Height="40"></TextBox>
 
-                        <Button Width="140"  Height="50" Click="Button_Click_3" Content="查询" FontSize="18" Foreground="White" Background="#E65252"></Button>
+                        <Button Width="140"  Height="50" Content="查询" FontSize="18" Foreground="White" Background="#E65252"></Button>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right">
-                        <Button Width="140"  Height="50" Click="Button_Click" Content="添加进出口" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#90CD5F"></Button>
-                        <Button Width="140"  Height="50" Click="Button_Click_2" Content="保存" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#73ACCA"></Button>
-                        <Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Height="50" Click="Button_Click_1" Content="删除" FontSize="18" Foreground="#EA8285" Background="White"></Button>
+                        <Button Width="140"  Height="50"  Content="添加进出口" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#90CD5F"></Button>
+                        <Button Width="140"  Height="50"  Content="保存" FontSize="18" Margin="0,0,40,0" Foreground="White" Background="#73ACCA"></Button>
+                        <Button Width="140" BorderBrush="#EA8285" BorderThickness="1" Height="50"  Content="删除" FontSize="18" Foreground="#EA8285" Background="White"></Button>
                     </StackPanel>
                 </Grid>
             </Border>

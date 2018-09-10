@@ -25,7 +25,7 @@ namespace Park.Manager
     {
         private readonly AbpBootstrapper _bootstrapper;
         private readonly ILogger _logger;
-        //private LoginWindow _loginWindow;
+        private LoginWindow _loginWindow;
 
         private MainWindow _mainWindow;
 
@@ -95,22 +95,22 @@ namespace Park.Manager
             _synchronizationContext = DispatcherSynchronizationContext.Current;
             _bootstrapper.Initialize();
 
-            //_loginWindow = _bootstrapper.IocManager.Resolve<LoginWindow>();
+            _loginWindow = _bootstrapper.IocManager.Resolve<LoginWindow>();
 
 
 
-            //var isLogin = _loginWindow.ShowDialog();
+            var isLogin = _loginWindow.ShowDialog();
 
-            //if (isLogin.HasValue && isLogin.Value)
-            //{
+            if (isLogin.HasValue && isLogin.Value)
+            {
 
                 _mainWindow = _bootstrapper.IocManager.Resolve<MainWindow>();
 
                 _mainWindow.Show();
 
-               // _loginWindow.Close();
+                _loginWindow.Close();
 
-           // }
+            }
         }
 
         protected override void OnExit(ExitEventArgs e)

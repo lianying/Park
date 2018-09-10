@@ -7,16 +7,49 @@ using System.Threading.Tasks;
 
 namespace Park.Authorization.Users.Dto
 {
-    public class CreateOrUpdateUserInput
+    public class CreateOrUpdateUserInput : NotifyPropertyChangeBase<long>
     {
-        [Required]
-        public UserEditDto User { get; set; }
+        private string[] _assignedRoleNames;
+        private bool _sendActivationEmail;
+        private bool _setRandomPassword;
+        private UserEditDto _user;
 
         [Required]
-        public string[] AssignedRoleNames { get; set; }
+        public UserEditDto User
+        {
+            get => _user; set
+            {
+                _user = value;
+                NotifyPropertyChange(() => User);
+            }
+        }
 
-        public bool SendActivationEmail { get; set; }
+        [Required]
+        public string[] AssignedRoleNames
+        {
+            get => _assignedRoleNames; set
+            {
+                _assignedRoleNames = value;
+                NotifyPropertyChange(() => AssignedRoleNames);
+            }
+        }
 
-        public bool SetRandomPassword { get; set; }
+        public bool SendActivationEmail
+        {
+            get => _sendActivationEmail; set
+            {
+                _sendActivationEmail = value;
+                NotifyPropertyChange(() => SendActivationEmail);
+            }
+        }
+
+        public bool SetRandomPassword
+        {
+            get => _setRandomPassword; set
+            {
+                _setRandomPassword = value;
+                NotifyPropertyChange(() => SetRandomPassword);
+            }
+        }
     }
 }

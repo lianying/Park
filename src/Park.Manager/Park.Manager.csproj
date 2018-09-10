@@ -43,6 +43,7 @@
     <Reference Include="Abp.Castle.Log4Net, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Abp.Castle.Log4Net.3.4.0\lib\netstandard2.0\Abp.Castle.Log4Net.dll</HintPath>
     </Reference>
+    <Reference Include="Abp.Zero, Version=3.4.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="Abp.Zero.Common, Version=3.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Abp.Zero.Common.3.4.0\lib\netstandard2.0\Abp.Zero.Common.dll</HintPath>
     </Reference>
@@ -82,6 +83,7 @@
     <Reference Include="MahApps.Metro.SimpleChildWindow, Version=1.5.0.16, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.SimpleChildWindow.1.5.0\lib\net45\MahApps.Metro.SimpleChildWindow.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
     </Reference>
@@ -208,24 +210,38 @@
     <Compile Include="Childers\AddCarport.xaml.cs">
       <DependentUpon>AddCarport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\AddCarUserGroup.xaml.cs">
+      <DependentUpon>AddCarUserGroup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\AddFreeUser.xaml.cs">
       <DependentUpon>AddFreeUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Childers\AddPark.xaml.cs">
       <DependentUpon>AddPark.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\AddSysUser.xaml.cs">
+      <DependentUpon>AddSysUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Childers\CarPortTimeExtension.xaml.cs">
       <DependentUpon>CarPortTimeExtension.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Childers\ViewModels\AddCarUserGroupViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddFreeUserViewModel.cs" />
     <Compile Include="Childers\ViewModels\AddPortsViewModel.cs" />
+    <Compile Include="Childers\ViewModels\AddSysUserViewModel.cs" />
     <Compile Include="Childers\ViewModels\CarPortTimeExTenstionViewModel.cs" />
     <Compile Include="Converter\CarTypeConverter.cs" />
     <Compile Include="Converter\EntranceTypeEnumConverter.cs" />
     <Compile Include="Converter\EnumBooleanConverter.cs" />
     <Compile Include="Converter\TrueFalseConverter.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BackListReport.xaml.cs">
       <DependentUpon>BackListReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\CarTypeManager.xaml.cs">
+      <DependentUpon>CarTypeManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ErrorInOutReport.xaml.cs">
       <DependentUpon>ErrorInOutReport.xaml</DependentUpon>
@@ -281,12 +297,24 @@
     <Compile Include="Pages\ParkingFeeCollection.xaml.cs">
       <DependentUpon>ParkingFeeCollection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ShiftManager.xaml.cs">
+      <DependentUpon>ShiftManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SysSetting.xaml.cs">
+      <DependentUpon>SysSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SysUserManager.xaml.cs">
+      <DependentUpon>SysUserManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UserManager.xaml.cs">
       <DependentUpon>UserManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="ParkManagerWpfModule.cs" />
     <Compile Include="UserControls\CarNumberInfo.xaml.cs">
       <DependentUpon>CarNumberInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\BatchRecord.xaml.cs">
+      <DependentUpon>BatchRecord.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\CarportInfo.xaml.cs">
       <DependentUpon>CarportInfo.xaml</DependentUpon>
@@ -319,6 +347,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Childers\AddCarUserGroup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Childers\AddFreeUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -327,7 +359,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Childers\AddSysUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Childers\CarPortTimeExtension.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -348,6 +388,10 @@
     <Page Include="Pages\BackListReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\CarTypeManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ErrorInOutReport.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -421,6 +465,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ShiftManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SysSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SysUserManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\UserManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -436,6 +492,10 @@
     <Page Include="UserControls\CarNumberInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\BatchRecord.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\CarportInfo.xaml">
       <SubType>Designer</SubType>
@@ -523,6 +583,13 @@
   <ItemGroup>
     <Resource Include="icon\icon_sc.png" />
     <Resource Include="icon\icon_yq.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon\icon_bj.png" />
+    <Resource Include="icon\icon_cancle.png" />
+    <Resource Include="icon\icon_tx.png" />
+    <Resource Include="icon\icon_xz.png" />
+    <Resource Include="icon\icon_zoomout.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

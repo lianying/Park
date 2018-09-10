@@ -248,6 +248,13 @@ carportEditDto = new CarPortEditDto();
             return list.Select(x => x.MapTo<CarPortListDto>()).ToList();
         }
 
+        public async Task RemoveCarUserId(CreateOrUpdateCarPortInput input)
+        {
+            input.CarPort.CarUserId = null;
+            input.CarPort.CarUser = null;
+            await UpdateCarPortAsync(input.CarPort);
+        }
+
         /// <summary>
         /// 导出CarPort为excel表,等待开发。
         /// </summary>

@@ -19,6 +19,7 @@ namespace Park.CarPorts.Dtos
 {
     public class CarPortListDto : NotifyPropertyChangeBase<long>, IHasCreationTime, IModificationAudited, IHasModificationTime, IDeletionAudited, IHasDeletionTime, ISoftDelete, ISynchronize
     {
+        private bool _isSelected;
 
         /// <summary>
         /// CarportSerial
@@ -176,7 +177,7 @@ namespace Park.CarPorts.Dtos
                 }
                 else
                 {
-                    if(CarPortType.RentingSellingType== RentingSellingType.Rent)
+                    if (CarPortType.RentingSellingType == RentingSellingType.Rent)
                     {
                         return "ÒÑ³ö×â";
                     }
@@ -190,6 +191,16 @@ namespace Park.CarPorts.Dtos
 
 
         public string Remark { get; set; }
+
+
+        public bool IsSelected
+        {
+            get => _isSelected; set
+            {
+                _isSelected = value;
+                NotifyPropertyChange(() => IsSelected);
+            }
+        }
 
 
 

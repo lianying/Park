@@ -72,6 +72,8 @@ namespace Park.EntityFramework
 
         public virtual IDbSet<Led> Leds { get; set; }
 
+        public virtual IDbSet<ParkBox> ParkBoxes { get; set; }
+
 
 
 

@@ -122,7 +122,10 @@ carusersEditDto = new CarUsersEditDto();
         /// <returns></returns>
         public async Task CreateOrUpdateCarUsers(CreateOrUpdateCarUsersInput input)
         {
-
+            if (input.CarUsers.ParkId == 0)
+            {
+                input.CarUsers.ParkId = input.CarUsers.UserArea.ParkArea.Park.Id;
+            }
             if (input.CarUsers.Id.HasValue && input.CarUsers.Id > 0)
             {
                 await UpdateCarUsersAsync(input.CarUsers);
@@ -137,28 +140,28 @@ carusersEditDto = new CarUsersEditDto();
 		/// <summary>
 		/// 新增CarUsers
 		/// </summary>
-		[AbpAuthorize(CarUsersAppPermissions.CarUsers_Create)]
-		protected virtual async Task<CarUsersEditDto> CreateCarUsersAsync(CarUsersEditDto input)
+		//[AbpAuthorize(CarUsersAppPermissions.CarUsers_Create)]
+		protected virtual async Task<CarUsersListDto> CreateCarUsersAsync(CarUsersListDto input)
 		{
 			//TODO:新增前的逻辑判断，是否允许新增
 
 			var entity = ObjectMapper.Map <CarUsers>(input);
-
+            entity.UserArea = null;
+            entity.Park = null;
 			entity = await _carusersRepository.InsertAsync(entity);
-			return entity.MapTo<CarUsersEditDto>();
+			return entity.MapTo<CarUsersListDto>();
 		}
 
 		/// <summary>
 		/// 编辑CarUsers
 		/// </summary>
-		[AbpAuthorize(CarUsersAppPermissions.CarUsers_Edit)]
-		protected virtual async Task UpdateCarUsersAsync(CarUsersEditDto input)
+		//[AbpAuthorize(CarUsersAppPermissions.CarUsers_Edit)]
+		protected virtual async Task UpdateCarUsersAsync(CarUsersListDto input)
 		{
 			//TODO:更新前的逻辑判断，是否允许更新
 
 			var entity = await _carusersRepository.GetAsync(input.Id.Value);
 			input.MapTo(entity);
-
 			// ObjectMapper.Map(input, entity);
 		    await _carusersRepository.UpdateAsync(entity);
 		}
@@ -191,7 +194,7 @@ carusersEditDto = new CarUsersEditDto();
 		/// <summary>
 		/// 批量删除CarUsers的方法
 		/// </summary>
-		          [AbpAuthorize(CarUsersAppPermissions.CarUsers_BatchDelete)]
+		          //[AbpAuthorize(CarUsersAppPermissions.CarUsers_BatchDelete)]
 		public async Task BatchDeleteCarUserssAsync(List<long> input)
 		{
 			//TODO:批量删除前的逻辑判断，是否允许删除

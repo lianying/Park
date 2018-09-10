@@ -386,6 +386,14 @@
     <Compile Include="Migrations\201809090837195_edit ledAndCarmers.Designer.cs">
       <DependentUpon>201809090837195_edit ledAndCarmers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809100631107_edit.cs" />
+    <Compile Include="Migrations\201809100631107_edit.Designer.cs">
+      <DependentUpon>201809100631107_edit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809100707289_add parkBox.cs" />
+    <Compile Include="Migrations\201809100707289_add parkBox.Designer.cs">
+      <DependentUpon>201809100707289_add parkBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\AbpZeroDbMigrator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ParkDataModule.cs" />
@@ -540,6 +548,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809090837195_edit ledAndCarmers.resx">
       <DependentUpon>201809090837195_edit ledAndCarmers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809100631107_edit.resx">
+      <DependentUpon>201809100631107_edit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809100707289_add parkBox.resx">
+      <DependentUpon>201809100707289_add parkBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

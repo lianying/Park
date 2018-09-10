@@ -69,7 +69,7 @@
 
                         <DatePicker VerticalContentAlignment="Center"  x:Name="EndTime"  Width="140" Height="40" ></DatePicker>
                         <!--<ComboBox Style="{StaticResource ResourceKey=ParkCombox}" Width="140" Height="40" Margin="0,0,30,0"></ComboBox>-->
-                        <Button Height="40" Click="Button_Click" Width="100" Foreground="White" Background="#E65252">查询</Button>
+                        <Button Height="40"  Width="100" Foreground="White" Background="#E65252">查询</Button>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Center" Grid.Column="1">
                         <Button Height="40" FontSize="16" Background="#A37FA5" Foreground="White" Width="100" Content="导出"></Button>

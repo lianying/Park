@@ -9,7 +9,7 @@ namespace Park.CarUserses.Dtos
     public class CreateOrUpdateCarUsersInput
     {
         [Required]
-        public CarUsersEditDto CarUsers { get; set; }
+        public CarUsersListDto CarUsers { get; set; }
 
 
 

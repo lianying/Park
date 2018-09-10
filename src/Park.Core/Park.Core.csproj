@@ -229,6 +229,7 @@
     <Compile Include="Entitys\Box\CarInRecord.cs" />
     <Compile Include="Entitys\Box\CarOuRecordEventData.cs" />
     <Compile Include="Entitys\Box\CarOutRecord.cs" />
+    <Compile Include="Entitys\Box\ParkBox.cs" />
     <Compile Include="Entitys\CameraInfoBase.cs" />
     <Compile Include="Entitys\CarUsers\CarDiscount.cs" />
     <Compile Include="Entitys\CarUsers\CarNumbers.cs" />
